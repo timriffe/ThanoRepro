@@ -1,5 +1,4 @@
 
-
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{caption}
@@ -129,15 +128,15 @@ remaining-years-classified population count, as follows:
 
 \begin{align}
 \label{eq:transform}
-P_y =& \sum_{x=0}^\omega P_x \frac{d_{x+y}}{l_x}
+P_y =& \sum_{x=0}^\omega P_x \frac{d_{x+y}+d_{x+y+1}}{l_x+l_{x+1}}
 \intertext{and of course}
 P =& \sum P_y = \sum P_a
 \end{align}
 
 We refer to \eqref{eq:transform} as the thanatological age
 transformation\footnote{I have on good authority that Ken Wachter
-coined the term thanatological age.}, and this complements the notion of
-chronological age. It bears repeating that thanatological age is merely probabilistic, since it
+coined the term \textit{thanatological} age.}, and this complements the notion
+of chronological age. It bears repeating that thanatological age is merely probabilistic, since it
 refers to the future according to particular assumptions about the survival
 curve. As such, Figure~\ref{fig:USrecomp} is projective in nature, a
 forward-looking glance at a population given the age-structure and lifetable of a particular moment, whereas
@@ -171,7 +170,7 @@ orphan-prone a population is) has tended to fall over time. All populations have
 shown a rightward shift in both the mean and modal female thanatological age at
 birth (TAB) over time (that's unambiguously a good thing). Several populations
 now show modal TABs of over 60 years. Thanatological total fertility rates track
-standard PTFR rather closely, but tend to be somewhat higher.
+standard PTFR rather closely, but tend to be somewhat higher. 
 
 \begin{figure}[h!]
 	\caption{Chronological and thantological fertility rates, all 1600
@@ -206,11 +205,18 @@ standard PTFR rather closely, but tend to be somewhat higher.
 	\end{tiny}
 \end{figure}
 
+In general, such fertility rates will not be palatable for purposes of
+projection, unless the demographer believes that their empirical regularity is
+somehow stronger than typical ASFR --- an argument we do not make. There may be
+alternative ways of defining thanatological fertility rates, for instance
+\textit{after} stability, which would make this model component more conformable
+with the Lotka renewal model. First let us define the basic model.
+
 \section*{The thanatological renewal model}
 For the population model that follows, we are most interested in using the kind
 of fertility rates shown in Figure~\ref{fig:FySpaghetti}, and we refer to a
-unisex population. Assuming constant vital rates, the births for the present year are given by
-
+unisex population. Assuming constant vital rates, the births for the present
+year are given by:
 \begin{align}
 B(t) =& \int _0^\infty P(y,t)F(y) \dd y = \int _0^\infty P(a,t)F(a) \dd a
 \intertext{where $P(a), P(y)$ are population counts and $F(y), F(a)$ are exact
@@ -252,12 +258,13 @@ versus $F(y)$ are calculated on the basis of differently distributed
 denominators $E(a)$ versus $E(y)$.
 
 There are gaps in the above line of development, since the jump from
-\eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is unproven. A
-further conjecture is that the jump will also hold for the case of weak
-ergodicity. The mechanisms at play unfold in the same way as those so
-intuitively described by \citet{arthur1982ergodic}, and said proof may apply
-here without further modification. A proof of
-the uniqueness of the solution to \eqref{eq:thanoren} is given in Appendix~\ref{app:A}.
+\eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is unproven,
+although it is rather intuitive, given the much greater density of connections
+within the model; persons from nearly any thanatologcal age can produce
+offspring that can have any other thanatological age. In this sense, the
+smoothing mechanism must be much stronger than that for chronoloical age, at
+least in most cases. A further conjecture is that the jump will also hold for
+the case of weak ergodicity. The mechanisms at play unfold in the same way as those so intuitively described by \citet{arthur1982ergodic}, and said proof may apply here without further modification. A proof of the uniqueness of the solution to \eqref{eq:thanoren} is given in Appendix~\ref{app:A}.
 
 Once one finds $r$ from \eqref{eq:thanoren}, other familiar stable population
 parameters can be calculated. For instance, we may calculate the mean
@@ -289,10 +296,12 @@ Other stable population quantities may be estimated by similarly translating the
 various common definitions (e.g., in the glossary of \citet{coale1972growth}) to
 the present perspective. We will focus on the main model rather than on these.
 
-What should one imagine under the model of thanatological population renewal? A
-useful mnemonic bases itself on Figures~\ref{fig:USdecomp} and
+The thanatological renewal model is coherent, but the idea may seem strange.
+What should one imagine under the model of thanatological population renewal? 
+A useful mnemonic bases itself on Figures~\ref{fig:USdecomp} and
 \ref{fig:USrecomp}. In the age-structured model, new generations
-appear at the bottom of the pyramid, and move up one rung per year. All ages are subject to decrement. In the thanatological \textit{leaf}, each birth cohort increments to
+appear at the bottom of the pyramid, and move up one rung per year. All ages 
+are subject to decrement. In the thanatological \textit{leaf}, each birth cohort increments to
 the population over the whole range of thanatological age according to $d(a)$,
 as seen in \eqref{eq:thanoren}. Birth cohorts become the layers seen in
 Figure~\ref{fig:USrecomp}. Each horizontal step is a death cohort, and these
@@ -460,6 +469,12 @@ greater than the Leslie damping ratio for all 1834 population-years included in
 our empirical analysis. Leslie damping ratios ranged from 1.01258 to 1.0518,
 while thanatological damping ratios ranged from 1.0455 to 1.0868.
 
+* this is a work in progress, and by the time the EPC comes around I'll
+have shifted the focus away on comparing stable results estimated from data
+(the last couple figures), and more toward the reversibility of chronological
+and thanatological stable age structures, as well as a comparative
+eigen-analysis of the Leslie and thanatological projection matrices.
+
 \vspace{2em}
 
 \appendix
@@ -482,8 +497,6 @@ I(r_2)$. $I()$ is therefore a continuous and monotonically decreasing function
 of $r$ with boundaries that include the value 1 of \eqref{eq:thanoren}, and
  necessarily only obtain this value once.
 
-
-[\ldots paper to be updated and explanded\ldots]
 \nocite{HMD,HFD}
 % --------------------------------------------------
 % bibliography
