@@ -1,6 +1,6 @@
-source("/home/triffe/workspace/ThanoRepro/R/Functions.R")
+source("/home/triffe/git/ThanoRepro/ThanoRepro/R/Functions.R")
 # read in data and select females
-Data <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/DataAll.Rdata")))
+Data <- local(get(load("/home/triffe/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
 
 
@@ -71,8 +71,14 @@ lines(with(Data, Age[Year >= 2000]), with(Data, Fy[Year >= 2000]), col = "#00000
 # 
 library(data.table)
 DT <- as.data.table(Data)
-DT[, FxSt := Fx / sum(Fx, na.rm = TRUE), by = list(Code, Year)]
-DT[, FySt := Fy / sum(Fy, na.rm = TRUE), by = list(Code, Year)]
+
+st <- function(x){
+    x/sum(x,na.rm=TRUE)
+}
+
+#update.packages()
+DT[, FxSt := st(Fx), by = list(Code, Year)]
+DT[, FySt := st(Fy), by = list(Code, Year)]
 Data <- as.data.frame(DT)
 
 par(mfrow=c(2,2))
@@ -91,8 +97,8 @@ lines(Data$Age, Data$FxSt, col = "#00000005")
 
 graphics.off()
 # Fy 
-png("/home/triffe/workspace/ThanoRepro/Figures/FySpaghettiDraft.png")
-#pdf("/home/triffe/workspace/ThanoRepro/Figures/FySpaghetti.pdf") # high res vector
+png("/home/triffe/git/ThanoRepro/ThanoRepro/Figures/FySpaghettiDraft.png")
+#pdf("/home/triffe/git/ThanoRepro/ThanoRepro/Figures/FySpaghetti.pdf") # high res vector
 par(xaxs = "i", yaxs = "i", mai=c(.5,.5,.5,.5))
 plot(NULL, type = "n",xlim = c(0,95),ylim=c(0,.13), axes = FALSE, xlab = "", ylab = "",
         panel.first = list(rect(0,0,95,.15,col = gray(.95),border = NA),
@@ -102,13 +108,13 @@ plot(NULL, type = "n",xlim = c(0,95),ylim=c(0,.13), axes = FALSE, xlab = "", yla
                 text(0,seq(0,.13,by=.02),seq(0,.13,by=.02),cex = .8,pos=2,xpd=TRUE)))
 lines(Data$Age, Data$Fy, col = "#00000007")
 text(-2,.1366,"Rate",xpd=TRUE)
-text(mean(c(0,95)),-.01,"Remaining years",xpd=TRUE)
-text(c(25,25,80,80),c(.03,.12,.03,.12),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
+text(mean(c(0,95)),-.01,"Thanatological age (years left)",xpd=TRUE)
+#text(c(25,25,80,80),c(.03,.12,.03,.12),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
 dev.off()
-# Fx
-# Fy 
-png("/home/triffe/workspace/ThanoRepro/Figures/FxSpaghettiDraft.png")
-#pdf("/home/triffe/workspace/ThanoRepro/Figures/FxSpaghetti.pdf") # high res vector
+
+# Fx 
+png("/home/triffe/git/ThanoRepro/ThanoRepro/Figures/FxSpaghettiDraft.png")
+#pdf("/home/triffe/git/ThanoRepro/ThanoRepro/Figures/FxSpaghetti.pdf") # high res vector
 par(xaxs = "i", yaxs = "i", mai=c(.5,.5,.5,.5))
 plot(NULL, type = "n",xlim = c(12,55),ylim=c(0,.3), axes = FALSE, xlab = "", ylab = "",
         panel.first = list(rect(0,0,95,.3,col = gray(.95),border = NA),
@@ -118,8 +124,8 @@ plot(NULL, type = "n",xlim = c(12,55),ylim=c(0,.3), axes = FALSE, xlab = "", yla
                 text(12,seq(0,.3,by=.05),seq(0,.3,by=.05),cex = .8,pos=2,xpd=TRUE)))
 lines(Data$Age, Data$Fx, col = "#00000007")
 text(10,.315,"Rate",xpd=TRUE)
-text(mean(c(12,55)),-.02,"Age",xpd=TRUE)
-text(c(25,25,45,45),c(.03,.25,.03,.25),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
+text(mean(c(12,55)),-.02,"Chronological age (years lived)",xpd=TRUE)
+#text(c(25,25,45,45),c(.03,.25,.03,.25),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
 dev.off()
 
 
