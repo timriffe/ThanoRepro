@@ -5,6 +5,8 @@
 \usepackage{placeins}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{tikz}
+%\usepackage[active,tightpage]{preview}
 \usepackage{natbib}
 \bibpunct{(}{)}{,}{a}{}{;} 
 \usepackage{url}
@@ -56,12 +58,16 @@ some other moment), consider age as the amount of time left from the present
 until death. Individuals in this case move in the same direction along
 imaginary life lines, but the reference point for age is now at the end of the
 life line instead of at the beginning. Of course, such information cannot be
-requested of survey respondents or register data, because one's future time of
-death is typically unknown. Instead we approximate this perspective using a
-strategy similar to that used by \citet{miller2001increasing} or
-\citet{lee2002approach}, which uses lifetables and aggregated
-population counts to redistribute counts within age-classes over future death
-times.
+requested of survey respondents,
+because one's future time of death is typically unknown. It would be
+possible to organize lifecourse data by remaining years of life in a
+very long running linked population register, but such registers are few and far
+between, and the analysis would be very retrospective in nature.
+Instead we approximate this perspective using a strategy similar to that used by
+\citet{miller2001increasing} or \citet{lee2002approach}, which uses lifetables
+and aggregated population counts to redistribute counts within age-classes over
+future death times. This allows us to make statements about the remaining
+lifelines within a current stock of population, under certain assumptions.
 
 Temporal perspectives and rescalings of the lifecourse are abundant in
 demography already. It is my view that these efforts have enriched the
@@ -74,14 +80,18 @@ of how to partition such forces and events over time is a new conundrum that I
 do not tackle here. The model presented here should therefore not be interpreted
 as a suggestion for a better way to model or project population, but as an alternative way to tell the
 story of population renewal within the confines of a philosophical bubble.
-Thanatological and chronological renewal models, such as the Lotka-Euler renewal model, both approximate the movement of population stocks over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex temporal population structure. I present a set of broad findings to help understand the implications of temporal structure.
+Thanatological (counting down towards death) and chronological (counting up
+from birth) renewal models, such as the Lotka-Euler renewal model, both
+approximate the movement of population stocks over time, but from opposite
+vantage points. Specifying a model of thanatological renewal expands the toolbox
+available to approach complex temporal population structure. I present a set of
+preliminary findings to help understand the implications of temporal structure.
 
 \section*{From chronological to thanatological age}
 
-Our point of departure is a little formula that gives the probability of
-dying at some age $y$ years in the future, given survival to some
-earlier age, $a$. For age 0 this probability is simply the $d(a)$
-column of the lifetable, standardized to sum to 1. For higher ages, we simply condition on survival:
+Before hashing out the thanatological renewal model, I present the
+underlying data transformation --- a little formula that
+gives the probability of dying at some age $y$ years in the future, given survival to some earlier age, $a$. For age 0 this probability is simply the $d(a)$ column of the lifetable, standardized to sum to 1. For higher ages, we simply condition on survival:
 
 \begin{equation}
 \label{eq:vaupel1}
@@ -89,7 +99,7 @@ d(y | a) = \mu(a+y)\frac{l(a+y)}{l(a)}
 \end{equation}
 
 A convenient discretization of \eqref{eq:vaupel1} is to simply work with the
-$d_a$ column of the lifetable (here single age):
+$d_a$ column of the lifetable (here with single ages):
 
 \begin{equation}
 d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{l_a + l_{a+1}} \quad\quad \text{,}
@@ -127,8 +137,8 @@ instead of remaining lifetime heterogeneity within each age group we have age he
 	\end{center}
 \end{figure}
 
-If $P_a$ is an age-classified discrete population count, we can derive $P_y$, a
-remaining-years-classified population count, as follows:
+If $P_a$ is an (chronological) age-classified discrete population count, we can
+derive $P_y$, a thanatological age-classified population count, as follows:
 
 \begin{align}
 \label{eq:transform}
@@ -225,10 +235,13 @@ conformable with the Lotka renewal model. First let us define the basic model.
 
 \FloatBarrier
 \section*{The thanatological renewal model}
-For the population model that follows, we are most interested in using the kind
+For the renewal model that follows, we are most interested in using the kind
 of fertility rates shown in Figure~\ref{fig:FySpaghetti}, and we refer to a
-unisex population based on female vital rates. Assuming constant vital rates,
-the births for the present year are given by
+unisex population based on female vital rates. In the following, I
+explain describe the model in four different ways: as a continuous
+model, as a matrix model, with a lifecylcle graph, and intuitively by
+appealing to how population pyramids and leaves (described earlier) change over
+time. Assuming constant vital rates, the births for the present year are given by
 \begin{align}
 B(t) =& \int _0^\infty P(y,t)f^\star(y) \dd y = \int _0^\infty P(a,t)f(a) \dd a
 \quad\text{,} \intertext{where $a$ indexes chronological age, $y$ indexes
@@ -297,7 +310,7 @@ thanatological generation time, $T^y$:
 \dd y}{\int _{y=0}^\infty \int _{a=y}^\infty e^{-ra} d(a) f^\star(y) \dd a \dd
 y} \quad \text{.}
 \end{equation}
-Literally, this is the mean remaining life expectancy of new mothers in the
+Literally, this is the mean of the remaining lifespans of new mothers in the
 stable population. The net reproduction rate, $R_0$ is related by, e.g.,
 \begin{equation}
 \label{eq:R0fromTy}
@@ -317,12 +330,12 @@ c(y) = b \int _{a=y}^\infty e^{-ra} d(a) \dd a \quad\text{.}
 \end{equation}
 We already knew that when $r = 0$ and $y = a$, that $c(a)=c(y)$
 \citep{vaupel2009life}, and now we can arrive at the same conclusion directly
-via the chronological and thanatological renewal equations. For small non-zero
-magnitude values of $r$ and survival patterns typical of humans, it is also the
+by equating the chronological and thanatological renewal equations. For
+small non-zero magnitude values of $r$ and survival patterns typical of humans, it is also the
 case that $c(y|r)\approx c(a|-r)$. The relationship is asymptotically exact as
 $r$ approaches zero. Other findings regarding stable age structure will be
-presented in a future version of this paper. Other stable population quantities
-may be estimated by similarly translating the various common definitions (e.g.,
+presented in a future version of this paper. Further stable population
+quantities may be estimated by similarly translating the various common definitions (e.g.,
 in the glossary of \citet{coale1972growth}) to the present perspective. We will
 focus on the main model rather than on these.
 
@@ -446,13 +459,100 @@ $\textbf{Y} = \bordermatrix{
    5_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_5}{2} & f^\star_1d_5 & f^\star_2d_5 & f^\star_3d_5 & f^\star_4d_5 & 0 }$
 \end{matrix}
 
+Figure~\ref{fig:graph} depicts the projection matrix $\textbf{Y}$ in the form of
+a lifecycle graph. In this graph, each thanatological age is a node. Population
+members are born into any of the thanatological age classes, and then follow
+clockwise around the graph on the thick blue paths in order until finally being
+absorbed into death (the node labeled ``X'', not included in the projection matrix). The light gray paths represent fertility. Thse originate from any age class that has a fertility rate greater
+than zero, which for this toy matrix are all age classes except the \nth{5}
+(highest). The y$^{th}$ age class is subject to the fertility rate $f^\star
+(y)$, and these births distribute out to all other age classes according to the
+lifetable deaths distribution, $d(a)$. Hence, the rate instensity of a fertility
+path is determined by the fertility rate of the origin age, and the probability of dying at the destination age. A fraction of the fertility destined for infant mortality equal
+to $lambda$ leads straight to the absorbing state of death. Fertility paths from
+the \nth{4} thanatological age class have been highlighted. These correspond
+to the fifth column of the example matrix $\textbf{Y}$, plus an additional path
+direct to death for the fraction of infant mortality prior to December \nth{31}
+in year $t$. Paths that loop back into the same age class simply indicate those
+offspring that are destined to die in the same year as their mother. It is
+perhaps clearer to see from the density of this graph and by recalling that
+thanatological fertility distributions are relatively wide (see
+Figure~\ref{fig:FySpaghetti}) that there is a high degree of mixing of
+thanatological age within populations via reproduction -- a strong tendency
+toward stability.
+
+\begin{figure}
+\centering
+\caption{The thanatological lifecycle graph}
+\label{fig:graph}
+\begin{tikzpicture}[->,shorten >=1pt,auto,node distance=4.3cm,
+  thick,main node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries}]
+  \definecolor{gray}{rgb}{0.8,0.8,0.8}
+  \definecolor{lightgreen}{rgb}{0,0.8,0.8}
+  \node[main node] (0) {0};
+  \node[main node] (5) [above right of=0] {5};
+  \node[main node] (4) [right of=5] {4};
+  \node[main node] (3) [below right of=4] {3};
+  \node[main node] (2) [below left of=3] {2};
+  \node[main node] (1) [left of=2] {1};
+  \node[main node] (X) [left of = 5] {X};
+
+  \path[every node/.style={font=\sffamily\small},draw=gray,thin]
+    (3) edge [bend left] node {} (5)
+        edge [bend left] node {} (4)
+        edge [bend left] node {} (2)
+        edge [bend left] node {} (1)
+        edge [bend left] node {} (0)  
+        edge [bend left] node {} (X)
+        edge [loop right] node {} (3) 
+    (2) edge [bend left] node {} (5)
+        edge [bend left] node {} (4)
+        edge [bend left] node {} (3)
+        edge [bend left] node {} (1)
+        edge [bend left] node {} (0)     
+        edge [loop below] node {} (2) 
+        edge [bend left] node {} (X)
+    (1) edge [bend left] node {} (5)
+        edge [bend left] node {} (4)
+        edge [bend left] node {} (3)
+        edge [bend left] node {} (2)
+        edge [bend left] node {} (0)    
+        edge [loop below] node {} (1) 
+        edge [bend left] node {} (X)
+    (0) edge [bend left] node {} (5)
+        edge [bend left] node {} (4)
+        edge [bend left] node {} (3)
+        edge [bend left] node {} (2)
+        edge [bend left] node {} (1)
+        edge [loop left] node {} (0) 
+        edge [bend left] node {} (X);
+        
+    \path[every node/.style={font=\sffamily\small}]
+    (4) edge [bend right] node {$f^\star (4)d(5)$} (5)
+        edge [bend left] node {$f^\star (4)d(3)$} (3)
+        edge [bend left] node {$f^\star (4)d(2)$} (2)
+        edge [bend left] node {$f^\star (4)d(1)$} (1)
+        edge [bend left] node {$(1-\lambda)f^\star (4)d(0)$} (0)
+        edge [loop above] node {$f^\star (4)d(4)$} (4)
+        edge [bend left] node {$\lambda f^\star (4)d(0)$} (X);
+    
+    \path[every node/.style={font=\sffamily\small}, ultra thick, color =
+    lightgreen ] (5) edge node {} (4)
+    (4) edge node {} (3)
+    (3) edge node {} (2)
+    (2) edge node {} (1)
+    (1) edge node {} (0)
+    (0) edge node {} (X);
+        
+\end{tikzpicture}
+\end{figure}
+
 Thanatological age-classes will ideally terminate at the highest value permitted
 by data. For the data used here, there are 111 total age classes, which
 translate to 111 total remaining-years classes (0-110+). In practice $\textbf{Y}$ becomes
-a 111$\times$111 matrix, with most entries non-zero. Construction may appear
-tedious for this reason. However, note that the bulk of fertility entries can
-be derived as the outer (tensor) product $d_a \otimes f_y$, leaving only the 
-first row and first column mortality discounting followed by the addition of the
+a 111$\times$111 matrix, with most entries non-zero (nearly complete
+connectivity, such as in Figure~\ref{fig:graph}). Construction may appear tedious for
+this reason. However, note that the bulk of fertility entries can be derived as the outer (tensor) product $d_a \otimes f_y$, leaving only the first row and first column mortality discounting followed by the addition of the
 survival superdiagonal. In most statistical programming languages constructing $\textbf{Y}$ entails only
 a couple more lines of code than constructing a Leslie matrix.
 
