@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Wed Jun 04 19:33:08 PDT 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=ThanoRepro.tex
+outputFile=ThanoRepro.pdf
+langSpell=en
+markDer=true
+srcDir=
