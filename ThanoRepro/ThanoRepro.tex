@@ -55,8 +55,9 @@ demographer to make predictions about the future size and structure of a populat
 paper, I explore some formal demographic consequences of a particular
 redefinition of age. Instead of counting age as the time passed between birth and the present (or
 some other moment), consider age as the amount of time left from the present
-until death. Individuals in this case move in the same direction along
-imaginary life lines, but the reference point for age is now at the end of the
+until death\footnote{This quantity is referred to as \textit{residual} life in
+the reliability literaure.}.
+Individuals in this case move in the same direction along imaginary life lines, but the reference point for age is now at the end of the
 life line instead of at the beginning. Of course, such information cannot be
 requested of survey respondents,
 because one's future time of death is typically unknown. It would be
@@ -64,8 +65,8 @@ possible to organize lifecourse data by remaining years of life in a
 very long running linked population register, but such registers are few and far
 between, and the analysis would be very retrospective in nature.
 Instead we approximate this perspective using a strategy similar to that used by
-\citet{miller2001increasing} or \citet{lee2002approach}, which uses lifetables
-and aggregated population counts to redistribute counts within age-classes over
+\citet{brouard1986structure}, \citet{miller2001increasing}, or
+\citet{lee2002approach}, which uses lifetables and aggregated population counts to redistribute counts within age-classes over
 future death times. This allows us to make statements about the remaining
 lifelines within a current stock of population, under certain assumptions.
 
@@ -91,7 +92,13 @@ preliminary findings to help understand the implications of temporal structure.
 
 Before hashing out the thanatological renewal model, I present the
 underlying data transformation --- a little formula that
-gives the probability of dying at some age $y$ years in the future, given survival to some earlier age, $a$. For age 0 this probability is simply the $d(a)$ column of the lifetable, standardized to sum to 1. For higher ages, we simply condition on survival:
+gives the probability of dying at some age $y$ years in the future, given
+survival to some earlier age, $a$. For age 0 this probability is simply the $d(a)$ column of the
+lifetable, standardized to sum to 1. For higher ages, we simply condition on survival:\footnote{In the reliability literature, this
+our concept of $d(y|a)$ is denoted by \begin{equation}
+X - t | X > t
+\end{equation}
+where $X$ is the total lifespan and $t$ is the current age attained.}
 
 \begin{equation}
 \label{eq:vaupel1}
@@ -150,8 +157,10 @@ P_y =& \sum_{a=0}^\omega P_a \frac{d_{a+y}+d_{a+y+1}}{l_a+l_{a+1}}
 We refer to \eqref{eq:transform} as the thanatological age
 transformation\footnote{I have on good authority that Ken Wachter
 coined the term \textit{thanatological} age.}, and this complements the notion
-of chronological age. It bears repeating that thanatological age is
-probabilistic until after death, since it refers to the future according to
+of chronological age. \citep{brouard1989mouvements}, and later
+\citep{vaupel2009life}, showed that in stationary populations the chronological
+and thanatological age structures are identical.
+It bears repeating that thanatological age is probabilistic until after death, since it refers to the future according to
 particular assumptions about mortality. As such, Figure~\ref{fig:USrecomp} is
 projective in nature, a forward-looking glance at a population attrition given the age-structure and
 lifetable of a particular moment, whereas Figure~\ref{fig:USdecomp} is reflective in nature, since a population's
