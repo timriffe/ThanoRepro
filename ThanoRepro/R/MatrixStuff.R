@@ -1,14 +1,15 @@
 library(popbio)
+setwd("/home/triffe/git/ThanoRepro/ThanoRepro")
 # 
-source("/home/triffe/workspace/ThanoRepro/R/Functions.R")
+source("R/Functions.R")
 
-Data <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/DataAll.Rdata")))
+Data <- local(get(load("Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
 
-lambdaT <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/lambda.Rdata")))
-lambdaL <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/lambdaLeslie.Rdata")))
+lambdaT <- local(get(load("Data/lambda.Rdata")))
+lambdaL <- local(get(load("Data/lambdaLeslie.Rdata")))
 # made in commented-out code below:
-#AllMatrices <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/AllMatrices.Rdata")))
+#AllMatrices <- local(get(load("Data/AllMatrices.Rdata")))
 #print(object.size(AllMatrices),units = "Mb")
 #AllMatrices <- lapply(split(Data, with(Data, paste(Code,Year))), function(Dat, lambdaL, lambdaT){
 #           yr <- unique(Dat$Year)
@@ -22,7 +23,7 @@ lambdaL <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/lambdaLeslie.R
 #               L = Leslie(Mna0(Dat$Fxf), px, lL))
 #        },lambdaL = lambdaL, lambdaT = lambdaT)
 # best to save this out, as it's quite big and take a while to calculate:
-#save(AllMatrices, file="/home/triffe/workspace/ThanoRepro/Data/AllMatrices.Rdata")
+#save(AllMatrices, file="Data/AllMatrices.Rdata")
 IDs <- names(AllMatrices)
 
 # calculate Damping Ratios --- takes a while
