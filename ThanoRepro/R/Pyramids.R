@@ -1,4 +1,4 @@
-setwd("/home/triffe/git/ThanoRepro/ThanoRepro")
+setwd("/home/tim/git/ThanoRepro/ThanoRepro")
 source("R/Functions.R")
 source("R/PlotFunctions.R")
 devtools::load_all("/home/triffe/git/Leaves/PlosOne/R/RiffeetalFunctions")

@@ -1,7 +1,8 @@
-source("/home/triffe/workspace/ThanoRepro/R/Functions.R")
+source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+#install.packages("data.table")
 library(data.table)
 # read in data and select females
-Data <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/DataAll.Rdata")))
+Data <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
 Data$Fy[is.na(Data$Fy)] <- 0
 Data$Fyf[is.nan(Data$Fyf)] <- 0
@@ -65,7 +66,7 @@ rTM <- acast(rT,Year~Code,value.var = "V1")
 rLM <- acast(rL,Year~Code,value.var = "V1")
 rDiff <- rLM - rTM
 
-pdf("/home/triffe/workspace/ThanoRepro/Figures/rDist.pdf")
+pdf("/home/tim/git/ThanoRepro/ThanoRepro/Figures/rDist.pdf")
 par(xaxs="i",yaxs="i",mai=c(1,.5,.5,.5))
 plot(density(rL$V1),xlim=c(-.04,.03),ylim=c(0,55),col= "blue", main = "",axes = FALSE, ylab = "",
         panel.first = list(rect(-.04,0,.03,55,col=gray(.96), border = NA),
@@ -92,13 +93,14 @@ abline(h=0)
 matplot(1891:2011, rLM, type = 'l', lty = 1, col = "#0000FF40")
 abline(h=0)
 
+graphics.off()
 for (i in 1:ncol(rTM)){
 plot(NULL, type = "n",xlim=c(1891,2011),ylim=c(-.04,.02),main=colnames(rLM)[i])
 abline(h=0)
 lines(1891:2011, rLM[,i], col = "blue")
 lines(1891:2011, rTM[,i], col = "red")
 legend("bottomleft",lty=1,col=c("red","blue"),legend=c("Thano","Lotka"))
-Sys.sleep(3)
+Sys.sleep(1)
 }
 
 matplot(1891:2011, rLM - rTM, type = 'l', lty = 1, col = "#0000FF40")
@@ -161,3 +163,14 @@ sum(t(dM)*exp(-r*.5:110.5)*t(Fyx))
 
 sum(dM*exp(-r*.5:110.5)*Fyx)
 sum(t(dM)*exp(-r*.5:110.5)*t(Fyx))
+
+
+
+
+
+
+
+
+
+
+

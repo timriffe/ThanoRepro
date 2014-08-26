@@ -1,5 +1,5 @@
-source("/home/triffe/workspace/ThanoRepro/R/Functions.R")
-Data <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/DataAll.Rdata")))
+source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+Data <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
 
 # 

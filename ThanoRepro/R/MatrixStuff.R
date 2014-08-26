@@ -1,5 +1,5 @@
 library(popbio)
-setwd("/home/triffe/git/ThanoRepro/ThanoRepro")
+setwd("/home/tim/git/ThanoRepro/ThanoRepro")
 # 
 source("R/Functions.R")
 

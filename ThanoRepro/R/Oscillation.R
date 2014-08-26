@@ -3,7 +3,7 @@
 
 # could start with Px, get Py, and then derive Cohen's measure, but this adds an initial smoothing
 # to Py. Instead I'll start with identical but randomly generated starting populations.
-AllMatrices <- local(get(load("/home/triffe/workspace/ThanoRepro/Data/AllMatrices.Rdata")))
+AllMatrices <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/AllMatrices.Rdata")))
 
 CohenA <- compiler::cmpfun(function(P0, LorY, N=500){
     Pops <- matrix(nrow=length(P0), ncol = N)

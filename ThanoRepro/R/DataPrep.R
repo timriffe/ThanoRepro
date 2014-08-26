@@ -1,6 +1,6 @@
-source("/home/triffe/workspace/ThanoRepro/R/Functions.R")
-HMDpath <- "/home/triffe/DATA/HMD"
-HFDpath <- "/home/triffe/DATA/HFD"
+source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+HMDpath <- "/home/tim/DATA/HMD"
+HFDpath <- "/home/tim/DATA/HFD"
 #list.files(HFDpath)
 
 Bx <- read.table(file.path(HFDpath,"birthsRR.txt"), 
@@ -166,14 +166,14 @@ Data <- as.data.frame(DATA)
 rownames(Data) <- NULL
 #-----------------------------------------
 # save it out for wider use
-save(Data,file = "/home/triffe/workspace/ThanoRepro/Data/DataAll.Rdata")
+save(Data,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")
 
 #unique(Data$Code)
 
 # ------------------------------------------------------------
 # now we need to read in deaths by Lexis triangle to calculate age 0 lambda for
 # thanatological projection matrices.
-dlpath <- "/home/triffe/DATA/HMD/deaths/Deaths_lexis"
+dlpath <- "/home/tim/DATA/HMD/deaths/Deaths_lexis"
 
 lambda <- do.call(rbind, lapply(Allcountries, function(XXX, dlpath){
                     Dat <- read.table(file.path(dlpath,paste0(XXX,".Deaths_lexis.txt")),
@@ -200,7 +200,7 @@ lambda <- do.call(rbind, lapply(Allcountries, function(XXX, dlpath){
                             lambda.f = out[["Female"]], 
                             stringsAsFactors = FALSE)
                 }, dlpath = dlpath))
-save(lambda, file = "/home/triffe/workspace/ThanoRepro/Data/lambda.Rdata")
+save(lambda, file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/lambda.Rdata")
 
 # something similar for use in Leslie matrices:
 
@@ -221,5 +221,5 @@ lambdaLeslie <- do.call(rbind,lapply(Allcountries, function(XXX, HMDpath){
                     lambda.f <- 1 - DLf / Bf
                     data.frame(Code = XXX,Year = yrs, lambda.m,lambda.f,stringsAsFactors = FALSE)
                 }, HMDpath = HMDpath))
-save(lambdaLeslie, file = "/home/triffe/workspace/ThanoRepro/Data/lambdaLeslie.Rdata")
+save(lambdaLeslie, file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/lambdaLeslie.Rdata")
 
