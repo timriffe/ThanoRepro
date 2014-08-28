@@ -59,16 +59,14 @@ timing of events in life is mirrored exactly between the two definitions of age,
 but aggregate patterns differ.
 
 Direct information on the timing of demographic transitions with respect to
-death is only available from long-running panel or linked historical data
-studies that are few and far between. Some surveys also ask respondents in various ways about
-their perceived future lifetime. Perceived remaining lifetime may underly those
-demographic transitions governed to some degree by volition, but this is not
-treated here. The present inquiry is related to projected
-remaining lifetime, using lifetable methods, which is an approximation of
-actual remaining lifetime.
-The lifetable methods applied here follow those of \citet{brouard1986structure}, \citet{miller2001increasing}, which redistribute age-classified counts over future
-death times according to a fixed mortality schedule. This allows us to make
-statements about the remaining lifelines within a current stock of population, under certain assumptions.
+death is only available from long-running panel or linked historical data that are few and far between. Some surveys also ask respondents in various ways about
+their perceived future lifetime, which may underly those
+demographic transitions governed to some degree by volition. The present inquiry
+draws only from lifetable-projected remaining lifetime, which
+is intended to approximate actual remaining lifetime.
+The lifetable methods applied here follow those of \citet{brouard1986structure}
+or \citet{miller2001increasing}, which redistribute age-classified counts over
+future death times according to a fixed mortality schedule. This allows us to make statements about the remaining lifelines within a current stock of population, under certain assumptions.
 
 Temporal perspectives and rescalings of the lifecourse are abundant in
 demography already. It is my view that these efforts have enriched the
@@ -79,8 +77,9 @@ while still others can be a function of both to some degree. Fertility and
 reproduction are plausibly a function of both age perspectives, and the question
 of how to partition such forces and events over time is a new conundrum that I
 do not tackle here. The model presented here should therefore not be interpreted
-as a suggestion for a better way to model or project population, but as an alternative way to tell the
-story of population renewal within the confines of a philosophical bubble.
+as a suggestion for a better way to model or project population, but as an
+alternative way to tell the story of population renewal.
+
 Thanatological (counting down towards death) and chronological (counting up
 from birth) renewal models, such as the Lotka-Euler renewal model, both
 approximate the movement of population stocks over time, but from opposite
@@ -88,17 +87,26 @@ vantage points. Specifying a model of thanatological renewal expands the toolbox
 available to approach complex temporal population structure. I present a set of
 preliminary findings to help understand the implications of temporal structure.
 
-\section*{From chronological to thanatological age}
+\section*{A lifetable approximation of thanatological age}
 
-Before hashing out the thanatological renewal model, I present the
-underlying data transformation --- a little formula that
-gives the probability of dying at some age $y$ years in the future, given
-survival to some earlier age, $a$. For age 0 this probability is simply the $d(a)$ column of the
-lifetable, standardized to sum to 1. For higher ages, we simply condition on survival:\footnote{In the reliability literature, this
-our concept of $d(y|a)$ is denoted by \begin{equation}
-X - t | X > t
+A lifetable approach to transforming chronologically classified data into
+thanatologically classified data is valid when the given lifetable accurately
+describes the future mortality of age-classified population. To make
+a projective statement about a current stock of population, one does well to
+factor in future changes in mortality, and to allow the trajectory of changes
+to vary between ages/cohorts. In the case of a stable population model,
+mortality is assumed invariant over time, which means that the same survival
+pattern underlies each chronological age class, and we therefore draw from a
+single lifetable. Under these conditions, data classified by chronological age
+can be decomposed and redistributed into thanatological age classes with a
+single mortality pattern. The basic operation is to multiply the probability of
+surviving from exact chronological age $a$ to exact age $a+y$,
+$\frac{l(a+y)}{l(a)}$, and then dying at exact age $a+y$, $\mu(a+y)$. The
+index $y$ in this case means $y$ years in the future. For age 0 this probability
+is simply the $d(a)$ column of the lifetable, standardized to sum to 1. For higher ages, simply condition on survival:\footnote{In the reliability literature, our concept of $d(y|a)$ is denoted by \begin{equation} X - t | X > t
 \end{equation}
-where $X$ is the total lifespan and $t$ is the current age attained.}
+where $X$ is the total lifespan and $t$ is the current chronological age
+attained.}
 
 \begin{equation}
 \label{eq:vaupel1}
@@ -109,33 +117,39 @@ A convenient discretization of \eqref{eq:vaupel1} is to simply work with the
 $d_a$ column of the lifetable (here with single ages):
 
 \begin{equation}
-d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{l_a + l_{a+1}} \quad\quad \text{,}
+d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{L_a + L_{a+1}} \quad\quad \text{,}
 \end{equation}
 
-\noindent where $\omega$ is the highest age.\footnote{In later formulas we just
-use $l_a$ in the denominator to reduce clutter, but the above sum over $d_a$
-will eliminate rounding error in case one is working from a published life table.} One
-produces in this way a probability density function over future death times for
-each age, and the $d_{y,a}$- weighted average of $y$ for a given age $a$ returns
-the familiar remaining life expectancy column of the lifetable, $e_a$. Since $1
-= \sum_{n=0}^{\omega - a}d_{a+y, a}$ for each $a$, we can use this to decompose
-age-classified demographic data. For example, we can break down a population
-pyramid into remaining years categories, like in Figure~\ref{fig:USdecomp},
-which shows this exercise for 2010 US data. The fun starts when we proceed to
-regroup cross-classified data by $y$ instead of collapsing back to $a$. Now
-instead of remaining lifetime heterogeneity within each age group we have age heterogeneity within each discrete remaining years of life. Figure~\ref{fig:USrecomp} shows this \textit{re}composition for the same 2010 US data.
+\noindent where $\omega$ is the highest age. One
+produces in this way a probability density function over future death times
+for each chronological age, $a$, and the $d(y|a)$- weighted average of $y$ for
+a given $a$ returns the familiar remaining life expectancy column of the lifetable,
+$e(a)$. Since $1 = \int_0^\infty d(y|a) \dd y$ for each $a$,
+this density is useful for decomposing data classified by chronological age. For
+example, we can break down a population pyramid into thanatological age classes.
+Figure~\ref{fig:USdecomp} shows this exercise for 2010 US data, assuming the
+2010 period mortality schedule remains constant. When looking from the
+chronological age perspective, this decomposition reveals thanatological
+heterogeneity, but when viewed from the thanatological perspective
+(Figure~\ref{fig:USdecomp}) it reveals chronological age heterogeneity and the
+overall thanatological age profile, the future death flow of the current
+population.
+Figure~\ref{fig:USrecomp} shows this \textit{re}composition for the same 2010
+US data.
 
 \begin{figure}
-	\caption{2010 US population}
+	\caption{2010 US population structure}
 	\begin{center}
 	\begin{subfigure}{.45\textwidth}
-		\caption{Chronological age-structure decomposed by thanatological age.}
+		\caption{Chronological age-structure (years lived) decomposed by
+		thanatological age (years left).}
 		\label{fig:USdecomp}
 		\includegraphics[scale=.6]{Figures/US2010Age.pdf}
 	\end{subfigure}
 	~
 	\begin{subfigure}{.45\textwidth}
-		\caption{Thanatological age-structure decomposed by chronological age.}
+		\caption{Thanatological age-structure (years left) decomposed by chronological
+		age (years lived).}
 		\label{fig:USrecomp}
 		\includegraphics[scale=.6]{Figures/US2010Thano.pdf}
 	\end{subfigure}
@@ -144,27 +158,23 @@ instead of remaining lifetime heterogeneity within each age group we have age he
 	\end{center}
 \end{figure}
 
-If $P_a$ is an (chronological) age-classified discrete population count, we can
+If $P_a$ is an chronological age-classified discrete population count, we can
 derive $P_y$, a thanatological age-classified population count, as follows:
 
 \begin{align}
 \label{eq:transform}
-P_y =& \sum_{a=0}^\omega P_a \frac{d_{a+y}+d_{a+y+1}}{l_a+l_{a+1}}
+P_y =& \sum_{a=0}^\omega P_a \frac{d_{a+y}+d_{a+y+1}}{L_a+L_{a+1}}
 \intertext{and of course}
 \sum P_y =& \sum P_a
 \end{align}
 
-We refer to \eqref{eq:transform} as the thanatological age
-transformation\footnote{I have on good authority that Ken Wachter
-coined the term \textit{thanatological} age.}, and this complements the notion
-of chronological age. \citep{brouard1989mouvements}, and later
-\citep{vaupel2009life}, showed that in stationary populations the chronological
+\citet{brouard1989mouvements}, and later
+\citet{vaupel2009life}, showed that in stationary populations the chronological
 and thanatological age structures are identical.
-It bears repeating that thanatological age is probabilistic until after death, since it refers to the future according to
-particular assumptions about mortality. As such, Figure~\ref{fig:USrecomp} is
-projective in nature, a forward-looking glance at a population attrition given the age-structure and
-lifetable of a particular moment, whereas Figure~\ref{fig:USdecomp} is reflective in nature, since a population's
-chronological age-structure is mostly the fruit of past fertility, but also
+It bears repeating that lifetable-derived thanatological age structure is
+probabilistic until after death, since it refers to the future according to particular assumptions about mortality. As such, Figure~\ref{fig:USrecomp} is projective in nature, a forward-looking glance at a population attrition given the age-structure and
+lifetable of a particular moment, whereas Figure~\ref{fig:USdecomp} is
+reflective in nature, since a population's chronological age-structure is mostly the fruit of past fertility, but also
 migration and to a lesser degree attrition. I explore population structure by remaining years of life
 for its own sake in a different paper.\footnote{Poster Session 6 (Friday
 mid-day))} Note that any count classified by chronological age can be
