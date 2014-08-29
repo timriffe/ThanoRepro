@@ -124,7 +124,16 @@ d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{L_a + L_{a+1}} \quad\quad \text{,}
 produces in this way a probability density function over future death times
 for each chronological age, $a$, and the $d(y|a)$- weighted average of $y$ for
 a given $a$ returns the familiar remaining life expectancy column of the lifetable,
-$e(a)$. Since $1 = \int_0^\infty d(y|a) \dd y$ for each $a$,
+$e(a)$. If $P(a)$ is an chronological age-classified population count,
+we can derive $P(y)$, a thanatological age-classified population count, as
+follows:
+
+\begin{align}
+\label{eq:transform}
+P(y) =& \int_0^\infty P(a) d(y | a) \dd a
+\end{align}
+
+Since $1 = \int_0^\infty d(y|a) \dd y$ for each $a$,
 this density is useful for decomposing data classified by chronological age. For
 example, we can break down a population pyramid into thanatological age classes.
 Figure~\ref{fig:USdecomp} shows this exercise for 2010 US data, assuming the
@@ -137,7 +146,7 @@ population.
 Figure~\ref{fig:USrecomp} shows this \textit{re}composition for the same 2010
 US data.
 
-\begin{figure}
+\begin{figure}[ht!]
 	\caption{2010 US population structure}
 	\begin{center}
 	\begin{subfigure}{.45\textwidth}
@@ -158,26 +167,19 @@ US data.
 	\end{center}
 \end{figure}
 
-If $P_a$ is an chronological age-classified discrete population count, we can
-derive $P_y$, a thanatological age-classified population count, as follows:
-
-\begin{align}
-\label{eq:transform}
-P_y =& \sum_{a=0}^\omega P_a \frac{d_{a+y}+d_{a+y+1}}{L_a+L_{a+1}}
-\intertext{and of course}
-\sum P_y =& \sum P_a
-\end{align}
-
-\citet{brouard1989mouvements}, and later
+\citet{brouard1986structure} applied this method to highlight regional
+differences in French age structure, at times combining this projective method
+with historical stocks. \citet{brouard1989mouvements}, and later
 \citet{vaupel2009life}, showed that in stationary populations the chronological
-and thanatological age structures are identical.
-It bears repeating that lifetable-derived thanatological age structure is
-probabilistic until after death, since it refers to the future according to particular assumptions about mortality. As such, Figure~\ref{fig:USrecomp} is projective in nature, a forward-looking glance at a population attrition given the age-structure and
-lifetable of a particular moment, whereas Figure~\ref{fig:USdecomp} is
-reflective in nature, since a population's chronological age-structure is mostly the fruit of past fertility, but also
-migration and to a lesser degree attrition. I explore population structure by remaining years of life
-for its own sake in a different paper.\footnote{Poster Session 6 (Friday
-mid-day))} Note that any count classified by chronological age can be
+and thanatological age structures are identical, and this provides a
+limited basis for comparison between the two perspectives. \citet{wachter2014essential} hints at, and
+\citet{vaupel2014stable} expands on how to make chronological and
+thanatological age structure commensurate under a constant growth rate, $r$.
+
+This result provides a standard on which to compare chronological and thanatological age structure. It bears repeating that lifetable-derived thanatological age structure is probabilistic until after death, since it refers to the future according to an assumed mortality pattern.
+As such, Figure~\ref{fig:USrecomp} is projective in nature, a forward-looking
+glance at population attrition given the population stock and lifetable of a
+particular moment, whereas Figure~\ref{fig:USdecomp} is reflective in nature, since a population's chronological age-structure is mostly the fruit of past fertility, but also migration and to a lesser degree attrition. Note that any count classified by chronological age can be
 reclassified in this way, as long as you have a lifetable that plausibly represents the population whose data you wish to reclassify. This means we can derive thanatological fertility rates, $F_y$, by applying \eqref{eq:transform}
 to age-classified birth counts, $B_a$, to get $B_y$ and again to
 exposure-to-risk, $E_a$ (here we take exposures from all ages), to get $E_y$ and then dividing:
