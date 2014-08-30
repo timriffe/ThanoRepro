@@ -113,7 +113,7 @@ rThanoCoale(.fy,da,.a=a) # 4th decimal place... is it a rounding error or not?
 # further make age strictly integer...
 la2 <- with(Data, lx[Year == 2000 & Code == "SWE"])
 # 2) force d(a) to entail l(a) and vice versa.
-da2 <- -diff(c(la,0)) # extra step to force perfect consistency
+da2 <- -diff(c(la2,0)) # extra step to force perfect consistency
                       # between d(a) and l(a)
 
 # 3) do away with mid-interval age. Use integer.
@@ -140,3 +140,84 @@ rThanoCoale(.fy2,da2,.a=a2)
 # was due to rounding, in order to get a better approximation.
 
 # easier to prove on paper if we know this is true...
+
+# one thing to verify:
+#f^\star(y) is the c(a)d(y|a)-weighted average of f(a)...
+
+sum(.fy2)
+sum(fa)
+
+dya <- da2fya(da2,FALSE)
+dxM  <- matrix(0, ncol = 111, nrow = 111)
+dxi  <- da2
+for (i in 1:111){
+    dxM[i, 1:length(dxi)  ] <- dxi 
+    dxi <- dxi[2:length(dxi) ]
+} 
+# these are identical, save for some machine error:
+any(abs(dya * la2 - dxM) < 1e-12)
+# demonstration:
+all(colSums(fa * ca2 * dya) / colSums(ca2 * dya) == .fy2)
+
+# plug into thano renewal eqn:
+sum(
+t(exp(-a2*rL2) * t(dya * la2)) * 
+        colSums(fa * ca2 * dya) / colSums(ca2 * dya)
+)
+wya <- ca2 * dya
+# or define it as weights:
+sum(
+        t(exp(-a2*rL2) * t(dya * la2)) * 
+                colSums(fa * wya) / colSums(wya)
+)
+
+# compare again w Lotka:
+sum(exp(-a2*rL2)*la2*fa)
+
+# note:
+all(la2 == colSums(dya * la2))    # 1) d(y|a) * l(a) is just d(a) ...
+all(la2 == rev(cumsum(rev(da2)))) # 2) d(a) and l(a) are commensurable here
+
+# this is because d(y|a) is rescaled by dividing out l(a), 
+# so we can just multiply it right back in
+
+
+# this gives c(a):
+all(la2 * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2)) == ca2)
+
+# plug it in:
+sum(
+        t(exp(-a2*rL2) * t(dya * la2)) * 
+                colSums(fa * dya * la2 * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2))) / 
+                colSums(dya * la2 * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2)))
+)
+
+# back to dxM, which is straight dx, unscaled:
+sum(
+        t(exp(-a2*rL2) * t(dxM)) * 
+                colSums(fa * dxM * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2))) / 
+                colSums(dxM * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2)))
+)
+# let's define the exp() bit as growth:
+growth <- exp(-a2*rL2) 
+# this is still a thanatological setup:
+sum(
+        t(growth * t(dxM)) * 
+                colSums(fa * dxM * growth / sum(la2 * growth)) / 
+                colSums(dxM * growth / sum(la2 * growth))
+)
+
+sum(
+        t(growth * t(dxM)) * 
+                colSums(fa * dxM * growth / sum(la2 * growth)) / 
+                colSums(dxM * growth / sum(la2 * growth))
+)
+# this change entails machine error:
+hist(rowSums(t(fa * dxM * growth / sum(la2 * growth)) / 
+        colSums(dxM * growth / sum(la2 * growth))) - .fy2)
+sum(
+        t(growth * t(dxM)) * 
+                rowSums(t(fa * dxM * growth / sum(dxM * growth)) / 
+                colSums(dxM * growth / sum(dxM * growth)))
+)
+

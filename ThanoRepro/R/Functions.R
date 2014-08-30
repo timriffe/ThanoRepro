@@ -156,3 +156,22 @@ mx2dxHMD <- compiler::cmpfun(function(mx){
             dx                  <- lx * qx                                                                                # Eq 66 MPv5
             Mna0(dx)
         })
+da2fya <- function(da, stagger = FALSE){
+    N       <- length(da)
+    ay      <- 1:N - 1
+    
+    da      <- Mna0(da)   # remove NAs if any       
+    da      <- c(da, da * 0) / sum(da) # pad out with 0s
+    fya     <- matrix(da[col(matrix(nrow = N, 
+                                    ncol = N)) + ay], 
+            nrow = N, 
+            ncol = N, 
+            dimnames = list(Ex = ay, 
+                    Age = ay)
+    )
+    if (stagger){
+        fya <- (fya + cbind(fya[, 2:ncol(fya)], 0)) / 2
+    }
+    fya <- Minf0(Mna0(fya / rowSums(fya)))
+    fya
+}
