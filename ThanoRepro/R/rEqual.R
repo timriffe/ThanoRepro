@@ -155,7 +155,7 @@ for (i in 1:111){
     dxi <- dxi[2:length(dxi) ]
 } 
 # these are identical, save for some machine error:
-any(abs(dya * la2 - dxM) < 1e-12)
+all(abs(dya * la2 - dxM) < 1e-12)
 # demonstration:
 all(colSums(fa * ca2 * dya) / colSums(ca2 * dya) == .fy2)
 
@@ -164,12 +164,12 @@ sum(
 t(exp(-a2*rL2) * t(dya * la2)) * 
         colSums(fa * ca2 * dya) / colSums(ca2 * dya)
 )
-wya <- ca2 * dya
-# or define it as weights:
-sum(
-        t(exp(-a2*rL2) * t(dya * la2)) * 
-                colSums(fa * wya) / colSums(wya)
-)
+#wya <- ca2 * dya
+## or define it as weights:
+#sum(
+#        t(exp(-a2*rL2) * t(dya * la2)) * 
+#                colSums(fa * wya) / colSums(wya)
+#)
 
 # compare again w Lotka:
 sum(exp(-a2*rL2)*la2*fa)
@@ -187,14 +187,14 @@ all(la2 * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2)) == ca2)
 
 # plug it in:
 sum(
-        t(exp(-a2*rL2) * t(dya * la2)) * 
+        colSums(exp(-a2*rL2) * t(dya * la2)) * 
                 colSums(fa * dya * la2 * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2))) / 
                 colSums(dya * la2 * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2)))
 )
 
 # back to dxM, which is straight dx, unscaled:
 sum(
-        t(exp(-a2*rL2) * t(dxM)) * 
+        colSums(exp(-a2*rL2) * dxM) * 
                 colSums(fa * dxM * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2))) / 
                 colSums(dxM * exp(-a2 * rL2) / sum(la2 * exp(-a2 * rL2)))
 )
@@ -202,22 +202,53 @@ sum(
 growth <- exp(-a2*rL2) 
 # this is still a thanatological setup:
 sum(
-        t(growth * t(dxM)) * 
+        t(growth * dxM) * 
                 colSums(fa * dxM * growth / sum(la2 * growth)) / 
                 colSums(dxM * growth / sum(la2 * growth))
 )
 
+# back to Lotka, but increasing dimensions of l(a) to d(a) perspective
+sum(growth * dxM * fa)
+
+all(dxM == t(dxM))
+
+# see about making comparable:
 sum(
-        t(growth * t(dxM)) * 
-                colSums(fa * dxM * growth / sum(la2 * growth)) / 
-                colSums(dxM * growth / sum(la2 * growth))
-)
-# this change entails machine error:
-hist(rowSums(t(fa * dxM * growth / sum(la2 * growth)) / 
-        colSums(dxM * growth / sum(la2 * growth))) - .fy2)
-sum(
-        t(growth * t(dxM)) * 
-                rowSums(t(fa * dxM * growth / sum(dxM * growth)) / 
-                colSums(dxM * growth / sum(dxM * growth)))
+        t(growth * dxM) * 
+                colSums(fa * dxM * growth / sum(dxM * growth)) / 
+                colSums(dxM * growth / sum(dxM * growth))
 )
 
+# f^\star(y)
+colSums(fa * dxM * growth / sum(dxM * growth)) / 
+        colSums(dxM * growth / sum(dxM * growth))
+
+sum(growth * dxM * fa)
+sum(t(growth * dxM) * .fy2)
+
+# and again:
+sum(colSums(growth * dxM) * .fy2) # Thano
+sum(rowSums(growth * dxM) * fa)   # Lotka
+
+# and again:
+sum(rowSums(growth * dxM) * fa)   # Lotka
+                                  # Thano
+
+sum(
+        colSums(growth * dxM) * 
+                colSums(fa * dxM * growth / sum(dxM * growth)) / 
+                colSums(dxM * growth / sum(dxM * growth))
+)
+# cancel out divisors
+sum(
+        colSums(growth * dxM) * 
+                colSums(fa * dxM * growth) / 
+                colSums(dxM * growth)
+)
+# cancel out (multiply and divide
+sum(colSums(fa * dxM * growth))
+# bam!
+sum(fa * dxM * growth)
+# bam!
+sum(fa * la2 * growth)
+# this should serve to figure it out on paper
