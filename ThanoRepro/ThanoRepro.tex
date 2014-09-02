@@ -1,5 +1,6 @@
 
 \documentclass{article}
+\usepackage{appendix}
 \usepackage{amsmath}
 \usepackage{caption}
 \usepackage{placeins}
@@ -649,22 +650,17 @@ the chronological smoothing process because each thanatological age class
 thanatological age class in both directions. Again, I think contrived examples
 will be necessary to shed more light on this finding.
 
-* this is a work in progress, and by the time the EPC comes around I'll
-have shifted the focus away on comparing stable results estimated from data
-(the last couple figures), and more toward the reversibility of chronological
-and thanatological stable age structures, as well as a comparative
-eigen-analysis of the Leslie and thanatological projection matrices.
 
 \vspace{2em}
 
-\appendix
+\begin{appendices}
 \section{Unique solution for thanatological $r$}
 \label{app:A}
 The solution for the intrinsic growth rate, $r$, is unique for the case of the
 thanatological renewal model, \eqref{eq:thanoren}, and can be proven so in
 essentially the same fashion as those in existence for the Lotka-Euler model,
 \eqref{eq:lotka}. This little proof follows that given in
-\textit{pressat1972demographic}. Define a convenience function, $I(r)$, for the
+\citet{pressat1973analyse}. Define a convenience function, $I(r)$, for the
 integrand of \eqref{eq:thanoren} for a given $r$ and fixed $f^\star(y)$ and $d(a)$:
 
 \begin{equation}
@@ -677,10 +673,57 @@ I(r_2)$. $I()$ is therefore a continuous and monotonically decreasing function
 of $r$ with boundaries that include the value 1 of \eqref{eq:thanoren}, and
  necessarily only obtain this value once.
 
-\appendix
-\section{Equivalence in stability}
-In this appendix show 
 
+\section{Equivalence in stability}
+\label{app:B}
+This appendix contains a proof that the thanatological renewal equation implies
+the same intrinsic growth rate, $r$, as Lotka's chronological renewal model if
+the starting population is stable. This is identical to claiming that the right
+side of the rewal equation is equal given the same $r$. Since there is a unique
+real solution, demonstrated in the previous appendix, then it is sufficient to
+show that the two integral equations are equal under these conditions. The basic
+relationship is:
+\begin{align}
+\int _{a=0}^\infty l(a)e^{-ra}f(a) \dd a &= \int _{y=0}^\infty \int
+_{a=0}^\infty d(a+y)e^{-ra}f^\star (y) \dd a \dd y
+\intertext{when}
+f^\star(y) &= \frac{b^\star(y)}{c^\star(y)} \\
+b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y))\frac{l(a+y)}{l(a)} \dd a \\
+c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y))\frac{l(a+y)}{l(a)} \dd a
+\intertext{Note that:}
+c(a) &= \frac{l(a)r^{-ra}}{\int l(a) e^{-ra} \dd a} \\
+b(a) &= f(a)c(a)
+\end{align}
+Replacing $f^\star (y)$ with the full expanded expression and
+plugging into the thanatological renewal equation gives:
+\begin{align}
+=& \int _{y=0}^\infty \int
+_{a=0}^\infty d(a+y)e^{-ra} \frac{\frac{\int_{a=0}^\infty
+f(a)l(a)e^{-ra}\mu(a+y)\frac{l(a+y)}{l(a)} \dd a}{\int l(a) e^{-ra} \dd
+a}}{\frac{\int_{a=0}^\infty l(a)e^{-ra} \mu(a+y)\frac{l(a+y)}{l(a)} \dd a}{\int l(a) e^{-ra} \dd a}} \dd a \dd y
+\intertext{The denominator of $c(a)$ cancels out:}
+=& \int _{y=0}^\infty \int
+_{a=0}^\infty d(a+y)e^{-ra} \frac{
+\int_{a=0}^\infty
+f(a)l(a)e^{-ra}\mu(a+y)\frac{l(a+y)}{l(a)} \dd a}{
+\int_{a=0}^\infty l(a)e^{-ra} \mu(a+y)\frac{l(a+y)}{l(a)} \dd a} \dd a \dd y
+\intertext{Some $l(a)$'s also cancel out:}
+=& \int _{y=0}^\infty \int
+_{a=0}^\infty d(a+y)e^{-ra} \frac{
+\int_{a=0}^\infty
+f(a)e^{-ra}\mu(a+y)l(a+y) \dd a}{
+\int_{a=0}^\infty e^{-ra} \mu(a+y)l(a+y) \dd a} \dd a \dd y
+\intertext{Now $d(a+y) = \mu (a+y)l(a+y)$, so we can cancel the inner integral
+with the denominator:}
+=& \int _{y=0}^\infty 
+\int_{a=0}^\infty
+f(a)e^{-ra}\mu(a+y)l(a+y) \dd a \dd y
+\intertext{Note also that $l(a) = \int _{x=a}^\infty d(x) \dd x$ (present
+livings are future deaths), which brings us back to the chronological
+formulation:} =& \int_{a=0}^\infty e^{-ra}l(a)f(a)
+\dd a
+\end{align}
+\end{appendices}
 \nocite{HMD,HFD}
 % --------------------------------------------------
 % bibliography
