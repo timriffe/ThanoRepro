@@ -694,25 +694,26 @@ c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y))\frac{l(a+y)}{l(a)} \dd a
 c(a) &= \frac{l(a)r^{-ra}}{\int l(a) e^{-ra} \dd a} \\
 b(a) &= f(a)c(a)
 \end{align}
-Replacing $f^\star (y)$ with the full expanded expression and
-plugging into the thanatological renewal equation gives:
+Replacing
+$f^\star (y)$ with the full expanded expression and plugging into the thanatological renewal equation gives:
 \begin{align}
 =& \int _{y=0}^\infty \int
-_{a=0}^\infty d(a+y)e^{-ra} \frac{\frac{\int_{a=0}^\infty
-f(a)l(a)e^{-ra}\mu(a+y)\frac{l(a+y)}{l(a)} \dd a}{\int l(a) e^{-ra} \dd
-a}}{\frac{\int_{a=0}^\infty l(a)e^{-ra} \mu(a+y)\frac{l(a+y)}{l(a)} \dd a}{\int l(a) e^{-ra} \dd a}} \dd a \dd y
+_{a=0}^\infty d(a+y)e^{-ra} \frac{\frac{\int_{t=0}^\infty
+f(t)l(t)e^{-rt}\mu(a+y)\frac{l(t+y)}{l(t)} \dd t}{\int l(t) e^{-rt} \dd
+t}}{\frac{\int_{t=0}^\infty l(t)e^{-rt} \mu(t+y)\frac{l(t+y)}{l(t)} \dd t}{\int
+l(t) e^{-rt} \dd t}} \dd a \dd y
 \intertext{The denominator of $c(a)$ cancels out:}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{
-\int_{a=0}^\infty
-f(a)l(a)e^{-ra}\mu(a+y)\frac{l(a+y)}{l(a)} \dd a}{
-\int_{a=0}^\infty l(a)e^{-ra} \mu(a+y)\frac{l(a+y)}{l(a)} \dd a} \dd a \dd y
+\int_{t=0}^\infty
+f(t)l(t)e^{-rt}\mu(t+y)\frac{l(t+y)}{l(t)} \dd t}{
+\int_{t=0}^\infty l(t)e^{-rt} \mu(t+y)\frac{l(t+y)}{l(t)} \dd t} \dd a \dd y
 \intertext{Some $l(a)$'s also cancel out:}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{
-\int_{a=0}^\infty
-f(a)e^{-ra}\mu(a+y)l(a+y) \dd a}{
-\int_{a=0}^\infty e^{-ra} \mu(a+y)l(a+y) \dd a} \dd a \dd y
+\int_{t=0}^\infty
+f(t)e^{-rt}\mu(t+y)l(t+y) \dd t}{
+\int_{t=0}^\infty e^{-rt} \mu(t+y)l(t+y) \dd t} \dd a \dd y
 \intertext{Now $d(a+y) = \mu (a+y)l(a+y)$, so we can cancel the inner integral
 with the denominator:}
 =& \int _{y=0}^\infty 
