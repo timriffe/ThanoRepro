@@ -292,22 +292,25 @@ intrinsic rate of growth:}
 \quad\text{.}
 \end{align}
 Now compare this to Lotka's chronological formulation
-\begin{equation}
+\begin{align}
 \label{eq:lotka}
-1 = \int_{a=0}^\infty f(a)l(a)e^{-ra}\dd a \quad\text{,}
-\end{equation}
+1 =& \int_{a=0}^\infty f(a)l(a)e^{-ra}\dd a \quad\text{,}
+\intertext{which can be expressed as well as:}
+  =& \int_{a=0}^\infty \int_{y=0}^\infty f(a)d(a+y)e^{-ra}\dd y \dd a
+\end{align}
 and note that these are really quite similar, since $\int _{y=0}^\infty
 d(a+y)\dd a = l(a)$. For intuition, notice that $l(a)$ is here split
 up into pieces of $d(a)$, and imagine a 2D surface of these, where one axis is chronological age and the
 other axis is thanatological age. For the chronological case \eqref{eq:lotka},
-we multiply chronological age-specific fertility rates over one margin, and for
-the thanatological case over the other margin. There is a strong parallel here
-with the case of two-sex age-specific fertility rates. As in the case of
+we multiply chronological age-specific fertility rates, $f(a)$ over one margin,
+and for the thanatological case we multiply $f^\star(y)$ over the other margin.
+There is a strong parallel here with the case of two-sex age-specific fertility rates. As in the case of
 divergence between male and female single-sex models, there will always be divergence between
 single-sex models under chronological versus thanatological age, unless the
-starting population is stable. Even though the modeled population stocks are in
-a way commensurable, the rates used here, $f(a)$ versus $f^\star(y)$ are
-calculated on the basis of differently distributed denominators $E(a)$ versus $E(y)$.
+starting population is stable. A proof of equivalence in the case of
+$f^\star(y)$ being calculated from a stable starting population is provided
+in Appendix~\ref{app:B}. Even though the modeled population stocks are in a way
+commensurable, the rates used here, $f(a)$ versus $f^\star(y)$ are calculated on the basis of differently distributed denominators $E(a)$ versus $E(y)$.
 
 There are gaps in the above line of development, since the jump from
 \eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is unproven,
@@ -327,44 +330,59 @@ cases. A further conjecture is that the jump will also hold for the case of weak
 
 Once one finds $r$ from \eqref{eq:thanoren}, other familiar stable population
 parameters can be calculated. For instance, we may calculate the mean
-thanatological generation time, $T^y$:
+thanatological generation time, $T^\star$:
 \begin{equation}
 \label{eq:Ty}
- T^y =  \frac{\int _{y=0}^\infty \int _{a=y}^\infty y e^{-ra} d(a) f^\star(y) \dd a
-\dd y}{\int _{y=0}^\infty \int _{a=y}^\infty e^{-ra} d(a) f^\star(y) \dd a \dd
-y} \quad \text{.}
+ T^\star =  \frac{\int _{y=0}^\infty \int _{a=0}^\infty y e^{-ra} d(a+y)
+ f^\star(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y)
+ f^\star(y) \dd a \dd y} \quad \text{.}
 \end{equation}
 Literally, this is the mean of the remaining lifespans of new mothers in the
 stable population. The net reproduction rate, $R_0$ is related by, e.g.,
 \begin{equation}
 \label{eq:R0fromTy}
-R_0 = e^{r T^y}
+R_0 = e^{r T^\star}
 \end{equation}
 The birth rate, $b$, is given by
-\begin{equation}
+\begin{align}
 \label{eq:eybrate}
-b = \frac{1}{\int _{y=0}^\infty \int _{a=y}^\infty e^{-ra} d(a) \dd a
-\quad\text{.} \dd y}
-\end{equation}
-The stable thanatological age structure, $c_y$, is the
-proportion of the stable population with remaining years to live $y$:
-\begin{equation}
+b =& \frac{1}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y) \dd a \dd
+y}\quad\text{,}
+\intertext{the denominator of which is the inside of
+equation~\eqref{eq:thanoren} less $f^\star(y)$. This simplifies to} =&
+\frac{1}{ \int _{a=0}^\infty e^{-ra} l(a) \dd a } \quad \text{,}
+\intertext{which is exactly the same as that valid for
+chronological age in the Lotka-Euler setup, except that $r$ here comes from the
+thanatological renewal model. If the stable age structure, $c^\star(y)$, is
+known, then we may take the sum of hypothetical births over thanatological age:}
+=& \int _{y=0}^\infty f^\star(y) c^\star(y) \dd y \quad{.}
+\end{align}
+
+The stable thanatological age structure, $c^\star(y)$, is the proportion of the stable population with remaining years to live $y$:
+\begin{align}
 \label{eq:cy}
-c(y) = b \int _{a=y}^\infty e^{-ra} d(a) \dd a \quad\text{.}
-\end{equation}
-We already knew that when $r = 0$ and $y = a$, that $c(a)=c(y)$
-\citep{vaupel2009life}, and now we can arrive at the same conclusion directly
-by equating the chronological and thanatological renewal equations. For
+c^\star(y) =& b \int _{a=0}^\infty e^{-ra} d(a+y) \dd a 
+\intertext{or, given the stable chronological age structure and a lifetable:}
+           =& \int _{a=0}^\infty c(a)d(y|a) \dd a\\ \notag \\
+           =& \frac{\int _{a=0}^\infty d(a+y)e^{-ra}\dd a}{\int
+           _{a=0}^\infty l(a)e^{-ra}\dd a}  \quad\text{.}
+\end{align}
+
+
+
+It has previously been shown that when $r = 0$ and $y = a$, that
+$c(a)=c^\star(y)$ \citep{brouard1989mouvements, vaupel2009life}, and now we can arrive at the same
+conclusion directly by equating the chronological and thanatological renewal equations. For
 small non-zero magnitude values of $r$ and survival patterns typical of humans, it is also the
-case that $c(y|r)\approx c(a|-r)$. The relationship is asymptotically exact as
-$r$ approaches zero. Other findings regarding stable age structure will be
-presented in a future version of this paper. Further stable population
-quantities may be estimated by similarly translating the various common definitions (e.g.,
+case that $c^\star(y|r)\approx c(a|-r)$. This could make a useful heuristic,
+and the relationship is asymptotically exact as $r$ approaches zero, but the
+exact relationship is to be found in equation~\eqref{} Further
+stable population quantities may be estimated by similarly translating the various common definitions (e.g.,
 in the glossary of \citet{coale1972growth}) to the present perspective. We will
 focus on the main model rather than on these.
 
-The thanatological renewal model is coherent, but these ideas may take some time
-to gestate before accepting that it is also a valid description of how
+The thanatological renewal model is valid, but this perspective may take some
+time to gestate before accepting that it is also a sound description of how
 populations renew. What should one imagine under the model of thanatological
 population renewal? A useful mnemonic bases itself on Figures~\ref{fig:USdecomp}
 and \ref{fig:USrecomp}. In the chronological age-structured model, new
@@ -375,9 +393,9 @@ according to $d(a)$, as seen in \eqref{eq:thanoren}, becoming the
 shaded layers seen in Figure~\ref{fig:USrecomp}. Each horizontal step is a death
 cohort, and these move one step down the pyramid each year without any decrement
 (indeed incrementing due to births) until reaching the very bottom. In short,
-the locations of increment and decrement, and the direction of movement are all
-switched. The chronological and thanatological renewal models are almost
-perfectly opposite descriptions of the same two processes.
+the locations of increment and decrement, and the direction of movement (when
+so visualized) are all switched. The chronological and thanatological renewal
+models are almost perfectly opposite descriptions of the same process. 
 
 \section*{The thanatological projection matrix}
 These descriptions can be made more explicit, and in some ways more tractable,
@@ -656,10 +674,10 @@ will be necessary to shed more light on this finding.
 \begin{appendices}
 \section{Unique solution for thanatological $r$}
 \label{app:A}
-The solution for the intrinsic growth rate, $r$, is unique for the case of the
-thanatological renewal model, \eqref{eq:thanoren}, and can be proven so in
+This appendix contains a brief proof that the real solution for the
+intrinsic growth rate, $r$, is unique for the case of the thanatological renewal model, \eqref{eq:thanoren}, and can be proven so in
 essentially the same fashion as those in existence for the Lotka-Euler model,
-\eqref{eq:lotka}. This little proof follows that given in
+\eqref{eq:lotka}. This proof follows that given in
 \citet{pressat1973analyse}. Define a convenience function, $I(r)$, for the
 integrand of \eqref{eq:thanoren} for a given $r$ and fixed $f^\star(y)$ and $d(a)$:
 
@@ -671,13 +689,15 @@ function, $f^\star(y)$, are continuous and non-negative, $\lim_{r \to +\infty} I
 = 0$ and $\lim_{r \to -\infty} I(r)= \infty$. If $r_2 > r_1$, then $I(r_1) >
 I(r_2)$. $I()$ is therefore a continuous and monotonically decreasing function
 of $r$ with boundaries that include the value 1 of \eqref{eq:thanoren}, and
- necessarily only obtain this value once.
+ necessarily only obtain this value once. As with the Lotka-Euler equation, there will be more complex
+ conjugate solutions for $r$ in the thanatological model,
+ and these are not explored in this paper.
 
 
 \section{Equivalence in stability}
 \label{app:B}
 This appendix contains a proof that the thanatological renewal equation implies
-the same intrinsic growth rate, $r$, as Lotka's chronological renewal model if
+the same intrinsic growth rate, $r$, as the Lotka-Euler model if
 the starting population is stable. This is identical to claiming that the right
 side of the rewal equation is equal given the same $r$. Since there is a unique
 real solution, demonstrated in the previous appendix, then it is sufficient to
@@ -693,9 +713,8 @@ c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y))\frac{l(a+y)}{l(a)} \dd a
 \intertext{Note that:}
 c(a) &= \frac{l(a)r^{-ra}}{\int l(a) e^{-ra} \dd a} \\
 b(a) &= f(a)c(a)
-\end{align}
-Replacing
-$f^\star (y)$ with the full expanded expression and plugging into the thanatological renewal equation gives:
+\end{align}Replacing $f^\star (y)$ with the full expanded
+expression and plugging into the thanatological renewal equation gives:
 \begin{align}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{\frac{\int_{t=0}^\infty
@@ -719,14 +738,59 @@ with the denominator:}
 =& \int _{y=0}^\infty 
 \int_{a=0}^\infty
 f(a)e^{-ra}\mu(a+y)l(a+y) \dd a \dd y
-\intertext{Note also that $l(a) = \int _{x=a}^\infty d(x) \dd x$ (present
+\intertext{Note also that $l(a) = \int _{=a}^\infty d(x) \dd x$ (present
 livings are future deaths), which brings us back to the chronological
 formulation:} =& \int_{a=0}^\infty e^{-ra}l(a)f(a)
 \dd a
 \end{align}
+
+\section{An iterative method to find the thanatological $r$}
+\citet{coale1957new} proposed a fast-converging iterative approach to estimate
+the intrinsic growth rate for the Lotka-Euler equation. For the thanatological
+renewal model, a similar approach may be taken, with some slight
+modifications to Coale's original.
+The following steps can be followed to estimate $r$ from
+Equation~\eqref{eq:thanoren}:
+
+\begin{enumerate}
+  \item Derive a first rough estimate of the mean remaining years of life at
+  reproduction, $\widehat{T^\star}$, akin to Lotka's mean generation time, $T$.
+  To start, a good-enough guess is to just assume $r=0$:
+\begin{equation}
+\widehat{T^\star} = \frac{\int _{y=0}^\infty \int _{a=0}^\infty y d (a+y)
+f^\star(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty d(a+y) f^\star(y)
+\dd a \dd y}
+\end{equation}
+  \item A first rough guess at the net reproduction rate, $R_0$ is given by
+ \begin{equation}
+  R_0 = \int _{y=0}^\infty \int _{a=0}^\infty d(a+y) f^\star(y) \dd a
+\dd y
+\end{equation}
+  \item A first rough estimate of $r$, $r^0$, is given by
+   \begin{equation}
+   r^0 = \frac{ln(R_0)}{\widehat{T^\star}}
+   \end{equation}
+  \item Plug $r^0$ into Equation~\eqref{eq:thanoren} to calculate a
+  residual, $\delta^0$.
+  \item Use $\delta^0$ and $\widehat{T^\star}$ to calibrate the estimate of $r$
+  using
+  \begin{equation}
+  r^{1} = r^0 + \frac{\delta^0}{\widehat{T^\star} - \frac{\delta^0}{r^0}}
+  \end{equation}
+  \item Repeat step (4) to to derive a new $\delta^i$, then step (5) to refine
+  $r^i$, until converging on a stable $r$ after some 20 or so iterations,
+  depending on the degree of precision desired ($\widehat{T^\star}$ is not updated
+  in this process).
+\end{enumerate}
+
+The above procedure is more computationally efficient than minimizing the
+absolute residual of Equation~\eqref{eq:thanoren} using a generic
+optimizer. Alternatively, one could use the method of cumulants to estimate $r$,
+bbut this would entail less precision than the above (unless one goes beyond,
+say, five cumulants), and this has not yet been worked out at this 
 \end{appendices}
 \nocite{HMD,HFD}
-% --------------------------------------------------
+-------------------------
 % bibliography
 \bibliographystyle{plainnat}
   \bibliography{References}  

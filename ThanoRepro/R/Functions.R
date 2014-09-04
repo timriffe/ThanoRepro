@@ -175,3 +175,55 @@ da2fya <- function(da, stagger = FALSE){
     fya <- Minf0(Mna0(fya / rowSums(fya)))
     fya
 }
+
+getca <- function(La,r,a=.5:110.5){
+    La * exp(a * -r) / sum(La * exp(a * -r))
+}
+rThanoCoale <- compiler::cmpfun(function(Fy, da, .a = .5:110.5, maxit = 1e2, tol = 1e-15){  
+            
+            # Based on Coale (1957), modified.
+            N    <- length(Fy)
+            dxM  <- matrix(0, ncol = N, nrow = N)
+            dxi  <- da
+            for (i in 1:N){
+                dxM[i, 1:length(dxi)  ] <- dxi 
+                dxi <- dxi[2:length(dxi) ]
+            }     
+            R0      <- sum(dxM * Fy)
+            T.guess <- sum(.a * dxM * Fy) / R0 # assuming r = 0
+            r.i     <- log(R0) / T.guess
+            # be careful to discount Fy by SRB appropriately for males / females
+            # prior to specification
+            for (i in 1:maxit){ # 15 is more than enough!
+                #cat(r2,i,"\n")
+                deltai <- 1 - sum(sum(colSums(dxM * exp(-r.i * .a)) * Fy) * Fy)
+                # the mean generation time self-corrects 
+                # according to the error produced by the Lotka equation
+                r.i <- r.i - (deltai / (T.guess - (deltai / r.i))) 
+                if (abs(deltai) <= tol){
+                    break
+                }
+            }
+            return(r.i)  
+        })
+# chronological age
+Rmomentn <- compiler::cmpfun(function(fx,Lx,x,n=0){
+            sum((x^n)*fx*Lx)
+        })
+rLotkaCoale <- compiler::cmpfun(function(fx,Lx,x=.5:110.5, maxit = 1e2, tol = 1e-15){
+            # from Coale, Ansley J. (1957) A New Method for Calculating Lotka's r- the Intrinsic Rate of Growth in a Stable Population.
+            # Population Studies, Vol. 11 no. 1, pp 92-94
+            R0 <- Rmomentn(fx,Lx,x,0)
+            # first assuming a mean generation time of 29
+            ri <- log(R0)/29
+            for (i in 1:maxit){ # 10 is more than enough!
+                deltai <- sum(exp(-ri*x)*fx*Lx)-1
+                # the mean generation time self-corrects 
+                # according to the error produced by the Lotka equation
+                ri <- ri+(deltai/(29-(deltai/ri)))
+                if (abs(deltai) <= tol){
+                    break
+                }
+            }
+            return(ri)  
+        })
