@@ -405,15 +405,15 @@ matrix, $\textbf{Y}$, is square and of dimension $y \times y$, where $y$ is the 
 of remaining-years classifications on which the population is structured. 
 The matrix contains elements for survival and elements for fertility. Unlike
 Leslie matrices, $\textbf{Y}$ is not sparse, but is instead populated primarily
-with non-zero entries. This is an odd notion, to be explained in following.
+with positive entries greater than zero. 
 
 Of interest is that mortality occurs in only the population class with zero
 remaining years of life. Thanatological age 1 in year $t$ moves to 0 in year
-$t + 1$. Thus, instead of in the subdiagonal, we place survival in the
-superdiagonal. All survival values are 1, since there is no decrement until
+$t + 1$ and dies in the course of that year. Thus, rather than in the
+subdiagonal, we place survival in the superdiagonal. All survival values are 1, since there is no decrement until
 after living through age 0, and the upper-left corner of this superdiagonal
-contains a 0, for full decrement. In the following, I illustrate using a
-6$\times$6 matrix. The survival component of $\textbf{Y}$ is organized as in
+contains a 0, for full decrement. In the following, I illustrate
+using a 6$\times$6 matrix. The survival component of $\textbf{Y}$ is organized as in
 Matrix~\ref{matrix:Ysurv}. To imagine a lifecycle graph, each age decrements by
 one through each lower age in successive order until being absorbed by death
 after completing thanatological age zero. This chain unfolds in the opposite
@@ -434,22 +434,24 @@ $\bordermatrix{{e_y } & 0_t & 1_t & 2_t & 3_t & 4_t & 5_t\cr
 \end{matrix}
 
  Fertility inputs to the matrix are derived from single-sex thanatological
- fertility and the lifetable $d_a$ distribution, where $a$ indexes age and is
- equated to $y$ remaining years of life for members just born. Fertility
- in a thanatologically structured population occurs in all but the highest
- remaining years classes, which can be thought of as structural zeros for
- simplicity, as they only contain pre-menarchical females. For our
- $6\times 6$ example, say that fertility is observed in classes 0-4, while the
- final class has no fertility, where $f^\star_y$ indicates the fertility
+ fertility and the lifetable $d(a)$ distribution, where $a$ indexes
+ chronological age and is equated to $y$ remaining years of life for members
+ just born. Fertility in a thanatologically structured human population occurs
+ in all but the very highest remaining years classes, which can be thought of as
+ structural zeros for simplicity, as they only contain pre-menarchical females
+ that will have very long lives.
+ For our $6\times 6$ example, say that fertility is observed in classes 0-4, while the
+ final class has no fertility, where $f^\star(y)$ indicates the fertility
  probability for class $y$ in the year $t$ entering population (in the matrix
- columns). Each $f^\star_y$ is then distributed out according to $d_a$ with no
- further translation, since the $d_a$ lifetable column already refers to age 0. Thus, the fertility entry in row $m$ and column $n$ of $\textbf{Y}$ will be $f^\star_n \cdot d_m$. We assume that those dying over the course of year
- $t$ (the first column) are exposed to fertility for half of the
- year,\footnote{One might be tempted to not allow for fertility at all for
- females dying in year $t$, but recall that fertility is measured in the moment of
- birth, and not conception.}
- and so discount the fertility entry accordingly. Further, infant mortality, 
- $f^\star_y \cdot d_0$, located in the first row, must also be discounted, since part
+ columns). Each $f^\star(y)$ is then distributed out according to $d(a)$ with no
+ further translation, since the $d(a)$ lifetable column already refers to
+ the lifespan distribution of newborns.
+ Thus, the fertility entry in row $m$ and column $n$ of $\textbf{Y}$ will be
+ $f^\star_n \cdot d_m$. One can assume that those dying over the course of year
+ $t$ (the first column) are exposed to fertility for half of the year,\footnote{One might be tempted to not allow for fertility at all for females dying in year $t$, but recall that fertility is measured in the moment of
+ birth, and not conception.} and so discount the fertility entry
+ accordingly.
+ Further, infant mortality, $f^\star_y \cdot d_0$, located in the first row, must also be discounted, since part
  of the mortality will occur in the same year $t$ and the rest in year $t + 1$. 
  The first row of fertility must be further discounted by a factor, $\lambda$,
  in order to account for the fact that infant mortality is higher in the lower Lexis 
@@ -590,7 +592,7 @@ toward stability.
 \end{figure}
 
 Thanatological age-classes will ideally terminate at the highest value permitted
-by data. For the data used here, there are 111 total age classes, which
+by data. For the data used in this paper, there are 111 total age classes, which
 translate to 111 total remaining-years classes (0-110+). In practice $\textbf{Y}$ becomes
 a 111$\times$111 matrix, with most entries non-zero (nearly complete
 connectivity, such as in Figure~\ref{fig:graph}). Construction may appear tedious for
@@ -708,10 +710,10 @@ relationship is:
 _{a=0}^\infty d(a+y)e^{-ra}f^\star (y) \dd a \dd y
 \intertext{when}
 f^\star(y) &= \frac{b^\star(y)}{c^\star(y)} \\
-b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y))\frac{l(a+y)}{l(a)} \dd a \\
-c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y))\frac{l(a+y)}{l(a)} \dd a
+b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y)\frac{l(a+y)}{l(a)} \dd a \\
+c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y)\frac{l(a+y)}{l(a)} \dd a
 \intertext{Note that:}
-c(a) &= \frac{l(a)r^{-ra}}{\int l(a) e^{-ra} \dd a} \\
+c(a) &= \frac{l(a)e^{-ra}}{\int l(a) e^{-ra} \dd a} \\
 b(a) &= f(a)c(a)
 \end{align}Replacing $f^\star (y)$ with the full expanded
 expression and plugging into the thanatological renewal equation gives:
@@ -787,7 +789,8 @@ The above procedure is more computationally efficient than minimizing the
 absolute residual of Equation~\eqref{eq:thanoren} using a generic
 optimizer. Alternatively, one could use the method of cumulants to estimate $r$,
 bbut this would entail less precision than the above (unless one goes beyond,
-say, five cumulants), and this has not yet been worked out at this 
+say, five cumulants), and this has not yet been worked out at this time.
+ 
 \end{appendices}
 \nocite{HMD,HFD}
 -------------------------
