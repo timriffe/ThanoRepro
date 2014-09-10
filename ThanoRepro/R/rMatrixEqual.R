@@ -43,12 +43,42 @@ Y       <- outer(da2, .fy2, "*") + rbind(cbind(0, diag(110)), 0)
 log(Re(eigen(L)$values[1]))
 log(Re(eigen(Y)$values[1]))
 
-## 5th decimal. Can it be the close-out?
+install.packages("matrixcalc")
+library(matrixcalc)
+is.singular.matrix(Y,tol=1e-8)
+is.singular.matrix(Y,tol=1e-9)
+
+is.singular.matrix(L,tol=1e-12)
+is.definite(L)
+
+
+install.packages("expm", repos="http://R-Forge.R-project.org")
+library(expm)
+all(Y%^%100 > 0) # yes, thano is regular
+all(L%^%100 > 0)
+sum(L)
+
+# mixing time
+
+# http://stanford.edu/class/ee363/lectures/pf.pdf
+1/log(1/rev(sort(abs(Re(eigen(Y)$values))))[2])
+1/log(1/rev(sort(abs(Re(eigen(L)$values))))[2])
+
+# decreasing magnitude (from JHJ 2006 standford workshop notes)
+Ldamping <- Mod(eigen(L)$values[2])/Mod(eigen(L)$values[1])  
+Ydamping <- Mod(eigen(Y)$values[2])/Mod(eigen(Y)$values[1])  
+Yperiod       <- 2*pi/ Arg(eigen(Y)$values[2])
+Lperiod       <- 2*pi/ Arg(eigen(L)$values[2])
+
+# approx: number of steps over which deviation from equilibrium
+#distribution decreases by factor e
+#
+# 5th decimal. Can it be the close-out?
 #
 ## same first eigenvalue(roughly), but different first eigenvectors...
 ## these are the stable age structures
-plot(Re(eigen(L)$vectors[, 1]),type='l')
-lines(abs(Re(eigen(Y)$vectors[, 1])),col="green")
+#plot(Re(eigen(L)$vectors[, 1]),type='l')
+#lines(abs(Re(eigen(Y)$vectors[, 1])),col="green")
 
 ca2L <- Re(eigen(L)$vectors[, 1])
 ca2L <- ca2/sum(ca2)
@@ -79,22 +109,71 @@ ca2L <- ca2/sum(ca2)
 #log(Re(eigen(L3)$values[1]))
 #log(Re(eigen(Y3)$values[1]))
 
-da2
-M <- diag(da2)
-col(M)
-M <- matrix(da2[col(M)],ncol=ncol(M))
-M[lower.tri(M)] <- 0
-
-
-M <- matrix(0,ncol=length(da2),nrow=length(da2))
-M[upper.tri(M,TRUE)] <- 1
-day <- diag(1/la2) %*% M %*% diag(da2)
-plot(rowSums(day*ca2)-ca2)
-
-matplot(day %*% diag(ca2),type='l')
+# tring to matricize redistribution. need to stagger differently...
+#da2
+#M <- diag(da2)
+#col(M)
+#M <- matrix(da2[col(M)],ncol=ncol(M))
+#M[lower.tri(M)] <- 0
+#
+#
+#M <- matrix(0,ncol=length(da2),nrow=length(da2))
+#M[upper.tri(M,TRUE)] <- 1
+#day <- diag(1/la2) %*% M %*% diag(da2)
+#plot(rowSums(day*ca2)-ca2)
+#
+#matplot(day %*% diag(ca2),type='l')
 
 # try igraph stuff
-install.packages("igraph")
+#install.packages("igraph")
+library(igraph)
+
+YG <- graph.adjacency(t(Y), mode="directed", weighted=TRUE)
+LG <- graph.adjacency(t(L), mode="directed", weighted=TRUE)
+
+is.dag(YG)
+is.dag(LG)
+
+is.connected(YG)
+is.connected(LG)
+
+# is.chordal(YG) # causes crash
+# is.chordal(LG)
+
+#largest.cliques(YG)
+# takes a long time...
+#plot(YG)
+plot(LG)
+average.path.length(YG, directed=TRUE, unconnected=FALSE)
+average.path.length(LG, directed=TRUE, unconnected=FALSE)
+
+betweenness(YG)
+betweenness(LG)
+
+closeness(YG)
+closeness(LG)
+
+#plot(YG)
+get.all.shortest.paths(LG)
+# vertex 
+graph.cohesion(YG)
+graph.cohesion(LG) # ?
+# edge connectivity
+graph.adhesion(YG)
+graph.adhesion(LG)
+
+girth(YG)
+girth(LG)
+
+diameter(YG,directed=TRUE)
+diameter(LG,directed=TRUE)
+
+barplot(eccentricity(YG))
+plot(log(evcent(YG,directed=TRUE)$vector))
 
 
+transitivity(YG)
+transitivity(LG)
 
+#install.packages("rgl")
+#rglplot(YG)

@@ -362,13 +362,12 @@ The stable thanatological age structure, $c^\star(y)$, is the proportion of the 
 \begin{align}
 \label{eq:cy}
 c^\star(y) =& b \int _{a=0}^\infty e^{-ra} d(a+y) \dd a 
-\intertext{or, given the stable chronological age structure and a lifetable:}
-           =& \int _{a=0}^\infty c(a)d(y|a) \dd a\\ \notag \\
+\intertext{or, given the stable chronological age structure, $c(a)$, and a
+lifetable,} =& \int _{a=0}^\infty c(a)d(y|a) \dd a \label{eq:cyfromca}\\ \notag
+\\
            =& \frac{\int _{a=0}^\infty d(a+y)e^{-ra}\dd a}{\int
            _{a=0}^\infty l(a)e^{-ra}\dd a}  \quad\text{.}
 \end{align}
-
-
 
 It has previously been shown that when $r = 0$ and $y = a$, that
 $c(a)=c^\star(y)$ \citep{brouard1989mouvements, vaupel2009life}, and now we can arrive at the same
@@ -376,48 +375,30 @@ conclusion directly by equating the chronological and thanatological renewal equ
 small non-zero magnitude values of $r$ and survival patterns typical of humans, it is also the
 case that $c^\star(y|r)\approx c(a|-r)$. This could make a useful heuristic,
 and the relationship is asymptotically exact as $r$ approaches zero, but the
-exact relationship is to be found in equation~\eqref{} Further
+exact relationship is to be found in equation~\eqref{eq:cyfromca}. Further
 stable population quantities may be estimated by similarly translating the various common definitions (e.g.,
 in the glossary of \citet{coale1972growth}) to the present perspective. We will
 focus on the main model rather than on these.
-
-The thanatological renewal model is valid, but this perspective may take some
-time to gestate before accepting that it is also a sound description of how
-populations renew. What should one imagine under the model of thanatological
-population renewal? A useful mnemonic bases itself on Figures~\ref{fig:USdecomp}
-and \ref{fig:USrecomp}. In the chronological age-structured model, new
-generations appear at the bottom of the pyramid, and move up one rung per year.
-All age-classes are subject to attrition, which is spread out over ages and not
-readily visible in the pyramid. In the thanatological \textit{leaf}, each birth cohort increments to the population over the whole range of thanatological age
-according to $d(a)$, as seen in \eqref{eq:thanoren}, becoming the
-shaded layers seen in Figure~\ref{fig:USrecomp}. Each horizontal step is a death
-cohort, and these move one step down the pyramid each year without any decrement
-(indeed incrementing due to births) until reaching the very bottom. In short,
-the locations of increment and decrement, and the direction of movement (when
-so visualized) are all switched. The chronological and thanatological renewal
-models are almost perfectly opposite descriptions of the same process. 
 
 \section*{The thanatological projection matrix}
 These descriptions can be made more explicit, and in some ways more tractable,
 by hashing out the projection matrix that corresponds to the thanatological renewal model. As with the
 chronological age-structured Leslie matrix, the thanatological projection
 matrix, $\textbf{Y}$, is square and of dimension $y \times y$, where $y$ is the number
-of remaining-years classifications on which the population is structured. 
+of thanatological age classifications on which the population is structured. 
 The matrix contains elements for survival and elements for fertility. Unlike
 Leslie matrices, $\textbf{Y}$ is not sparse, but is instead populated primarily
-with positive entries greater than zero. 
+with positive entries greater than zero. In the
+following, I illustrate using a 6$\times$6 matrix. 
 
-Of interest is that mortality occurs in only the population class with zero
-remaining years of life. Thanatological age 1 in year $t$ moves to 0 in year
-$t + 1$ and dies in the course of that year. Thus, rather than in the
-subdiagonal, we place survival in the superdiagonal. All survival values are 1, since there is no decrement until
-after living through age 0, and the upper-left corner of this superdiagonal
-contains a 0, for full decrement. In the following, I illustrate
-using a 6$\times$6 matrix. The survival component of $\textbf{Y}$ is organized as in
+Mortality occurs in only the population class with zero
+remaining years of life. The population of thanatological age 1 in year $t$
+moves to 0 in year $t + 1$ and dies in the course of that year. Thus, rather than in the
+subdiagonal, survival elements are located in the superdiagonal. All survival
+values are 1, since there is no decrement until after living through age 0. The survival component of $\textbf{Y}$ is organized as in
 Matrix~\ref{matrix:Ysurv}. To imagine a lifecycle graph, each age decrements by
 one through each lower age in successive order until being absorbed by death
-after completing thanatological age zero. This chain unfolds in the opposite
-index-direction of survival in the chronological age system.
+after completing thanatological age zero.
 
 \begin{matrix}[h!]
 \centering
@@ -434,19 +415,18 @@ $\bordermatrix{{e_y } & 0_t & 1_t & 2_t & 3_t & 4_t & 5_t\cr
 \end{matrix}
 
  Fertility inputs to the matrix are derived from single-sex thanatological
- fertility and the lifetable $d(a)$ distribution, where $a$ indexes
+ fertility and the lifetable $d_a$ distribution, where $a$ indexes
  chronological age and is equated to $y$ remaining years of life for members
- just born. Fertility in a thanatologically structured human population occurs
- in all but the very highest remaining years classes, which can be thought of as
- structural zeros for simplicity, as they only contain pre-menarchical females
+ just born. It is simpler to imagine $d_a$ in this case as indexing the
+ future lifespan distribution of newborns. Fertility in a thanatologically
+ structured human population occurs in all but the very highest remaining years classes, which can be thought of as structural zeros for simplicity, as they only contain pre-menarchical females
  that will have very long lives.
- For our $6\times 6$ example, say that fertility is observed in classes 0-4, while the
- final class has no fertility, where $f^\star(y)$ indicates the fertility
- probability for class $y$ in the year $t$ entering population (in the matrix
- columns). Each $f^\star(y)$ is then distributed out according to $d(a)$ with no
- further translation, since the $d(a)$ lifetable column already refers to
- the lifespan distribution of newborns.
- Thus, the fertility entry in row $m$ and column $n$ of $\textbf{Y}$ will be
+ For our $6\times 6$ example, say that fertility is observed in
+ thanatological classes 0-4, while the final class has no fertility, where
+ $f^\star_y$ indicates the fertility probability for class $y$ in the year $t$
+ entering population (in the matrix columns). Each $f^\star_y$ is then
+ distributed out over rows according to $d_a$.
+ The fertility entry in row $m$ and column $n$ of $\textbf{Y}$ will therefore be
  $f^\star_n \cdot d_m$. One can assume that those dying over the course of year
  $t$ (the first column) are exposed to fertility for half of the year,\footnote{One might be tempted to not allow for fertility at all for females dying in year $t$, but recall that fertility is measured in the moment of
  birth, and not conception.} and so discount the fertility entry
@@ -455,17 +435,13 @@ $\bordermatrix{{e_y } & 0_t & 1_t & 2_t & 3_t & 4_t & 5_t\cr
  of the mortality will occur in the same year $t$ and the rest in year $t + 1$. 
  The first row of fertility must be further discounted by a factor, $\lambda$,
  in order to account for the fact that infant mortality is higher in the lower Lexis 
- triangle than in the upper: of those infants who die in the first year of life, a proportion equal to
- $\lambda$ do not make it to December \nth{31} of the calendar year in which
+ triangle than in the upper. Of those infants who die in the first year of life,
+ a proportion equal to $\lambda$ do not make it to December \nth{31} of the calendar year in which
  they were born.\footnote{$\lambda$ can be derived directly from death counts
- data classified by Lexis triangles. In the US, $\lambda$ has behaved similarly
- for males and females, falling steadily from around $0.9$ in 1969 to $0.86$
- around 1990, since which time it has steadily risen to around $0.87$. That is
- to say, $\lambda$ has varied, but not drastically. These numbers are just meant to give a
-feel for the ranges that $\lambda$ can be expected to receive. If the demographer
+ data classified by Lexis triangles. If the demographer
  does not have information to derive $\lambda$ directly, ad hoc or semidirect
- methods may be used to assign a reasonable proportion. } The
- fertility component of $\textbf{Y}$ is then composed as in Matrix~\ref{matrix:Yfert}.
+ methods may be used to assign a reasonable proportion, such as 0.9 for
+ contemporary low mortality populations.} The fertility component of $\textbf{Y}$ is then composed as in Matrix~\ref{matrix:Yfert}.
 
 \begin{matrix}[h!]
 \centering
@@ -504,18 +480,18 @@ $\textbf{Y} = \bordermatrix{
 \end{matrix}
 
 Figure~\ref{fig:graph} depicts the projection matrix $\textbf{Y}$ in the form of
-a lifecycle graph. In this graph, each thanatological age is a node. Population
-members are born into any of the thanatological age classes, and then follow
+a lifecycle graph.  In this graph, each thanatological age is a node, and death
+is the absorbing state, denoted with an ``X''.
+Population members are born into any of the thanatological age classes, and then follow
 clockwise around the graph on the thick blue paths in order until finally being
 absorbed into death (the node labeled ``X'', not included in the projection matrix). The light gray paths represent fertility. Thse originate from any age class that has a fertility rate greater
 than zero, which for this toy matrix are all age classes except the \nth{5}
 (highest). The y$^{th}$ age class is subject to the fertility rate $f^\star
 (y)$, and these births distribute out to all other age classes according to the
-lifetable deaths distribution, $d(a)$. Hence, the rate instensity of a fertility
-path is determined by the fertility rate of the origin age, and the probability of dying at the destination age. A fraction of the fertility destined for infant mortality equal
-to $lambda$ leads straight to the absorbing state of death. Fertility paths from
-the \nth{4} thanatological age class have been highlighted. These correspond
-to the fifth column of the example matrix $\textbf{Y}$, plus an additional path
+lifespan distribution from the lifetable, $d_a$. Hence, the rate instensity of a
+fertility path is determined by the fertility rate of the origin age and
+probability of having a lifespan equal to the order of the destination node.  A fraction of
+the fertility destined for infant mortality equal to $\lambda$ leads straight to the absorbing state of death. Fertility paths from the \nth{4} thanatological age class have been highlighted. These correspond to the fifth column of the example matrix $\textbf{Y}$, plus an additional path
 direct to death for the fraction of infant mortality prior to December \nth{31}
 in year $t$. Paths that loop back into the same age class simply indicate those
 offspring that are destined to die in the same year as their mother. It is
@@ -610,6 +586,19 @@ eigenvector that corresponds to the largest real eigenvalue), or the pace of
 convergence to stability (the ratio of the \nth{1} to the \nth{2} eigenvalues).
 \footnote{See \citet[p.86-87]{caswell2001matrix}.}
 
+The
+thanatological lifecycle graph is directed and strongly connected. The matrix is
+also redudcible because each thanatological age class is reachable from every
+other thanatological age class, either directly via fertility, or else by ageing toward lower ages. The thanatological matrix is also
+easy to identify as primitive, since it contains self-loops (fertility elements
+on the matrix diagonal). The matrix is said to be regular, since we can
+imagine some value $k$ where each thanatological age class is $k$ steps away
+from every other thanatological age class. In the fertility block of the matrix
+(all rows, but not necessarily all columns), $k$ is 0, due to direct connections
+between all fertile thanatological ages, but in order to make this condition hold for pre-menarcical females with very long lives, $k$ must be equal to the maximum lifespan. This can also be demonstrated simply by
+setting $\textbf{Y}^k$ to some large value such that all elements of $\textbf{Y}
+> 0$. 
+
 \section*{Some preliminary empirical findings}
 The thanatological renewal equation and the discrete projection matrix can be
 put to work with data. At this time we are only ready to report some early
@@ -670,6 +659,22 @@ the chronological smoothing process because each thanatological age class
 thanatological age class in both directions. Again, I think contrived examples
 will be necessary to shed more light on this finding.
 
+\section{Discussion}
+The thanatological renewal model is valid, but this perspective may take some
+time to gestate before accepting that it is also a sound description of how
+populations renew. What should one imagine under the model of thanatological
+population renewal? A useful mnemonic bases itself on Figures~\ref{fig:USdecomp}
+and \ref{fig:USrecomp}. In the chronological age-structured model, new
+generations appear at the bottom of the pyramid, and move up one rung per year.
+All age-classes are subject to attrition, which is spread out over ages and not
+readily visible in the pyramid. In the thanatological \textit{leaf}, each birth cohort increments to the population over the whole range of thanatological age
+according to $d(a)$, as seen in \eqref{eq:thanoren}, becoming the
+shaded layers seen in Figure~\ref{fig:USrecomp}. Each horizontal step is a death
+cohort, and these move one step down the pyramid each year without any decrement
+(indeed incrementing due to births) until reaching the very bottom. In short,
+the locations of increment and decrement, and the direction of movement (when
+so visualized) are all switched. The chronological and thanatological renewal
+models are almost perfectly opposite descriptions of the same process. 
 
 \vspace{2em}
 
