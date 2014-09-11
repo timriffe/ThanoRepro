@@ -14,6 +14,8 @@
 \usepackage{nth}
 % for the d in integrals
 \newcommand{\dd}{\; \mathrm{d}}
+\newcommand{\ec}{\quad\quad\text{,}}
+\newcommand{\ep}{\quad\quad\text{.}}
 
 \usepackage[top=2in, bottom=1.5in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
@@ -47,16 +49,16 @@ please don't cite without permission of the author.
 
 \onehalfspacing
 All demographic forces vary over age in known and regular ways. Information on
-such forces, along with the size and age structure of a population allows the
+such forces, along with the size and age structure of a population, allows the
 demographer to make predictions about the future size and structure of a population. In this
 paper, I explore some formal demographic consequences of a particular
 redefinition of age. Instead of counting age as the time passed between birth and the present (or
 some other moment), consider age as the amount of time left from the present
 until death\footnote{This quantity is referred to as \textit{residual} lifetime
-in the reliability literaure.}. Individuals in this case move in the same
-direction along imaginary life lines, but the reference point for age is now at
-the end of the life line instead of at the beginning. For individuals, the
-timing of events in life is mirrored exactly between the two definitions of age,
+in the reliability literaure.}. The first kind of age is called
+chronological age and the kind of age explored in this paper is
+called thanatological age. Individuals in this case move in the same direction
+along imaginary life lines, but the reference point for age is now at the end of the life line instead of at the beginning. For individuals, the timing of events in life is mirrored exactly between the two definitions of age,
 but aggregate patterns differ.
 
 Direct information on the timing of demographic transitions with respect to
@@ -76,17 +78,23 @@ producing conundrums. Likely some demographic phenomena are best
 described as a function of time since birth, and others of time until death,
 while still others can be a function of both to some degree. Fertility and
 reproduction are plausibly a function of both age perspectives, and the question
-of how to partition such forces and events over time is a new conundrum that I
-do not tackle here. The model presented here should therefore not be interpreted
-as a suggestion for a better way to model or project population, but as an
-alternative way to tell the story of population renewal.
+of how to best partition such forces and events over time is a new conundrum
+that I do not tackle here. Instead I describe some of the formal consequences
+of the Lotka-Euler renewal model when viewed from the thanatological perspective
+of age. The renewal model presented here is not necessarily a suggestion for a
+better way to model or project population, but in the minimal sense it
+represents an alternative way to tell the story of population renewal.
 
-Thanatological (counting down towards death) and chronological (counting up
-from birth) renewal models, such as the Lotka-Euler renewal model, both
-approximate the movement of population stocks over time, but from opposite
-vantage points. Specifying a model of thanatological renewal expands the toolbox
-available to approach complex temporal population structure. I present a set of
-preliminary findings to help understand the implications of temporal structure.
+The chronological-age classified Lotka-Euler renewal model and the
+thanatological renewal model both approximate the movement of population stocks
+over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox
+available to approach complex temporal population structure. The next section
+of this article describes the lifetable method of transforming age-classified
+data into thanatological age classes. I then derive the continuous version of
+the thanatological renewal model, and some other stable properties. This is
+followed by the matrix version of the model, which is explained alongside the
+lifecycle graph. I present a set of preliminary empirical findings to help
+understand the implications of temporal structure.
 
 \section*{A lifetable approximation of thanatological age}
 
@@ -95,17 +103,17 @@ thanatologically classified data is valid when the given lifetable accurately
 describes the future mortality of age-classified population. To make
 a projective statement about a current stock of population, one does well to
 factor in future changes in mortality, and to allow the trajectory of changes
-to vary between ages/cohorts. In the case of a stable population model,
+to vary over ages and cohorts. In the case of a stable population model,
 mortality is assumed invariant over time, which means that the same survival
 pattern underlies each birth cohort. This is the case we explore, and so the
-following formulas assume a single lifetable. 
+following formulas assume a single lifetable pattern. 
 
 The basic transformation to thanatological age proceeds by defining a
 deaths density function, similar the lifetable $d(a)$, but over two
 dimensions: chronological age attained, $a$, and remaining years of life, $y$.
 This function we denote $d(y|a)$ --- The density distribution of thanatological
-age depends on chronological age. I use the same function name $d()$, because
-it is essentially the same notion as the familiar $d(a)$, but rescaled as a
+age conditional on chronological age. We use the same function name $d()$,
+because it is essentially the same notion as the familiar $d(a)$, but rescaled as a
 function of chronological age. For ages higher than 0, simply condition
 on survival:\footnote{In the reliability literature, our concept of $d(y|a)$ is denoted by \begin{equation} X - t | X > t
 \end{equation}
@@ -114,7 +122,7 @@ attained.}
 
 \begin{equation}
 \label{eq:vaupel1}
-d(y | a) = \mu(a+y)\frac{l(a+y)}{l(a)}
+d(y | a) = \mu(a+y)\frac{l(a+y)}{l(a)} \ep
 \end{equation}
 
 A convenient discretization of \eqref{eq:vaupel1} is to simply work with the
@@ -122,7 +130,7 @@ $d_a$ column of the lifetable (here with single ages):
 
 \begin{equation}
 \label{eq:dyadiscret}
-d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{L_a + L_{a+1}} \quad\quad \text{,}
+d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{L_a + L_{a+1}} \ec
 \end{equation}
 
 \noindent where $\omega$ is the highest
@@ -134,11 +142,11 @@ probability density function over future death times for each chronological age,
 $a$. The $d(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
 remaining life expectancy column of the lifetable, $e(a)$. If $P(a)$ is a
 chronological age-classified population count, we can derive $P(y)$, a
-thanatological age-classified population count using ~\eqref{eq:transform}.
+thanatological age-classified population count using
 
 \begin{align}
 \label{eq:transform}
-P(y) =& \int_0^\infty P(a) d(y | a) \dd a
+P(y) =& \int_0^\infty P(a) d(y | a) \dd a \ep
 \end{align}
 
 Since $1 = \int_0^\infty d(y|a) \dd y$ for each $a$,
@@ -196,10 +204,10 @@ classified by chronological age can be reclassified in this way given a
 corresponding lifetable. Exploiting this, we derive thanatological fertility
 rates, $f^\star(y)$, by applying \eqref{eq:transform} to age-classified birth
 counts, $B(a)$, to get $B(y)$ and again to exposure-to-risk, $E(a)$ (here we
-take exposures from all ages), to get $E(y)$ and then dividing:
+take exposures from all ages), to get $E(y)$ and then dividing
 
 \begin{equation}
-f^\star(y) = \frac{B(y}{E(y)}
+f^\star(y) = \frac{B(y}{E(y)} \ep
 \end{equation}
 
 We are interested to use thanatological fertility rates, $f^\star(y)$ in
@@ -279,34 +287,34 @@ closed, unisex population based on female vital rates. Assuming constant vital r
 births for the present year are given by 
 \begin{align}
 B(t) =& \int _0^\infty P(y,t)f^\star(y) \dd y = \int _0^\infty P(a,t)f(a) \dd a
-\quad\text{,} \intertext{where $a$ indexes chronological age, $y$ indexes
+\ec \intertext{where $a$ indexes chronological age, $y$ indexes
 thanatological age, $P(a), P(y)$ are population counts, and $f^\star(y), f(a)$ are
 exact specific fertility probabilities (rates), which here are best thought of
 as the fertility rates of females born to females. The thanatological integral can
 be broken down back in terms of chronological age:} =& \int_{y=0}^\infty
-\int_{a=0}^\infty f^\star(y)\frac{P(a,t)d(a+y)}{l(a)} \dd a \dd y \quad\text{,}
+\int_{a=0}^\infty f^\star(y)\frac{P(a,t)d(a+y)}{l(a)} \dd a \dd y \ec
 \intertext{where $d(a)$ is the continuous lifetable death distribution with
 radix of 1, so $d(a)/l(0)$. We can relate the present population to past births
 with $P(a,t) = B(t-a)l(a)$:}
 \label{eq:ergostep1}
-=& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) B(t-a)d(a+y)\dd a \dd y
-\quad\text{.} \intertext{Eventually strong ergodicity will assert itself, and $B(t)$ will be related to
-$B(t-a)$ according to a constant factor $e^{ra}$, where $r$ is the familiar
+=& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) B(t-a)d(a+y)\dd a \dd y \ep 
+\intertext{Eventually strong ergodicity will assert itself, and $B(t)$ will
+be related to $B(t-a)$ according to a constant factor $e^{ra}$, where $r$ is the familiar
 intrinsic rate of growth:}
 \label{eq:ergostep2}
 =& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) B(t)e^{-ra}d(a+y)\dd a \dd y
-\quad\text{.}
+\ep
 \intertext{Divide out $B(t)$ to get back a familiar-looking renewal equation:}
 \label{eq:thanoren}
 1 =& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) d(a+y)e^{-ra}\dd a \dd y
-\quad\text{.}
+\ep
 \end{align}
 Now compare this to Lotka's chronological formulation
 \begin{align}
 \label{eq:lotka}
-1 =& \int_{a=0}^\infty f(a)l(a)e^{-ra}\dd a \quad\text{,}
-\intertext{which can be expressed as well as:}
-  =& \int_{a=0}^\infty \int_{y=0}^\infty f(a)d(a+y)e^{-ra}\dd y \dd a
+1 =& \int_{a=0}^\infty f(a)l(a)e^{-ra}\dd a \ec
+\intertext{which can be expressed as well as}
+  =& \int_{a=0}^\infty \int_{y=0}^\infty f(a)d(a+y)e^{-ra}\dd y \dd a \ec
   \label{eq:lotka2}
 \end{align}
 and note that \eqref{eq:lotka2} and \eqref{eq:thanoren} are really quite
@@ -357,7 +365,7 @@ thanatological generation time, $T^\star$:
 \label{eq:Ty}
  T^\star =  \frac{\int _{y=0}^\infty \int _{a=0}^\infty y e^{-ra} d(a+y)
  f^\star(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y)
- f^\star(y) \dd a \dd y} \quad \text{.}
+ f^\star(y) \dd a \dd y} \ep
 \end{equation}
 Literally, this is the mean of the remaining lifespans of new mothers in the
 stable population. The net reproduction rate, $R_0$ is related by, e.g.,
@@ -369,26 +377,26 @@ The birth rate, $b$, is given by
 \begin{align}
 \label{eq:eybrate}
 b =& \frac{1}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y) \dd a \dd
-y}\quad\text{,}
+y}\ec
 \intertext{the denominator of which is the inside of
 equation~\eqref{eq:thanoren} less $f^\star(y)$. This simplifies to} =&
-\frac{1}{ \int _{a=0}^\infty e^{-ra} l(a) \dd a } \quad \text{,}
+\frac{1}{ \int _{a=0}^\infty e^{-ra} l(a) \dd a } \ec
 \intertext{which is exactly the same as that valid for
 chronological age in the Lotka-Euler setup, except that $r$ here comes from the
 thanatological renewal model. If the stable age structure, $c^\star(y)$, is
 known, then we may take the sum of hypothetical births over thanatological age:}
-=& \int _{y=0}^\infty f^\star(y) c^\star(y) \dd y \quad{.}
+=& \int _{y=0}^\infty f^\star(y) c^\star(y) \dd y \ep
 \end{align}
 
-The stable thanatological age structure, $c^\star(y)$, is the proportion of the stable population with remaining years to live $y$:
+The stable thanatological age structure, $c^\star(y)$, is the proportion of the stable population with remaining years to live $y$
 \begin{align}
 \label{eq:cy}
-c^\star(y) =& b \int _{a=0}^\infty e^{-ra} d(a+y) \dd a 
+c^\star(y) =& b \int _{a=0}^\infty e^{-ra} d(a+y) \dd a \ec
 \intertext{or, given the stable chronological age structure, $c(a)$, and a
 lifetable,} =& \int _{a=0}^\infty c(a)d(y|a) \dd a \label{eq:cyfromca}\\ \notag
 \\
            =& \frac{\int _{a=0}^\infty d(a+y)e^{-ra}\dd a}{\int
-           _{a=0}^\infty l(a)e^{-ra}\dd a}  \quad\text{.}
+           _{a=0}^\infty l(a)e^{-ra}\dd a}  \ep
 \end{align}
 
 It has previously been shown that when $r = 0$ and $y = a$, that
