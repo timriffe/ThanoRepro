@@ -43,20 +43,37 @@ Y       <- outer(da2, .fy2, "*") + rbind(cbind(0, diag(110)), 0)
 log(Re(eigen(L)$values[1]))
 log(Re(eigen(Y)$values[1]))
 
-install.packages("matrixcalc")
+#install.packages("matrixcalc")
 library(matrixcalc)
-is.singular.matrix(Y,tol=1e-8)
-is.singular.matrix(Y,tol=1e-9)
-
+is.singular.matrix(Y,tol=1e-8) # precision
+is.singular.matrix(Y,tol=1e-9) # here it woks
 is.singular.matrix(L,tol=1e-12)
-is.definite(L)
+
+Leig <- eigen(L)$values
+Yeig <- eigen(Y)$values
+cbind(Leig,Yeig)
+rads <- seq(0,2*pi,length=1000)
+
+pdf("LYeigen.pdf",height=4.5,width=9)
+par(mfrow=c(1,2))
+plot(NULL, xlim=c(-1,1),ylim=c(-1,1),asp=1,axes=FALSE, xlab = "Real", ylab = "Complex",
+        main = "eigenvalues on the unit circle")
+lines(cos(rads),sin(rads))
+points(Re(Leig),Im(Leig),col = "#0000FF60",pch=19,cex=.5)
+points(Re(Yeig),Im(Yeig),col = "#FF000060",pch=19,cex=.5)
+
+plot(0:110, sqrt(Re(Yeig)^2+Im(Yeig)^2), type='l',col="red",ylim=c(0,1),
+        main = "radius")
+lines(0:110, sqrt(Re(Leig)^2+Im(Leig)^2), col="blue")
+dev.off()
+getwd()
 
 
-install.packages("expm", repos="http://R-Forge.R-project.org")
+#install.packages("expm", repos="http://R-Forge.R-project.org")
 library(expm)
 all(Y%^%100 > 0) # yes, thano is regular
-all(L%^%100 > 0)
-sum(L)
+all(L%^%100 > 0) # Leslie not regular?
+
 
 # mixing time
 
