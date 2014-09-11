@@ -605,13 +605,27 @@ multiplying $\textbf{Y}$ from the left:
 $\textbf{p}(t + 1) = \textbf{Y}\textbf{p}(t)$. 
 
 For rate schedules typical of human populations, thanatological projection
-matrices are irreducible and primitive, and so will always have a
-dominant positive real eigenvalue, the natural log of which is $r$. This
-observation is sufficient to demonstrate the strong ergodic
-theorem:\footnote{This step was taken for granted in jumping from
-equation~\eqref{eq:ergostep1} to ~\eqref{eq:ergostep2}} i.e., given a fixed
-matrix and enough time, the population will conform to some stable thanatological age distribution. The eigenvector corresponding to the dominant eigenvalue gives this stable thanatological age structure. The square
-of the, or the pace of convergence to stability (the ratio of the \nth{1} to the \nth{2} eigenvalues).
+matrices are filled with non-negative values, mostly greater than zero. Raising
+the matrix to some not-very-large power, $k$, will make all entries greater than zero. This observation, or else by noting that the
+lifecylce graph is strongly connected, lets us conclude that the matrix is
+irreducible and primitive. By the Perron-Frobenius theorem, the matrix will
+ always have a unique, dominant, positive real eigenvalue, the natural
+log of which is the intrinsic growth rate, $r$, and strong ergodicity is
+assured.
+In other words, given a fixed matrix and enough time, the population will conform to some stable thanatological age distribution. Strong
+ergodicity was taken for granted in jumping from equation~\eqref{eq:ergostep1}
+to ~\eqref{eq:ergostep2}, but the presently described properties of the matrix
+model should, albeit unrigorously, satisfy lingering uncertainty on that step.
+The eigenvector corresponding to the dominant eigenvalue gives this stable
+thanatological age structure. If the fertility rates placed in the matrix are
+from the stable population, then the growth rate from the thanatological
+projection matrix is equal to that of the standard Leslie
+matrix.\footnote{Some care needs to be taken in order to demonstrate this
+point, since common approximations and adjustments used in matrix
+construction can throw things off. \texttt{R} code is available from the
+author to demonstrate this point. See also Appendix~\ref{app:B} for the
+corresponding proof from the continuous model.} The square of the, or the pace
+of convergence to stability (the ratio of the \nth{1} to the \nth{2} eigenvalues).
 \footnote{See \citet[p.86-87]{caswell2001matrix}.}
 
 \section*{Some preliminary empirical findings}
