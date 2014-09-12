@@ -88,7 +88,7 @@ fertility, mortality, and population structure, revealing the long
 term consequences of a particular set of conditions. Some might think that
 stable population theory is not relevant to everyday demography, since
 populations seem to always be changing. Still, most projections seem to trail
-off into a stable state, and stability or even stationarity are indeed
+off into a stable state, and stability or even stationarity are
 imaginable for the world population of humans one day. I present a renewal model
 based on thanatological age not necessarily as a suggestion for a
 better way to model or project population (or certain aspects of it), although I
@@ -104,7 +104,8 @@ more with remaining lifetime that with life lived, but these are mostly unstudie
 time,\footnote{I suppose that the prime candidates are late-life transitions.}
 and it is beneficial to expand the formal demographic base by incorporating such information into models. In an even more general sense, by
 thinking about remaining lifetime as a particular class of time-to-transition, one may generalize the lifetable methods presented here into new area
-applications, such as education, partering, the economic lifecycle, or migration.
+applications, such as education, partnering, the economic lifecycle, or
+migration.
 The present inquiry is justified possibly for its own sake, and definitely as an
 attempt at accounting for remaining time structure in general in modeling that may prove useful.
 
@@ -372,8 +373,8 @@ models must yield the same $r$ if the starting population is already stable is
 given in Appendix~\ref{app:B}. A fast-converging iterative method for finding
 $r$ from equation~\eqref{eq:thanoren} is given in Appendix~\ref{app:C}
 
-If the thanatolgical fertility rates do not derive from a stable
-population, as will typicallybe the case, then the two age perspectives
+If the thanatological fertility rates do not derive from a stable
+population, as will typically be the case, then the two age perspectives
 will, unless by coincidence, yield divergent stable models. There is a strong
 parallel here with the case of two-sex age-specific fertility rates. As in the
 case of divergence between male and female single-sex models, there will
@@ -541,7 +542,7 @@ absorbed into death (the node labeled ``X'', not included in the projection matr
 than zero, which for this toy matrix are all age classes except the \nth{5}
 (highest). The y$^{th}$ age class is subject to the fertility rate $f^\star
 (y)$, and these births distribute out to all other age classes according to the
-lifespan distribution from the lifetable, $d_a$. Hence, the rate instensity of a
+lifespan distribution from the lifetable, $d_a$. Hence, the rate intensity of a
 fertility path is determined by the fertility rate of the origin age and
 probability of having a lifespan equal to the order of the destination node.  A fraction of
 the fertility destined for infant mortality equal to $\lambda$ leads straight to the absorbing state of death. Fertility paths from the \nth{4} thanatological age class have been highlighted. These correspond to the fifth column of the example matrix $\textbf{Y}$, plus an additional path
@@ -766,8 +767,8 @@ This appendix contains a proof that the thanatological renewal equation implies
 the same intrinsic growth rate, $r$, as the Lotka-Euler model if
 the starting population is stable, given a particular set of thanatological
 fertility rates.
-This is identical to claiming that the right side of the rewal equation is equal given the same $r$. Since there is a unique
-real solution, demonstrated in the previous appendix, then it is sufficient to
+This is identical to claiming that the right side of the renewal equation is
+equal given the same $r$. Since there is a unique real solution, demonstrated in the previous appendix, then it is sufficient to
 show that the two integral equations are equal under these conditions. The basic
 relationship is:
 \begin{align}
@@ -865,7 +866,7 @@ f^\star(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty d(a+y) f^\star(y)
 The above procedure is more computationally efficient than minimizing the
 absolute residual of Equation~\eqref{eq:thanoren} using a generic
 optimizer. Alternatively, one could use the method of cumulants to estimate $r$,
-bbut this would entail less precision than the above (unless one goes beyond,
+but this would entail less precision than the above (unless one goes beyond,
 say, five cumulants), and this has not yet been worked out at this time.
  
 \end{appendices}
