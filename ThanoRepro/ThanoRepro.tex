@@ -638,23 +638,24 @@ of convergence to stability (the ratio of the \nth{1} to the \nth{2} eigenvalues
 
 \section*{Some preliminary empirical findings}
 The thanatological renewal equation and the discrete projection matrix can be
-put to work with data. At this time we are only ready to report some early
-results, and we do not yet have explanations some of the patterns that we
-report. Of our 1834 population-years, we optimize $r$ from both
-\eqref{eq:thanoren} and \eqref{eq:lotka}\footnote{It is possible to optimize $r$ using a variety of approximations, or by using a generic optimizer. We have used the method proposed by \citet{coale1957new} for Lotka's $r$ and a modified version of the same for
-the thanatological $r$. Details and / or implementation code available on
-request.}. In this sample, both versions of $r$ are only plausibly equal in a
-single instance. Usually thantological $r$ is greater than Lotka's $r$ (1373
-cases). When Lotka's $r$ is positive (693 cases), thanatological $r$ is greater
-just over of 50\% of the time (356), but when Lotka's $r$ is negative,
+put to work with data. In this case a few options are available for determining
+what kind of thanatological fertility rates to use. The two obvious choices are
+to derive rates from the stable population implied by the chronological renewal
+model, or to derive rates such as those from Figure~\ref{fig:FySpaghetti},
+based on a particular stock of population. 
+
+Of the 1834 population-years of data on hand, we optimize $r$ from both
+\eqref{eq:thanoren} and \eqref{eq:lotka}. In this sample, both versions of $r$
+are only plausibly equal in a single instance. Usually thanatological $r$ is
+greater than Lotka's $r$ (1373 cases). When Lotka's $r$ is positive (693 cases), thanatological $r$ is greater just over of 50\% of the time (356), but when Lotka's $r$ is negative,
 thanatological $r$ is the greater of the two around 90\% of the time (1017
 cases). These two approximations of $r$ are of opposite sign 138 times. We
 provide a comparison of the $r$ distributions in Figure~\ref{fig:rDist}. Mean
 locations for each distribution are indicated with vertical dashed lines; thano.
 -0.0010; chrono. -0.0027. The distribution of thanatological $r$ is more compact
 than for chronological $r$, with the ratio of variances (thano./chrono.) of
-about 0.75. Usually the two theoretical values of $r$ move in the same direction, but thanatological $r$
-is over time the less erratic of the two, and it usually paints a less dire picture when both are negative.
+about 0.75. The two theoretical values of $r$ covary strongly, but
+thanatological $r$ is the less erratic of the two, and it usually paints a less dire picture when both are negative.
 
 \begin{figure}[h!]
 	\caption{Distribution of $r$, chronological (Lotka) and thanatological*.}
@@ -669,21 +670,19 @@ is over time the less erratic of the two, and it usually paints a less dire pict
 \end{figure}
 
 The differences described here are not due primarily to rounding errors in the
-data, but rather to the way in which $f^\star$ has been calculated. If the
-births and exposure used to calculate $f^\star$ come from a population that is not stable
-then $f^\star$ may be subject to some compositional ruses. Specifically, in this
-case we have transformed fertility rates from empirical data with a particular
-chronological age structure. If the chronological age structure was far from its
-stable distribution, then it is hard to imagine that $f^\star$ would remain
-fixed over time. Some simple contrived examples will be presented in a future
-version of this paper in order to eliminate this problem.
+data, but rather to the way in which $f^\star(y)$ has been calculated. 
+Specifically, in this case we have transformed fertility rates from empirical data with a particular
+chronological age structure. If the chronological age structure is far from its
+stable distribution, then it may be hard to imagine that $f^\star(y)$ will
+remain fixed over time. When holding chronological-age classified fertility rates
+fixed, the assumption is just the opposite.
 
 From the projection matrix, the ratio of the largest to the second largest
 eigenvalue, the damping ratio, is an indicator of the \textit{springiness} of
-the stable population structure, $c_y$ or $c_a$, with respect to disturbances from the stable state
-as determined by vital rate distributions. A higher damping ratio means that the
-population structure oscillates back to its stable state faster, i.e., that
-oscillations decrease in size more rapidly. The thanatological damping ratio was
+the stable population structure, $c^\star(y)$ or $c(a)$, with respect to
+disturbances from the stable state as determined by vital rate distributions. A
+higher damping ratio means that the population structure oscillates back to
+its stable state faster, i.e., that oscillations decrease in size more rapidly. The thanatological damping ratio was
 greater than the Leslie damping ratio for all 1834 population-years included in
 our empirical analysis. Leslie damping ratios ranged from 1.01258 to 1.0518,
 while thanatological damping ratios ranged from 1.0455 to 1.0868. Again, this
