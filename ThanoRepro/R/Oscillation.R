@@ -1,9 +1,16 @@
-
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+}
 # seems like oscillation comparisons should be done on standard populations.
 
 # could start with Px, get Py, and then derive Cohen's measure, but this adds an initial smoothing
 # to Py. Instead I'll start with identical but randomly generated starting populations.
-AllMatrices <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/AllMatrices.Rdata")))
+AllMatrices <- local(get(load("Data/AllMatrices.Rdata")))
 
 CohenA <- compiler::cmpfun(function(P0, LorY, N=500){
     Pops <- matrix(nrow=length(P0), ncol = N)

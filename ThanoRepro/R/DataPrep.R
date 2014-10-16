@@ -1,4 +1,14 @@
-source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+}
+
+source("R/Functions.R")
 HMDpath <- "/home/tim/DATA/HMD"
 HFDpath <- "/home/tim/DATA/HFD"
 #list.files(HFDpath)
@@ -166,7 +176,7 @@ Data <- as.data.frame(DATA)
 rownames(Data) <- NULL
 #-----------------------------------------
 # save it out for wider use
-save(Data,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")
+save(Data,file = "Data/DataAll.Rdata")
 
 #unique(Data$Code)
 
@@ -200,7 +210,7 @@ lambda <- do.call(rbind, lapply(Allcountries, function(XXX, dlpath){
                             lambda.f = out[["Female"]], 
                             stringsAsFactors = FALSE)
                 }, dlpath = dlpath))
-save(lambda, file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/lambda.Rdata")
+save(lambda, file = "Data/lambda.Rdata")
 
 # something similar for use in Leslie matrices:
 
@@ -221,5 +231,5 @@ lambdaLeslie <- do.call(rbind,lapply(Allcountries, function(XXX, HMDpath){
                     lambda.f <- 1 - DLf / Bf
                     data.frame(Code = XXX,Year = yrs, lambda.m,lambda.f,stringsAsFactors = FALSE)
                 }, HMDpath = HMDpath))
-save(lambdaLeslie, file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/lambdaLeslie.Rdata")
+save(lambdaLeslie, file = "Data/lambdaLeslie.Rdata")
 

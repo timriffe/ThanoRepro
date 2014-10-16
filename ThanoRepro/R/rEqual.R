@@ -1,11 +1,20 @@
-source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+}
+
+source("R/Functions.R")
 #  thanatological age 
 
 # took me a while to get to this...
 #install.packages("data.table")
 library(data.table)
 # read in data and select females
-Data                        <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")))
+Data                        <- local(get(load("Data/DataAll.Rdata")))
 Data                        <- Data[Data$Sex == "f", ]
 Data$Fy[is.na(Data$Fy)]     <- 0
 Data$Fyf[is.nan(Data$Fyf)]  <- 0

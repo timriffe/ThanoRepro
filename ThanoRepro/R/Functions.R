@@ -1,3 +1,6 @@
+PACKAGES <- installed.packages()
+
+
 #' @title Minf0 utility function to replace \code{Inf} with 0
 #' 
 #' @description This function is not the most rigorous computation practice, but it reduces headache when working with real data that may have 0 in the denominator.

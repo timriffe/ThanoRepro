@@ -1,6 +1,15 @@
-setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+}
 source("R/Functions.R")
 source("R/PlotFunctions.R")
+
+
 devtools::load_all("/home/triffe/git/Leaves/PlosOne/R/RiffeetalFunctions")
 
 plotPyr <- function(XXX,x,y,Thano=TRUE){
@@ -90,29 +99,29 @@ dev.off()
 
 
 
-US2010 <- GetThanoMatrices(.Code = "USA", .Year = 2010, Data = Data)
-USMat <- prepare4plot(US2010,colsFun1,colsFun2)
-
-postscript("/home/triffe/git/Leaves/PlosOne/Figures/Striking.eps",
-        width=4.3,height=4.5, paper = "special", onefile = FALSE, bg = "white",
-        horizontal = FALSE)
-par(xaxs = "i", yaxs = "i", mai = c(.2,.2,.2,.2),xpd=TRUE)
-plot(NULL, type = 'n', xlim = c(-.01,.01),ylim = c(0,111), axes = FALSE, xlab = "", ylab = "",
-        panel.first = list(rect(-.01,0,.01,111,col = NA,border = gray(.8),lwd=.5,xpd=TRUE),
-                segments(-.01,seq(0,110,by=10),.01,seq(0,110,by=10),col="white",lwd=.8),
-                segments(-.01,seq(0,110,by=10),-.0102,seq(0,110,by=10),lwd=.8),
-                segments(seq(-.01,.01,by=.002),0,seq(-.01,.01,by=.002),111,col="white",lwd=.8),
-                segments(seq(-.01,.01,by=.002),0,seq(-.01,.01,by=.002),-1,lwd=.8),
-                text(seq(-.01,.01,by=.002),-1,percent.labs,pos=1,cex=.7),
-                text(-.0102,seq(0,110,by=10),seq(0,110,by=10),pos=2,cex=.7)
-        )
-)
-plotPyr(USMat,0,0,TRUE)
-colorStrip(BrewerPal = "YlGn",w=.0017,h=80,lwd=.8,border=gray(.7), rising = FALSE)
-text(x=.01,91,"Years lived",pos=4,cex=.8)
-text(-.0125,117,"Years left",pos=4,cex=.8)
-dev.off()
-
+#US2010 <- GetThanoMatrices(.Code = "USA", .Year = 2010, Data = Data)
+#USMat <- prepare4plot(US2010,colsFun1,colsFun2)
+#
+#postscript("/home/triffe/git/Leaves/PlosOne/Figures/Striking.eps",
+#        width=4.3,height=4.5, paper = "special", onefile = FALSE, bg = "white",
+#        horizontal = FALSE)
+#par(xaxs = "i", yaxs = "i", mai = c(.2,.2,.2,.2),xpd=TRUE)
+#plot(NULL, type = 'n', xlim = c(-.01,.01),ylim = c(0,111), axes = FALSE, xlab = "", ylab = "",
+#        panel.first = list(rect(-.01,0,.01,111,col = NA,border = gray(.8),lwd=.5,xpd=TRUE),
+#                segments(-.01,seq(0,110,by=10),.01,seq(0,110,by=10),col="white",lwd=.8),
+#                segments(-.01,seq(0,110,by=10),-.0102,seq(0,110,by=10),lwd=.8),
+#                segments(seq(-.01,.01,by=.002),0,seq(-.01,.01,by=.002),111,col="white",lwd=.8),
+#                segments(seq(-.01,.01,by=.002),0,seq(-.01,.01,by=.002),-1,lwd=.8),
+#                text(seq(-.01,.01,by=.002),-1,percent.labs,pos=1,cex=.7),
+#                text(-.0102,seq(0,110,by=10),seq(0,110,by=10),pos=2,cex=.7)
+#        )
+#)
+#plotPyr(USMat,0,0,TRUE)
+#colorStrip(BrewerPal = "YlGn",w=.0017,h=80,lwd=.8,border=gray(.7), rising = FALSE)
+#text(x=.01,91,"Years lived",pos=4,cex=.8)
+#text(-.0125,117,"Years left",pos=4,cex=.8)
+#dev.off()
+#
 
 
 

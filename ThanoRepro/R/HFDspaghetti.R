@@ -1,6 +1,16 @@
-source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+}
+
+
+source("R/Functions.R")
 # read in data and select females
-Data <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")))
+Data <- local(get(load("Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
 
 
@@ -97,7 +107,7 @@ lines(Data$Age, Data$FxSt, col = "#00000005")
 
 graphics.off()
 # Fy 
-png("/home/tim/git/ThanoRepro/ThanoRepro/Figures/FySpaghettiDraft.png")
+png("Figures/FySpaghettiDraft.png")
 #pdf("/home/tim/git/ThanoRepro/ThanoRepro/Figures/FySpaghetti.pdf") # high res vector
 par(xaxs = "i", yaxs = "i", mai=c(.5,.5,.5,.5))
 plot(NULL, type = "n",xlim = c(0,95),ylim=c(0,.13), axes = FALSE, xlab = "", ylab = "",
@@ -113,7 +123,7 @@ text(mean(c(0,95)),-.01,"Thanatological age (years left)",xpd=TRUE)
 dev.off()
 
 # Fx 
-png("/home/tim/git/ThanoRepro/ThanoRepro/Figures/FxSpaghettiDraft.png")
+png("Figures/FxSpaghettiDraft.png")
 #pdf("/home/tim/git/ThanoRepro/ThanoRepro/Figures/FxSpaghetti.pdf") # high res vector
 par(xaxs = "i", yaxs = "i", mai=c(.5,.5,.5,.5))
 plot(NULL, type = "n",xlim = c(12,55),ylim=c(0,.3), axes = FALSE, xlab = "", ylab = "",

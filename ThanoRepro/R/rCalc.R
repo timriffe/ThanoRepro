@@ -1,8 +1,17 @@
-source("/home/tim/git/ThanoRepro/ThanoRepro/R/Functions.R")
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+}
+
+source("R/Functions.R")
 #install.packages("data.table")
 library(data.table)
 # read in data and select females
-Data <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/DataAll.Rdata")))
+Data <- local(get(load("Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
 Data$Fy[is.na(Data$Fy)] <- 0
 Data$Fyf[is.nan(Data$Fyf)] <- 0
@@ -66,7 +75,7 @@ rTM <- acast(rT,Year~Code,value.var = "V1")
 rLM <- acast(rL,Year~Code,value.var = "V1")
 rDiff <- rLM - rTM
 
-pdf("/home/tim/git/ThanoRepro/ThanoRepro/Figures/rDist.pdf")
+pdf("Figures/rDist.pdf")
 par(xaxs="i",yaxs="i",mai=c(1,.5,.5,.5))
 plot(density(rL$V1),xlim=c(-.04,.03),ylim=c(0,55),col= "blue", main = "",axes = FALSE, ylab = "",
         panel.first = list(rect(-.04,0,.03,55,col=gray(.96), border = NA),
