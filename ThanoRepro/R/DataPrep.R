@@ -9,33 +9,43 @@ if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
 }
 
 source("R/Functions.R")
+
+
 HMDpath <- "/home/tim/DATA/HMD"
 HFDpath <- "/home/tim/DATA/HFD"
 #list.files(HFDpath)
 
-Bx <- read.table(file.path(HFDpath,"birthsRR.txt"), 
-        skip = 2, as.is = TRUE, header = TRUE)
-others <- c("IRL","UKR","ESP","BLR")
-XXX <- others[1]
-BxOTHER <- do.call(rbind, lapply(others, function(XXX, HFDpath){
-                    Dat <- read.table(file.path(HFDpath,"OTHER",paste0(XXX,"birthsRR.txt")),skip=2,as.is=TRUE,header=TRUE)
-                    cbind(Code = XXX, Dat)
-                },HFDpath=HFDpath))
-Bx <- rbind(Bx, BxOTHER)
+# IRL and ESP are preliminary countries in HFD at time of this writing
+HFDcountries <- unique(c(getHFDcountries(),c("IRL","ESP")))
 
-Bx$Age <- as.integer(gsub(pattern = "\\+", replacement = "",(gsub(pattern = "\\-", replacement = "", Bx$Age))))
-colnames(Bx)[4] <-"Births"
+# This will take a LONG time to generate. Inefficient web parsing. FYI
+# 1)
+if (!"pw" %in% ls()){
+  cat("enter HFD password into console (no quotes) and press enter\n")
+  pw <- userInput()
+}
+if (!"us" %in% ls()){
+  cat("enter HFD username into console (no quotes) and press enter\n")
+  us <- userInput()
+}
 
-Ex <- read.table(file.path(HFDpath,"exposRR.txt"), 
-        skip = 2, as.is = TRUE, header = TRUE)
+# HFD data downloaded on:
+Sys.Date()
+# save it to a little file so you don't forget.
+cat("HFD data downloaded on", as.character(Sys.Date()), file = "Data/HFDdate.txt")
+Bx <- do.call(rbind, lapply(HFDcountries, function(XXX, us, pw){
+      Dat <- readHFDweb(CNTRY = XXX, item = "birthsRR", username = us, password = pw)
+      data.frame(Code = XXX, Dat, stringsAsFactors = FALSE)
+    }, us = us, pw = pw))
 
-ExOTHER <- do.call(rbind, lapply(others, function(XXX, HFDpath){
-                    Dat <- read.table(file.path(HFDpath,"OTHER",paste0(XXX,"exposRR.txt")),skip=2,as.is=TRUE,header=TRUE)
-                    cbind(Code = XXX, Dat)
-                },HFDpath=HFDpath))
-Ex <- rbind(Ex, ExOTHER)
+colnames(Bx)[colnames(Bx) == "Total"] <-"Births"
 
-HFDcountries <- unique(Ex$Code)
+# same thing for HFD exposures (can be slightly different from HMD exposures)
+Ex <- do.call(rbind, lapply(HFDcountries, function(XXX, us, pw){
+      Dat <- readHFDweb(CNTRY = XXX, item = "exposRR", username = us, password = pw)
+      data.frame(Code = XXX, Dat, stringsAsFactors = FALSE)
+    }, us = us, pw = pw))
+
 
 # pad out HFD data to make conformable with HMD data (ages 0 - 110)
 HFDpad <- function(DATAyr, colname = "Total"){
@@ -49,27 +59,32 @@ HFDpad <- function(DATAyr, colname = "Total"){
     
     fyr <- rbind(young, DATAyr, old)  
 }
-# takes a min
-Bx       <- do.call(rbind, lapply(split(Bx,list(Bx$Code, Bx$Year)), HFDpad, colname = "Births"))
-Ex       <- do.call(rbind, lapply(split(Ex,list(Ex$Code, Ex$Year)), HFDpad, colname = "Exposure"))
 
-HFD      <- cbind(Bx, Ex)
-HFD$Fx   <- HFD$Births /  HFD$Exposure
+# add ages from 0 and up to 110
+library(data.table)
+Bx          <- data.table(Bx)
+Bx          <- Bx[,HFDpad(.SD,"Births"),by=list(Code,Year)]
+Ex          <- data.table(Ex)
+Ex          <- Ex[,HFDpad(.SD,"Exposure"),by=list(Code,Year)]
+
+# merge, get ASFR
+Bx$Exposure <- Ex$Exposure
+HFD         <- Bx
+
+HFD$Fx      <- HFD$Births /  HFD$Exposure
 HFD$Fx[is.nan(HFD$Fx) | is.infinite(HFD$Fx)] <- 0
 
-HFD$Sex  <- "f"
-m        <- HFD
-m$Sex    <- "m"
-m$Births <- m$Exposure <- m$Fx <- NA
-HFD      <- rbind(HFD, m)
+HFD$Sex     <- "f"
+m           <- HFD
+m$Sex       <- "m"
+m$Births    <- m$Exposure <- m$Fx <- NA
+HFD         <- rbind(HFD, m)
 
 # -------------------------------------------------
 # now prep HMD data
 
 #list.files(HMDpath)
-HMDcountries <- unlist(lapply(list.files(file.path(HMDpath, "Births")), function(x){
-                    strsplit(x, split = "\\.")[[1]][[1]]
-                }))
+HMDcountries <- getHMDcountries()
 
 Allcountries <- intersect(HFDcountries, HMDcountries)
 
@@ -77,47 +92,31 @@ Allcountries <- intersect(HFDcountries, HMDcountries)
 # make similar long format for HMD data, Deaths, Exp, Pop Counts all smacked together. 
 # Later we'll put on Fert data to make a single awesome object.
 
-Data <- do.call(rbind,lapply(Allcountries, function(XXX, HMDpath){
-           
-            flt <- read.table(file.path(HMDpath,"lt_female/fltper_1x1", paste0(XXX, ".fltper_1x1.txt")),
-                    skip = 2, header = TRUE, as.is = TRUE, na.strings = ".")
-            mlt <- read.table(file.path(HMDpath,"lt_male/mltper_1x1", paste0(XXX, ".mltper_1x1.txt")),
-                    skip = 2, header = TRUE, as.is = TRUE, na.strings = ".")
-            pop <- read.table(file.path(HMDpath,"population/Population", paste0(XXX, ".Population.txt")),
-                    skip = 2, header = TRUE, as.is = TRUE, na.strings = ".")
-            Exp <- read.table(file.path(HMDpath,"exposures/Exposures_1x1", paste0(XXX, ".Exposures_1x1.txt")),
-                    skip = 2, header = TRUE, as.is = TRUE, na.strings = ".")
-            
-            flt$Sex <- "f"
-            mlt$Sex <- "m"
-            flt$Code <- XXX
-            mlt$Code <- XXX
-           
-            # Jan 1 pops
-            pop$Year    <- as.character(pop$Year)
-            yrs         <- sort(unique(gsub("\\+","",gsub("\\-","",pop$Year))))
-            Nyr         <- length(yrs)
-    
-            pop1        <- pop[!grepl("\\-", pop$Year), ]
-            pop2        <- pop[!grepl("\\+", pop$Year), ]
-            pop1$Year   <- gsub("\\+","",pop1$Year)
-            pop2$Year   <- gsub("\\-","",pop2$Year)
-            pop1        <- pop1[pop1$Year != yrs[Nyr], ]
-            pop2        <- pop2[pop2$Year != yrs[1], ]
+Data <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
+      
+      flt <- readHMDweb(CNTRY = XXX, item = "fltper_1x1", username = us, password = pw)
+      mlt <- readHMDweb(CNTRY = XXX, item = "mltper_1x1", username = us, password = pw)
+      pop <- readHMDweb(CNTRY = XXX, item = "Population", username = us, password = pw)
+      Exp <- readHMDweb(CNTRY = XXX, item = "Exposures_1x1", username = us, password = pw)
+ 
+      flt$Sex       <- "f"
+      mlt$Sex       <- "m"
+      flt$Code      <- XXX
+      mlt$Code      <- XXX
+      flt$Pop1      <- pop$Female1
+      flt$Pop2      <- pop$Female2
+      mlt$Pop1      <- pop$Male1
+      mlt$Pop2      <- pop$Male2
+      mlt$Exposure  <- Exp$Male
+      flt$Exposure  <- Exp$Female
+      
+      # stick sexes together
+      rbind(flt, mlt)
+    }, us = us, pw = pw))
+head(Data)
 
-            # we can trust the ordering here, standard HMD data and dimensions
-            flt$Pop1    <- pop1$Female
-            flt$Pop2    <- pop2$Female
-            mlt$Pop1    <- pop1$Male
-            mlt$Pop2    <- pop2$Male
-            mlt$Exposure <- Exp$Male
-            flt$Exposure <- Exp$Female
-            # return as a single obj
-            rbind(flt, mlt)
-        }, HMDpath = HMDpath))
 
-Data$Age <- as.integer(gsub("\\+","",Data$Age))
-Data$Year <- as.integer(Data$Year)
+
 
 # ------------------------------------
 # work to combine
