@@ -16,6 +16,8 @@ library(reshape2)
 
 # IRL and ESP are preliminary countries in HFD at time of this writing
 HFDcountries <- unique(c(getHFDcountries(),c("IRL","ESP")))
+HMDcountries <- getHMDcountries()
+Allcountries <- intersect(HFDcountries, HMDcountries)
 
 # This will take a LONG time to generate. Inefficient web parsing. FYI
 # 1)
@@ -32,7 +34,7 @@ if (!"us" %in% ls()){
 Sys.Date()
 # save it to a little file so you don't forget.
 cat("HFD data downloaded on", as.character(Sys.Date()), file = "Data/HFDdate.txt")
-Bx <- do.call(rbind, lapply(HFDcountries, function(XXX, us, pw){
+Bx <- do.call(rbind, lapply(Allcountries, function(XXX, us, pw){
       Dat <- readHFDweb(CNTRY = XXX, item = "birthsRR", username = us, password = pw)
       data.frame(Code = XXX, Dat, stringsAsFactors = FALSE)
     }, us = us, pw = pw))
@@ -40,7 +42,7 @@ Bx <- do.call(rbind, lapply(HFDcountries, function(XXX, us, pw){
 colnames(Bx)[colnames(Bx) == "Total"] <-"Births"
 
 # same thing for HFD exposures (can be slightly different from HMD exposures)
-Ex <- do.call(rbind, lapply(HFDcountries, function(XXX, us, pw){
+Ex <- do.call(rbind, lapply(Allcountries, function(XXX, us, pw){
       Dat <- readHFDweb(CNTRY = XXX, item = "exposRR", username = us, password = pw)
       data.frame(Code = XXX, Dat, stringsAsFactors = FALSE)
     }, us = us, pw = pw))
@@ -81,12 +83,6 @@ HFD         <- rbind(HFD, m)
 
 # -------------------------------------------------
 # now prep HMD data
-
-#list.files(HMDpath)
-HMDcountries <- getHMDcountries()
-
-Allcountries <- intersect(HFDcountries, HMDcountries)
-
 
 # make similar long format for HMD data, Deaths, Exp, Pop Counts all smacked together. 
 # Later we'll put on Fert data to make a single awesome object.
@@ -191,7 +187,8 @@ save(Data,file = "Data/DataAll.Rdata")
 
 # ------------------------------------------------------------
 # now we need to read in deaths by Lexis triangle to calculate age 0 lambda for
-# thanatological projection matrices.
+# thanatological projection matrices. Lambda is a discount for those 
+# births that die before making it to the end of the year
 dlpath <- "/home/tim/DATA/HMD/deaths/Deaths_lexis"
 
 lambda <- do.call(rbind, lapply(Allcountries, function(XXX, us, pw){
@@ -218,7 +215,7 @@ lambda <- do.call(rbind, lapply(Allcountries, function(XXX, us, pw){
 save(lambda, file = "Data/lambda.Rdata")
 
 # something similar for use in Leslie matrices:
-
+# for Leslie matrices lambda takes into account the loss of infants, but also the mortality of mothers.
 lambdaLeslie <- do.call(rbind,lapply(Allcountries, function(XXX, us, pw){
                    
                     TLTU <- readHMDweb(CNTRY = XXX, item = "Deaths_lexis", username = us, password = pw)        
