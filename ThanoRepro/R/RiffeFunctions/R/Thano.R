@@ -4,13 +4,11 @@
 #'  
 #' @param M any vector of data
 #' 
-#' @importFrom compiler cmpfun
-#' 
 #' @return M the same vector or array, with 0s imputed.
 #' 
 #' @export 
-#'
-
+#' 
+#' @importFrom compiler cmpfun
 Minf0 <- cmpfun(function(M){
     M[is.infinite(M)]  <- 0
     M
@@ -22,13 +20,12 @@ Minf0 <- cmpfun(function(M){
 #'  
 #' @param M any vector of data
 #' 
-#' @importFrom compiler cmpfun
-#' 
 #' @return M the same vector or array, with 0s imputed.
 #' 
 #' @export 
-#'
-Mna0 <- compiler::cmpfun(function(M){
+#' 
+#' @importFrom compiler cmpfun
+Mna0 <- cmpfun(function(M){
     M[is.na(M)]  <- 0
     M[is.nan(M)] <- 0
     M
@@ -46,7 +43,6 @@ Mna0 <- compiler::cmpfun(function(M){
 #' @importFrom compiler cmpfun
 #' 
 #' @export 
-#' 
 
 Thano <- cmpfun(function(Px, dx, stagger = TRUE){
     Np <- length(Px)

@@ -181,6 +181,7 @@ ThanoMin <- cmpfun(function(r, da, fy, .y = .5:110.5){
 #' @author Tim Riffe \email{triffe@@demog.berkeley.edu}
 #' 
 #' @export
+#' @importFrom compiler cmpfun
 ThanoProjMatrix <- cmpfun(function(fy, da, lambda){
     N       <- length(fy)
     # discount for part of infant mortality not surviving until end of year
