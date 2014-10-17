@@ -113,8 +113,10 @@ Data <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
       # stick sexes together
       rbind(flt, mlt)
     }, us = us, pw = pw))
-head(Data)
 
+###################################################### 
+# left off cleanup here. Continue cleaning in future #
+######################################################
 
 
 
