@@ -9,10 +9,9 @@ if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
 }
 
 source("R/Functions.R")
-
-
-HMDpath <- "/home/tim/DATA/HMD"
-HFDpath <- "/home/tim/DATA/HFD"
+library(compiler)
+library(data.table)
+library(reshape2)
 #list.files(HFDpath)
 
 # IRL and ESP are preliminary countries in HFD at time of this writing
@@ -61,7 +60,7 @@ HFDpad <- function(DATAyr, colname = "Total"){
 }
 
 # add ages from 0 and up to 110
-library(data.table)
+
 Bx          <- data.table(Bx)
 Bx          <- Bx[,HFDpad(.SD,"Births"),by=list(Code,Year)]
 Ex          <- data.table(Ex)
@@ -92,6 +91,8 @@ Allcountries <- intersect(HFDcountries, HMDcountries)
 # make similar long format for HMD data, Deaths, Exp, Pop Counts all smacked together. 
 # Later we'll put on Fert data to make a single awesome object.
 
+# note when we download the data:
+cat("HMD data downloaded on", as.character(Sys.Date()), file = "Data/HMDdate.txt")
 Data <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
       
       flt <- readHMDweb(CNTRY = XXX, item = "fltper_1x1", username = us, password = pw)
@@ -114,62 +115,69 @@ Data <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
       rbind(flt, mlt)
     }, us = us, pw = pw))
 
-###################################################### 
-# left off cleanup here. Continue cleaning in future #
-######################################################
-
-
+HFD <- as.data.frame(HFD)
 
 # ------------------------------------
 # work to combine
+# 1) find years/populations in common:
 HMDxxyr <- paste(Data$Code, Data$Year)
 HFDxxyr <- paste(HFD$Code, HFD$Year)
 XXXyr   <- intersect(unique(HMDxxyr), unique(HFDxxyr))
 
-HFD  <- HFD[HFDxxyr %in% XXXyr, ]
-Data <- Data[HMDxxyr %in% XXXyr, ]
+# cut down to only those pops with both fert and mort:
+HFD     <- HFD[HFDxxyr %in% XXXyr, ]
+Data    <- Data[HMDxxyr %in% XXXyr, ]
 
-HFD  <- HFD[with(HFD, order(Code, Year, Sex, Age)),]
-Data <- Data[with(Data, order(Code, Year, Sex, Age)),]
+# reorder rows
+HFD     <- HFD[with(HFD, order(Code, Year, Sex, Age)),]
+Data    <- Data[with(Data, order(Code, Year, Sex, Age)),]
 
-# universal Data object!
-Data <- cbind(Data, HFD[, c("Births","Fx")])
+# combine into universal Data object
+Data    <- cbind(Data, HFD[, c("Births","Fx")])
 
 # OK, one last step, make Fxf, assuming constant SRB over age of mother:
-
-PFall <- do.call(rbind,lapply(Allcountries, function(XXX, HMDpath){
-                    BMF <- read.table(file.path(HMDpath, "Births",paste0(XXX,".Births.txt")),
-                            header = TRUE, as.is = TRUE, skip = 2)
+PFall <- do.call(rbind,lapply(Allcountries, function(XXX, pw, us){
+                    BMF <- readHMDweb(CNTRY = XXX, item = "Births", username = us, password = pw)
                     BMF$PF <- BMF$Female / BMF$Total
                     BMF$Code <- XXX
                     BMF[, c("Code","Year","PF")]
-                }, HMDpath = HMDpath))
-PFvec <- PFall$PF
-names(PFvec) <- paste(PFall$Code, PFall$Year)
-DataID <- paste(Data$Code, Data$Year)
-Data$Fxf <- Data$Fx * PFvec[DataID]
-Data$Bxf <- Data$Births * PFvec[DataID]
+                }, pw = pw, us = us))
+PFvec         <- PFall$PF
+names(PFvec)  <- paste(PFall$Code, PFall$Year)
+DataID        <- paste(Data$Code, Data$Year)
+Data$Fxf      <- Data$Fx * PFvec[DataID]
+Data$Bxf      <- Data$Births * PFvec[DataID]
 # since we use dx, lets standardize it:
-Data <- do.call(rbind,lapply(split(Data, list(Data$Code, Data$Sex, Data$Year)), function(Dat){
-                                    Dat$dx <- Dat$dx / sum(Dat$dx)
-                                    Dat$lx <- Dat$lx / 1e5
-                                    Dat$Lx <- Dat$Lx / 1e5
-                                    Dat$Tx <- Dat$Tx / 1e5
-                                    Dat
-                                }))
-FyFun <- compiler::cmpfun(function(Exposure, Births,dx){
+
+rescale <- function(x){
+  x / sum(x, na.rm=TRUE)
+}
+reradix <- function(x){
+  x / 1e5
+}
+Data <- data.table(Data)
+Data$dx <- as.numeric(Data$dx) # data.table doesn't like converting integer to decimal...
+Data$lx <- as.numeric(Data$lx)
+Data$Lx <- as.numeric(Data$Lx)
+Data$Tx <- as.numeric(Data$Tx)
+Data[,dx := rescale(dx),by=list(Code,Sex,Year)]
+Data[,lx := reradix(lx),by=list(Code,Sex,Year)]
+Data[,Lx := reradix(Lx),by=list(Code,Sex,Year)]
+Data[,Tx := reradix(Tx),by=list(Code,Sex,Year)]
+
+# Now calculate thanatological fertility rates (asssuming fixed mort)                    
+FyFun <- cmpfun(function(Exposure, Births,dx){
     rowSums(Thano(Births, dx)) /
             rowSums(Thano(Exposure, dx))
 })
-FyfFun <- compiler::cmpfun(function(Exposure, Bxf,dx){
+FyfFun <- cmpfun(function(Exposure, Bxf,dx){
     rowSums(Thano(Bxf, dx)) /
             rowSums(Thano(Exposure, dx))
 })
-library(data.table)
-DATA <- data.table(Data)
-DATA[,Fy := FyFun(Exposure, Births,dx),by = list(Code,Sex,Year)]
-DATA[,Fyf := FyFun(Exposure, Bxf,dx),by = list(Code,Sex,Year)]
-Data <- as.data.frame(DATA)
+
+Data[,Fy := FyFun(Exposure, Births,dx), by = list(Code,Sex,Year)]
+Data[,Fyf := FyFun(Exposure, Bxf,dx), by = list(Code,Sex,Year)]
+Data <- as.data.frame(Data)
 
 
 
@@ -186,51 +194,47 @@ save(Data,file = "Data/DataAll.Rdata")
 # thanatological projection matrices.
 dlpath <- "/home/tim/DATA/HMD/deaths/Deaths_lexis"
 
-lambda <- do.call(rbind, lapply(Allcountries, function(XXX, dlpath){
-                    Dat <- read.table(file.path(dlpath,paste0(XXX,".Deaths_lexis.txt")),
-                            skip = 2, header = TRUE, as.is = TRUE)
+lambda <- do.call(rbind, lapply(Allcountries, function(XXX, us, pw){
+                    Dat <- readHMDweb(CNTRY = XXX, item = "Deaths_lexis", username = us, password = pw) 
+                    years <- sort(unique(Dat$Year))
                     out <- list()
                     for (sex in c("Female","Male")){ # sex = "Female"
-                        D0 <- reshape2::acast(Dat[Dat$Age == "0",], Year ~ Cohort, value.var = sex)
-                        D0[D0==0] <- NA
-                        D0 <- do.call(cbind,apply(D0,2,function(x){
-                                            if (sum(!is.na(x))==2){
-                                                x[!is.na(x)]
-                                            }
-                                        }))
+                        D0 <- acast(Dat[Dat$Age == "0",], Year ~ Cohort, value.var = sex)
+                        
+                        D0 <- rbind(D0[row(D0)+1==col(D0)],D0[row(D0)==col(D0)])
+                       
                         lambda        <- D0[1,] / colSums(D0)
-                        years         <- as.integer(names(lambda))
-                        years         <- c(years,years[length(years)]+1)
-                        lambda        <- c(lambda,lambda[length(lambda)])
+                        lambda[is.nan(lambda) | lambda == 0] <- mean(lambda[lambda!=0])
+                        lambda        <- lambda
                         names(lambda) <- years
-                        out[[sex]]  <- lambda
+                        out[[sex]]    <- lambda
                     }
                     data.frame(Code = XXX, 
                             Year = years, 
                             lambda.m = out[["Male"]], 
                             lambda.f = out[["Female"]], 
                             stringsAsFactors = FALSE)
-                }, dlpath = dlpath))
+                }, pw = pw, us = us))
 save(lambda, file = "Data/lambda.Rdata")
 
 # something similar for use in Leslie matrices:
 
-lambdaLeslie <- do.call(rbind,lapply(Allcountries, function(XXX, HMDpath){
-                    TLTU <- read.table(file.path(HMDpath,"deaths","Deaths_lexis",paste0(XXX,".Deaths_lexis.txt")),
-                            skip = 2, header = TRUE, as.is = TRUE)
+lambdaLeslie <- do.call(rbind,lapply(Allcountries, function(XXX, us, pw){
+                   
+                    TLTU <- readHMDweb(CNTRY = XXX, item = "Deaths_lexis", username = us, password = pw)        
+                          
                     yrs <- sort(unique(TLTU$Year))
                     DLm <- with(TLTU, Male[Age == "0" & Year == Cohort])
                     DLf <- with(TLTU, Female[Age == "0" & Year == Cohort])
                     names(DLm) <- names(DLf) <- yrs
                     
-                    BMF <- read.table(file.path(HMDpath, "Births",paste0(XXX,".Births.txt")),
-                            header = TRUE, as.is = TRUE, skip = 2)
-                    Bf <- BMF$Female[BMF$Year %in% yrs]
-                    Bm <- BMF$Male[BMF$Year %in% yrs]
+                    BMF <- readHMDweb(CNTRY = XXX, item = "Births", username = us, password = pw)
+                    Bf  <- BMF$Female[BMF$Year %in% yrs]
+                    Bm  <- BMF$Male[BMF$Year %in% yrs]
                     
                     lambda.m <- 1 - DLm / Bm
                     lambda.f <- 1 - DLf / Bf
                     data.frame(Code = XXX,Year = yrs, lambda.m,lambda.f,stringsAsFactors = FALSE)
-                }, HMDpath = HMDpath))
+                }, pw = pw, us = us))
 save(lambdaLeslie, file = "Data/lambdaLeslie.Rdata")
 
