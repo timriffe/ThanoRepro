@@ -12,6 +12,12 @@ LazyLoad: yes
 Depends:
     R (>= 2.15),
 Imports:
-    compiler
-    RColorBrewer
+    compiler,
+    RColorBrewer,
     grDevices
+Collate:
+    'PlotFunctions.R'
+    'PyramidOutline.R'
+    'Thano.R'
+    'lifetablefunctions.R'
+    'stablefunctions.R'

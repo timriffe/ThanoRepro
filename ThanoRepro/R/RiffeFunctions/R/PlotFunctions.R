@@ -42,7 +42,7 @@ makeRect <- function(x, y, w, h, ...){
 #'
 #' @title PyramidOrLeafWithHeterogeneity plots either a leaf or a pyramid
 #' 
-#' @description This function takes cross-classified age matrices (thanatological age in rows and chronological age in columns, and will plot it either as a pyramid with death-cohorts highlighted with a color ramp or a thanatological leaf, with birth cohorts highlighted with a color ramp. I might not be very useful outside of this paper. The figure is added to an already-open device of the appropriate dimension. Scaled to sum to 1, as used in the paper. That's fixed here, so you'l need to re-define the function in order to make it more flexible...
+#' @description Deprecated. Switched code to use \code{plotPyr()}. This function takes cross-classified age matrices (thanatological age in rows and chronological age in columns, and will plot it either as a pyramid with death-cohorts highlighted with a color ramp or a thanatological leaf, with birth cohorts highlighted with a color ramp. I might not be very useful outside of this paper. The figure is added to an already-open device of the appropriate dimension. Scaled to sum to 1, as used in the paper. That's fixed here, so you'l need to re-define the function in order to make it more flexible...
 #' 
 #' @param Males a matrix of counts cross-classified by single chronological and thanatological ages, as returned by \code{Thano()}. These plot on the left.
 #' @param Females a matrix of counts cross-classified by single chronological and thanatological ages, as returned by \code{Thano()}. These plot on the right.
@@ -207,3 +207,68 @@ colorStrip <- function(x = .0105,y=5,w=.002,h = 100,BrewerPal,revcol = FALSE,ris
     
 }
 
+
+
+#' @title plotPyr plots heterogenous pyramid using output from \code{prepare4plot()}
+#' @description This is an internal function, very specific and rigid.
+#' 
+#' @param XXX list returned by \code{GetThanoMatrices()} with male and female matrix elements
+#' @param x coord of center of figure
+#' @param y corrd of bottom of figure
+#' @param Thano logical do we draw a thanatological leaf or a chronological pyramid?
+#' 
+#' @return NULL. function called for its plotting side effects
+#' 
+#' @export
+#' 
+
+plotPyr <- function(XXX,x,y,Thano=TRUE){
+  N <- ncol(XXX[["Cm"]])
+  mgrab <- ifelse(Thano,"Tm","Cm")
+  fgrab <- ifelse(Thano, "Tf", "Cf")
+  cgrab <- ifelse(Thano, "Tcol", "Ccol")
+  for (i in N:1){
+    m <- rep(XXX[[mgrab]][, i], each = 2)
+    f <- rep(XXX[[fgrab]][, i], each = 2)
+    polygon(c(m, rev(f)) + x, XXX[["y"]] + y, border = NA, col = XXX[[cgrab]][i])
+  }
+  
+  PyramidOutline(abs(XXX[[mgrab]][, N]), XXX[[fgrab]][, N], 
+    x = x, y = y, scale = 1, border = gray(.1), lwd = .2)
+}
+
+#' @title prepare4plot gathers info needed for plotting and puts it in a list
+#' @description This is an internal function, very specific and rigid.
+#' 
+#' @param XXX list returned by \code{GetThanoMatrices()} with male and female matrix elements
+#' @param colsFun1 color ramp function for chronological age
+#' @param colsFun2 color ramp function for thanatological age
+#' 
+#' @return list with several components passed to special plotting function, \code{plotPyr()}
+#' 
+#' @export
+#' 
+# OK data object in order
+# transform to plot-specific data
+prepare4plot <- function(XXX, colsFun1, colsFun2){
+  Mf          <- XXX$Females
+  Mm          <- XXX$Males
+  TOT         <- sum(Mf) + sum(Mm)
+  
+  Het1f       <- apply(Mf ,2, aggN, N = 10) / TOT             # age with ey het
+  Het1m       <- apply(Mm ,2, aggN, N = 10) / TOT             # age with ey het
+  Het2f       <- apply(Mf ,1, aggN, N = 10) / TOT             # age with ey het
+  Het2m       <- apply(Mm ,1, aggN, N = 10) / TOT 
+  
+# cumulative sum for cleaner plotting
+  cumHet1f    <- t(apply(Het1f, 2, cumsum))
+  cumHet2f    <- t(apply(Het2f, 2, cumsum))
+  cumHet1m    <- -t(apply(Het1m, 2, cumsum))
+  cumHet2m    <- -t(apply(Het2m, 2, cumsum))
+  
+  cols1       <- colsFun1(ncol(cumHet1m))
+  cols2       <- colsFun2(ncol(cumHet1m))
+  y           <- c(0, rep(1:110, each = 2), 111)
+  y           <- c(y, rev(y))
+  list(Cf = cumHet1f, Tf = cumHet2f, Cm = cumHet1m, Tm = cumHet2m, Ccol = cols1, Tcol = cols2, y = y)
+}
