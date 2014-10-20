@@ -6,8 +6,12 @@
 \usepackage{placeins}
 \usepackage{graphicx}
 \usepackage{subcaption}
+%\usepackage{pgf}
 \usepackage{tikz}
+%\usetikzlibrary{arrows}
 %\usepackage[active,tightpage]{preview}
+%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{5pt}
 \usepackage{natbib}
 \bibpunct{(}{)}{,}{a}{}{;} 
 \usepackage{url}
@@ -27,7 +31,6 @@
 \AtBeginDocument{\numberwithin{matrix}{section}}
 % end preamble
 %-------------------------------------------------------
-
 \begin{document}
 
 \title{Renewal and stability in populations structured by remaining
@@ -186,6 +189,7 @@ population.
 Figure~\ref{fig:USrecomp} shows this recomposition for the same 2010
 US data.
 
+% both figures created in R/Pyramids.R
 \begin{figure}[ht!]
 	\caption{2010 US population structure}
 	\begin{center}
@@ -257,9 +261,10 @@ population is) has tended to fall over time. All populations have shown a
 rightward shift in both the mean and modal mother's thanatological age at birth
 (TAB) over time. Several
 populations now show modal TABs of over 60 years. Thanatological total fertility rates (TTFR)
-track standard period total fertility rates (PTFR) rather closely, but tend to
+track standard period total ferti
+lity rates (PTFR) rather closely, but tend to
 be somewhat higher (not shown).
-
+% both figures created in R/HFDspaghetti.R
 \begin{figure}[h!]
 	\caption{Chronological and thantological fertility rates, all 1600
 	country-year combinations present in both the HFD and HMD.* Note different x
@@ -559,10 +564,11 @@ toward stability.
 \centering
 \caption{The thanatological lifecycle graph}
 \label{fig:graph}
-\begin{tikzpicture}[->,shorten >=1pt,auto,node distance=4.3cm,
-  thick,main node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries}]
+\begin{tikzpicture}[->,shorten>=1pt,auto,node distance=4.3cm,thick,main
+node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries}]
   \definecolor{gray}{rgb}{0.8,0.8,0.8}
   \definecolor{lightgreen}{rgb}{0,0.8,0.8}
+  
   \node[main node] (0) {0};
   \node[main node] (5) [above right of=0] {5};
   \node[main node] (4) [right of=5] {4};
@@ -610,14 +616,13 @@ toward stability.
         edge [loop above] node {$f^\star (4)d(4)$} (4)
         edge [bend left] node {$\lambda f^\star (4)d(0)$} (X);
     
-    \path[every node/.style={font=\sffamily\small}, ultra thick, color =
-    lightgreen ] (5) edge node {} (4)
+    \path[every node/.style={font=\sffamily\small}, ultra thick, color=lightgreen ] 
+    (5) edge node {} (4)
     (4) edge node {} (3)
     (3) edge node {} (2)
     (2) edge node {} (1)
     (1) edge node {} (0)
-    (0) edge node {} (X);
-        
+    (0) edge node {} (X);    
 \end{tikzpicture}
 \end{figure}
 
