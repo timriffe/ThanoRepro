@@ -16,4 +16,5 @@ library(devtools)
 devtools::document("R/RiffeFunctions")
 #devtools::load_all("R/RiffeFunctions")
 
-
+library("TimUtils")
+IncrementVersion("R/RiffeFunctions","1",package.origin="2014-01-01")
