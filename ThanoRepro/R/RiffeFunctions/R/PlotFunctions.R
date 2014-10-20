@@ -2,6 +2,22 @@
 # this script contains auximilary functions used in plotting in this paper. These are peculiar and not necessarily useful beyond their application in the paper scripts. Since I am lame and do all plotting in base, in invariably end up with myriad such custom figure functions...
 
 #'
+#' @title aggN aggregate vector of single age (year) data to N-year groups
+#' 
+#' @description This only makes sense if N is 5 or 10 (or 2 I guess), since it uses modulo to find groups
+#'    Ages are assumed to start at 0 and count up in single ages.
+#' 
+#' @param x the vector of single-age-classified data
+#' @param N desired width of interval, e.g., 5 or 10
+#' 
+#' @export 
+#' 
+aggN <- function(x,N){
+  age <- 0:(length(x) - 1)
+  tapply(x,age - age %% N, sum)
+}
+
+#'
 #' @title makeVectorAgeGroups move single age data into age groups
 #' 
 #' @param vec a vector of data to be grouped
