@@ -1,5 +1,5 @@
 # for Tim, this will choke
-if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
   # if I'm on the laptop
   setwd("/home/tim/git/ThanoRepro/ThanoRepro")
 } else {
