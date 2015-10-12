@@ -181,9 +181,6 @@ Data[,Fy := FyFun(Exposure, Births, dx), by = list(Code,Sex,Year)]
 Data[,Fyf := FyFun(Exposure, Bxf, dx), by = list(Code,Sex,Year)]
 Data <- as.data.frame(Data)
 
-head(Data[Data$Sex == "f" & Data$Age < 12,])
-head(Data[Data$Sex == "f" & is.na(Data$Fyf),])
-head(Data[Data$Sex == "f" & Data$Year == 1956 & Data$Code == "AUT",],15)
 #-----------------------------------------
 rownames(Data) <- NULL
 #-----------------------------------------
@@ -241,4 +238,9 @@ lambdaLeslie <- do.call(rbind,lapply(Allcountries, function(XXX, us, pw){
                     data.frame(Code = XXX,Year = yrs, lambda.m,lambda.f,stringsAsFactors = FALSE)
                 }, pw = pw, us = us))
 save(lambdaLeslie, file = "Data/lambdaLeslie.Rdata")
+
+
+SRB <- median(PFvec)
+#dput(SRB) # 0.486540388060525
+#(1-SRB)/SRB
 

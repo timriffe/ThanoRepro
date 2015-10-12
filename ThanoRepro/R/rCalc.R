@@ -97,17 +97,17 @@ dev.off()
 var(rT$V1)/var(rL$V1)
 
 par(mfrow=c(1,2))
-matplot(1891:2011, rTM, type = 'l', lty = 1, col = "#0000FF40")
+matplot(1891:2013, rTM, type = 'l', lty = 1, col = "#0000FF40")
 abline(h=0)
-matplot(1891:2011, rLM, type = 'l', lty = 1, col = "#0000FF40")
+matplot(1891:2013, rLM, type = 'l', lty = 1, col = "#0000FF40")
 abline(h=0)
 
 graphics.off()
 for (i in 1:ncol(rTM)){
 plot(NULL, type = "n",xlim=c(1891,2011),ylim=c(-.04,.02),main=colnames(rLM)[i])
 abline(h=0)
-lines(1891:2011, rLM[,i], col = "blue")
-lines(1891:2011, rTM[,i], col = "red")
+lines(1891:2013, rLM[,i], col = "blue")
+lines(1891:2013, rTM[,i], col = "red")
 legend("bottomleft",lty=1,col=c("red","blue"),legend=c("Thano","Lotka"))
 Sys.sleep(1)
 }
@@ -115,6 +115,7 @@ Sys.sleep(1)
 matplot(1891:2011, rLM - rTM, type = 'l', lty = 1, col = "#0000FF40")
 abline(h=0)
 
+sum(!is.na(rDiff))
 sum(abs(rDiff) < 1e-7, na.rm = TRUE) # only one case of virtually identical r values (tol is like 1e-12)
 sum(rLM < rTM, na.rm = TRUE)
 sum(rLM > 0, na.rm = TRUE)
@@ -129,7 +130,7 @@ rLl0 <- sum(rLM < 0, na.rm = TRUE)
 sum(rLM < 0 & rLM > rTM & abs(rDiff) > 1e-7, na.rm = TRUE) / rLl0
 sum(rLM < 0 & rLM < rTM & abs(rDiff) > 1e-7, na.rm = TRUE) / rLl0
 
-sum(sign(rLM) != sign(rTM), na.rm = TRUE) # 138 times where sign was different
+sum(sign(rLM) != sign(rTM), na.rm = TRUE) # 157 times where sign was different
 rLMd <- apply(rLM,2,diff)
 rLTd <- apply(rTM,2,diff)
 
