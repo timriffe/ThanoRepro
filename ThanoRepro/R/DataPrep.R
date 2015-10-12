@@ -12,7 +12,7 @@ source("R/Functions.R")
 library(compiler)
 library(data.table)
 library(reshape2)
-library(DemogBerkeley)
+library(HMDHFDplus)
 #list.files(HFDpath)
 
 # IRL and ESP are preliminary countries in HFD at time of this writing

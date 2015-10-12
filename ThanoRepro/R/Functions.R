@@ -14,17 +14,18 @@ PACKAGES <- installed.packages()[,"Package"]
 # see https://github.com/UCBdemography/DemogBerkeley for installation tips.
 # requires some external programs be installed to run properly. If you try and fail, then email 
 # the author. This is only used for reading HMD/HFD data into R.
-if (!"DemogBerkeley" %in% PACKAGES){
-  A <- try(devtools::install_github("UCBdemography/DemogBerkeley", subdir = "DemogBerkeley"))
-  if (class(A) == "try-error"){
-    cat("\nDemogBerkeley didn't install. \nsee https://github.com/UCBdemography/DemogBerkeley \n for installation tips")
-  }
-}
-require(DemogBerkeley)
+#if (!"DemogBerkeley" %in% PACKAGES){
+#  A <- try(devtools::install_github("UCBdemography/DemogBerkeley", subdir = "DemogBerkeley"))
+#  if (class(A) == "try-error"){
+#    cat("\nDemogBerkeley didn't install. \nsee https://github.com/UCBdemography/DemogBerkeley \n for installation tips")
+#  }
+#}
+
+# TR: swapped in HMDHFDplus, much more stable!
+require(HMDHFDplus)
 
 
 devtools::load_all("R/RiffeFunctions")
-
 
 
 
