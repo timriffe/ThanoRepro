@@ -22,14 +22,16 @@ Allcountries <- intersect(HFDcountries, HMDcountries)
 
 # This will take a LONG time to generate. Inefficient web parsing. FYI
 # 1)
-if (!"pw" %in% ls()){
+if (!exists("pw")){
   cat("enter HFD password into console (no quotes) and press enter\n")
   pw <- userInput()
 }
-if (!"us" %in% ls()){
+
+if (!exists("us")){
   cat("enter HFD username into console (no quotes) and press enter\n")
   us <- userInput()
 }
+
 
 # HFD data downloaded on:
 Sys.Date()
@@ -90,7 +92,7 @@ HFD         <- rbind(HFD, m)
 
 # note when we download the data:
 cat("HMD data downloaded on", as.character(Sys.Date()), file = "Data/HMDdate.txt")
-Data <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
+HMD <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
       
       flt <- readHMDweb(CNTRY = XXX, item = "fltper_1x1", username = us, password = pw)
       mlt <- readHMDweb(CNTRY = XXX, item = "mltper_1x1", username = us, password = pw)
@@ -112,25 +114,26 @@ Data <- do.call(rbind, lapply(Allcountries, function(XXX,pw,us){
       rbind(flt, mlt)
     }, us = us, pw = pw))
 
+HMD <- as.data.frame(HMD)
 HFD <- as.data.frame(HFD)
 
 # ------------------------------------
 # work to combine
 # 1) find years/populations in common:
-HMDxxyr <- paste(Data$Code, Data$Year)
+HMDxxyr <- paste(HMD$Code, HMD$Year)
 HFDxxyr <- paste(HFD$Code, HFD$Year)
 XXXyr   <- intersect(unique(HMDxxyr), unique(HFDxxyr))
-
+#Bx[Bx$Year == 1956 & Bx$Code == "AUT" & Bx$Age > 10, ]
 # cut down to only those pops with both fert and mort:
 HFD     <- HFD[HFDxxyr %in% XXXyr, ]
-Data    <- Data[HMDxxyr %in% XXXyr, ]
+HMD     <- HMD[HMDxxyr %in% XXXyr, ]
 
 # reorder rows
 HFD     <- HFD[with(HFD, order(Code, Year, Sex, Age)),]
-Data    <- Data[with(Data, order(Code, Year, Sex, Age)),]
+HMD     <- HMD[with(HMD, order(Code, Year, Sex, Age)),]
 
 # combine into universal Data object
-Data    <- cbind(Data, HFD[, c("Births","Fx")])
+Data    <- cbind(HMD, HFD[, c("Births","Fx")])
 
 # OK, one last step, make Fxf, assuming constant SRB over age of mother:
 PFall <- do.call(rbind,lapply(Allcountries, function(XXX, pw, us){
@@ -141,6 +144,7 @@ PFall <- do.call(rbind,lapply(Allcountries, function(XXX, pw, us){
                 }, pw = pw, us = us))
 PFvec         <- PFall$PF
 names(PFvec)  <- paste(PFall$Code, PFall$Year)
+
 DataID        <- paste(Data$Code, Data$Year)
 Data$Fxf      <- Data$Fx * PFvec[DataID]
 Data$Bxf      <- Data$Births * PFvec[DataID]
@@ -167,17 +171,19 @@ FyFun <- cmpfun(function(Exposure, Births,dx){
     rowSums(Thano(Births, dx)) /
             rowSums(Thano(Exposure, dx))
 })
-FyfFun <- cmpfun(function(Exposure, Bxf,dx){
+FyfFun <- cmpfun(function(Exposure, Bxf, dx){
     rowSums(Thano(Bxf, dx)) /
             rowSums(Thano(Exposure, dx))
 })
 
-Data[,Fy := FyFun(Exposure, Births,dx), by = list(Code,Sex,Year)]
-Data[,Fyf := FyFun(Exposure, Bxf,dx), by = list(Code,Sex,Year)]
+
+Data[,Fy := FyFun(Exposure, Births, dx), by = list(Code,Sex,Year)]
+Data[,Fyf := FyFun(Exposure, Bxf, dx), by = list(Code,Sex,Year)]
 Data <- as.data.frame(Data)
 
-
-
+head(Data[Data$Sex == "f" & Data$Age < 12,])
+head(Data[Data$Sex == "f" & is.na(Data$Fyf),])
+head(Data[Data$Sex == "f" & Data$Year == 1956 & Data$Code == "AUT",],15)
 #-----------------------------------------
 rownames(Data) <- NULL
 #-----------------------------------------
