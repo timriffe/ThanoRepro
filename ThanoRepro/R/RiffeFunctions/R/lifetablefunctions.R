@@ -9,7 +9,7 @@
 #' 
 #' @return q0 the estimate of q0 according to the identity between a0, m0, q0
 #' 
-#' @author Tim Riffe \email{triffe@@demog.berkeley.edu}
+#' @author Tim Riffe \email{tim.riffe@@gmail.com}
 #' 
 #' @export
 #' 
@@ -28,7 +28,7 @@ AKm02q0 <- function(m0,constant,slope){
 #' 
 #' @return a0, the estimated average age at death of those dying in the first year of life, either a single value or a vector of a_0 values.
 #' 
-#' @author Tim Riffe \email{triffe@@demog.berkeley.edu}
+#' @author Tim Riffe \email{tim.riffe@@gmail.com}
 #' 
 #' @export
 
@@ -52,7 +52,7 @@ AKm02a0 <- function(m0, sex = "m"){
 #' 
 #' @return dx a vector the same length as mx, radix 1.
 #' 
-#' @author Tim Riffe \email{triffe@@demog.berkeley.edu}
+#' @author Tim Riffe \email{tim.riffe@@gmail.com}
 #' 
 #' @export
 #' 
@@ -85,7 +85,37 @@ mx2dxHMD <- cmpfun(function(mx, sex = "m"){
   })
 
 #'
-#' @title mx2dxHMD derive dx from mx using the HMD lifetable protocol
+#' @title derive DYA from d(a) 
+#' 
+#' @description This function makes a triangle out of d(a)
+#' 
+#' @param da the lifetable deaths distribution classified by chronological age
+#' 
+#' @return d(Y,A) the lifetable remaining lifetime distribution, not conditioned on surviva;
+#' 
+#' @author Tim Riffe \email{tim.riffe@@gmail.com}
+#' 
+#' @export
+#' 
+
+da2DYA <- function(da){
+	N       <- length(da)
+	ay      <- 1:N - 1
+	
+	da      <- Mna0(da)   # remove NAs if any       
+	da      <- c(da, da * 0) / sum(da) # pad out with 0s
+	fya     <- matrix(da[col(matrix(nrow = N, 
+									ncol = N)) + ay], 
+			nrow = N, 
+			ncol = N, 
+			dimnames = list(Ex = ay, 
+					Age = ay)
+	)
+	fya
+}
+
+#'
+#' @title derive f(y,a) from d(a) 
 #' 
 #' @description This function conditions d(a+y) on survival to age a.
 #' 
@@ -94,24 +124,13 @@ mx2dxHMD <- cmpfun(function(mx, sex = "m"){
 #' 
 #' @return fya the lifetable remaining lifetime distribution conditioned on survival.
 #' 
-#' @author Tim Riffe \email{triffe@@demog.berkeley.edu}
+#' @author Tim Riffe \email{tim.riffe@@gmail.com}
 #' 
 #' @export
 #' 
 
 da2fya <- function(da, stagger = FALSE){
-  N       <- length(da)
-  ay      <- 1:N - 1
-  
-  da      <- Mna0(da)   # remove NAs if any       
-  da      <- c(da, da * 0) / sum(da) # pad out with 0s
-  fya     <- matrix(da[col(matrix(nrow = N, 
-          ncol = N)) + ay], 
-    nrow = N, 
-    ncol = N, 
-    dimnames = list(Ex = ay, 
-      Age = ay)
-  )
+  fya     <- da2DYA(da)
   if (stagger){
     fya <- (fya + cbind(fya[, 2:ncol(fya)], 0)) / 2
   }

@@ -105,26 +105,41 @@ for (i in 1:length(e0vec)){
 			maximum = FALSE, 
 			tol = 1e-7)$minimum
 		}
-e0avg(-10.7133251,mxm,mxf,PF)
-plot(0:120, mx2lx(mxme * getcoef(coefs[1], mxme, "m"),"m"), type = 'l', ylim = c(0,1))
-lines(0:120, mx2lx(mxme * getcoef(coefs[2], mxme, "m"),"m"))
-lines(0:120, mx2lx(mxme * getcoef(coefs[3], mxme, "m"),"m"))
-lines(0:120, mx2lx(mxme * getcoef(coefs[4], mxme, "m"),"m"))
-lines(0:120, mx2lx(mxme * getcoef(coefs[5], mxme, "m"),"m"))
-# so, coefs are what we need to use to derive the right avg e0, just multiply in mxm, mxf
-# to get back corresponding lx, rescale using PF and make pyramids.
-age <- 0:120
+
 rs <- c(-.02,-.01,0,.01,.02)
 par(mai = c(0,0,0,0))
 
-# ready!!!
-plot(NULL, type = "n", axes = FALSE, xlab = "", ylab = "",xlim=c(-2,2),ylim=c(0,115))
-PyramidOutline(males = mx2lx(mxme*getcoef(coefs[1], mxme, "f"),"m") * (1 - PF) * exp(-age*.02),
-		females = mx2lx(mxfe*getcoef(coefs[1], mxfe, "f"),"f") * PF * exp(-age*.02),
-		scale = 100,
-		col = "gray",
-		border =  NA)
+for (r in rs){
+	for (e in 1:length(e0vec)){
+		pdf(paste0("Figures/MiniPyramids/","Pyr-r",r,"-e0",e0vec[e],".pdf"), width=1,height=1)
+		par(mai=c(0,0,0,0), xaxs="i", yaxs = "i")
+		plot(NULL, type = "n", axes = FALSE, xlab = "", ylab = "",xlim=c(-1.6,1.6),ylim=c(0,115))
+		PyramidOutline(males = mx2lx(mxme*getcoef(coefs[e], mxme, "m"),"m") * (1 - PF) * exp(-age*r),
+				females = mx2lx(mxfe*getcoef(coefs[e], mxfe, "f"),"f") * PF * exp(-age*r),
+				scale = 100,
+				col = "gray",
+				border =  NA)
+		dev.off()
+	}
+}
 
 
+for (r in rs){
+	for (e in 1:length(e0vec)){
+		pdf(paste0("Figures/MiniPyramids/","Leaf-r",r,"-e0",e0vec[e],".pdf"), width=1,height=1)
+		par(mai=c(0,0,0,0), xaxs="i", yaxs = "i")
+		plot(NULL, type = "n", axes = FALSE, xlab = "", ylab = "",xlim=c(-1.6,1.6),ylim=c(0,115))
+		PyramidOutline(
+				males = colSums(da2DYA(mx2dxHMD(mxme*getcoef(coefs[e], mxme, "m"),"m")) * (1 - PF) * exp(-age*r)),
+				females = colSums(da2DYA(mx2dxHMD(mxfe*getcoef(coefs[e], mxfe, "f"),"f")) * PF * exp(-age*r)),
+				scale = 100,
+				col = "gray",
+				border =  NA)
+		dev.off()
+	}
+}
+
+
+plot(colSums(da2DYA(mx2dxHMD(mxme*getcoef(coefs[1], mxme, "m"),"m")) * exp(-age*r)))
 
 

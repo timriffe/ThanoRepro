@@ -4,7 +4,7 @@ Title: RiffeFunctions, functions for reproducing Riffe (2014).
 Version: 1.0.8016
 Date: 2014-10-20
 Author: Tim Riffe
-Maintainer: Tim Riffe <triffe@demog.berkeley.edu>
+Maintainer: Tim Riffe <tim.riffe@gmail.com>
 Description: Some functions and data for reproducing calculations and figures
     from the paper.
 License: GPL-2

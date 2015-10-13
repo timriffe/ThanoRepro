@@ -108,6 +108,9 @@ lines(Data$Age, Data$FxSt, col = "#00000005")
 }
 
 graphics.off()
+
+# just for a cleaner figure
+Data$Fy[Data$Age > 100] <- NA
 # Fy 
 png("Figures/FySpaghettiDraft.png")
 #pdf("Figures/FySpaghetti.pdf") # high res vector
@@ -124,6 +127,8 @@ text(mean(c(0,95)),-.01,"Thanatological age (years left)",xpd=TRUE)
 #text(c(25,25,80,80),c(.03,.12,.03,.12),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
 dev.off()
 
+# just for a cleaner figure
+Data$Fx[Data$Fx==0] <- NA
 # Fx 
 png("Figures/FxSpaghettiDraft.png")
 #pdf("Figures/FxSpaghetti.pdf") # high res vector
@@ -140,6 +145,7 @@ text(mean(c(12,55)),-.02,"Chronological age (years lived)",xpd=TRUE)
 #text(c(25,25,45,45),c(.03,.25,.03,.25),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
 dev.off()
 
+length(unique(paste(Data$Code,Data$Year)))
 #
 ## Fyst
 #par(xaxs = "i", yaxs = "i", mai=c(1,1,1,1))
@@ -173,8 +179,8 @@ dev.off()
 #
 #
 ## for caption
-#ranges <- tapply(Data$Year, Data$Code, function(yrs){
-#            paste0("$",paste(min(yrs),max(yrs),sep = "-"),"$")
-#        })
-#paste(paste(names(ranges),ranges, sep = ", "), collapse = "; ")
-#length(ranges)
+ranges <- tapply(Data$Year, Data$Code, function(yrs){
+            paste0("$",paste(min(yrs),max(yrs),sep = "-"),"$")
+        })
+paste(paste(names(ranges),ranges, sep = ", "), collapse = "; ")
+length(ranges)

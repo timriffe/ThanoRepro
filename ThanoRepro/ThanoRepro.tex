@@ -29,6 +29,9 @@
 \floatstyle{plaintop}
     \restylefloat{matrix}
 \AtBeginDocument{\numberwithin{matrix}{section}}
+
+\newcommand{\Py}[2]{\includegraphics[scale=.5]{Figures/MiniPyramids/{Pyr-r#1-e0#2}.pdf}}
+\newcommand{\Lf}[2]{\includegraphics[scale=.5]{Figures/MiniPyramids/{Leaf-r#1-e0#2}.pdf}}
 % end preamble
 %-------------------------------------------------------
 \begin{document}
@@ -51,66 +54,63 @@ please don't cite without permission of the author.
 \vspace{2em}
 
 \onehalfspacing
-All demographic forces vary over age in known and regular ways. Information on
-such forces, along with the size and age structure of a population, allows the
-demographer to make predictions about the future size and structure of a population. In this
+All demographic phenomena vary over age in regular ways. Information
+on such phenomena, along with the size and age structure of a population, allows
+the demographer to make predictions about the future size and structure of a population. In this
 paper, I explore some formal demographic consequences of a particular
-redefinition of age. Instead of counting age as the time passed between birth and the present (or
-some other moment), consider age as the amount of time left from the present
+redefinition of age. Instead of counting age as the time passed since birth, consider age as the amount of time left
 until death\footnote{This quantity is referred to as \textit{residual} lifetime
 in the reliability literaure.}. The first kind of age is called
 chronological age and the kind of age explored in this paper is
 called thanatological age. Individuals in this case move in the same direction
-along imaginary life lines, but the reference point for age is now at the end of the life line instead of at the beginning. For individuals, the timing of events in life is mirrored exactly between the two definitions of age,
-but aggregate patterns differ.
+along imaginary life lines, but the reference point for age is now at the end of
+the life line instead of at the beginning. For individuals, the timing of events
+in life is identified exactly using either of the two definitions of age, but
+aggregate patterns differ. Some demographic phenomena are best
+described as a function of time since birth, and others of time until death,
+while still others can be a function of both to some degree \citep{riffe2015ttd}. This observation ought to motivate the formal demographic base by incorporating this aspect of time in into
+models. 
+
+%Temporal perspectives and rescalings of the lifecourse are abundant in
+% demography already. Such work has enriched the discipline by producing new insights, questions, and conundrums.
 
 Direct information on the timing of demographic transitions with respect to
-death is only available from long-running panel or linked historical data that are few and far between. Some surveys also ask respondents in various ways about
-their perceived future lifetime, which may underly those
+death is available retrospectively from linked population registers or
+panel surveys with mortality follow-ups.
+Some surveys also ask respondents in various ways about their perceived future lifetime, which may underly those
 demographic transitions governed to some degree by volition. The present inquiry
 draws only from lifetable-projected remaining lifetime, which
-is intended to approximate actual remaining lifetime.
-The lifetable methods applied here follow those of \citet{brouard1986structure}
-or \citet{miller2001increasing}, which redistribute age-classified counts over
-future death times according to a fixed mortality schedule. This allows us to make statements about the remaining lifelines within a current stock of population, under certain assumptions.
+is intended to approximate actual remaining lifetime under the strong
+assumption of homogenous populations.
+The present inquiry is based on lifetable methods, which redistribute
+chronological age-classified counts over future death times according to a fixed
+mortality schedule. This allows us to make statements about the remaining lifelines within a stock of population, under certain assumptions.
 
-Temporal perspectives and rescalings of the lifecourse are abundant in
-demography already. It is my view that these efforts have enriched the
-discipline by producing new insights and questions much more than they have obscured it by
-producing conundrums. Likely some demographic phenomena are best
-described as a function of time since birth, and others of time until death,
-while still others can be a function of both to some degree. Fertility and
-reproduction are plausibly a function of both age perspectives, and the question
-of how to best partition such forces and events over time is a new conundrum
-that I do not tackle here. Instead I describe some of the formal consequences
-of the Lotka-Euler renewal model when viewed from the thanatological perspective
-of age. 
+% Fertility and reproduction are plausibly a function of both age perspectives,
+ % and the question of how to best partition them over time is not investigated here. 
 
-The renewal model is the core of modern demography, as it elegantly relates
-fertility, mortality, and population structure, revealing the long
-term consequences of a particular set of conditions. Some might think that
-stable population theory is not relevant to everyday demography, since
-populations seem to always be changing. Still, most projections seem to trail
-off into a stable state, and stability or even stationarity are
-imaginable for the world population of humans one day. I present a renewal model
-based on thanatological age not necessarily as a suggestion for a
-better way to model or project population (or certain aspects of it), although I
-plant this is an open and unexplored empirical question.
-In a minimal sense the thanatological renewal model represents an alternative
-and coherent way to describe the process of population renewal. In a maximal sense, the model may
-actually prove useful, as a model relating renewal to a death flow rather than
-to a birth flow. This enriches our understanding of lifespan and vitality, but also
-of the side effects of our species' renewal, such as the human biomass cycle.
+In this paper I describe some formal consequences
+of the Lotka-Euler renewal model when structured by thanatological age. The
+renewal model relates fertility, mortality, and population structure in a parsimonious form, revealing the long term consequences of a particular set of conditions. All diverse lines
+of contemporary demographic research are relatable to the renewal model.
+Some might think that stable population theory is not relevant to everyday
+demography, since populations are always changing. Even if change undercuts the
+notion of stability as a prediction, models of long-run consequnces still give a
+useful index of the demographic force implied by a given set of rates.
+That population projections lead into a stable state means that some
+form of stability is implied by the routine practice of demography.
+Stability or even stationarity are imaginable for the world population of humans
+one day. Models of stationary populations are easily applied by analogy to
+closed or nearly-closed birth cohorts. To present the renewal model based on thanatological
+age not necessarily a suggestion for a better way to model or project
+population. Rather, the thanatological renewal model represents an alternative
+and coherent way to describe the process of population renewal. A model relating
+renewal to a death flow rather than to a birth flow may have applications, but
+I do not speculate on these here.
 
-Further, there is likely a range of lifecourse transitions that covary
-more with remaining lifetime that with life lived, but these are mostly unstudied at this
-time,\footnote{I suppose that the prime candidates are late-life transitions.}
-and it is beneficial to expand the formal demographic base by incorporating such information into models. In an even more general sense, by
-thinking about remaining lifetime as a particular class of time-to-transition, one may generalize the lifetable methods presented here into new area
-applications, such as education, partnering, the economic lifecycle, or
-migration.
-The present inquiry is justified possibly for its own sake, and definitely as an
-attempt at accounting for remaining time structure in general in modeling that may prove useful.
+We have stated that many lifecourse transitions covary more with remaining
+lifetime than with life lived. In an even more general sense, by thinking about remaining lifetime as a
+particular class of time-to-transition, one may generalize the lifetable methods presented here into new area applications, such as education, partnering, the economic lifecycle, or migration.
 
 The chronological-age classified Lotka-Euler renewal model and the
 thanatological renewal model both approximate the movement of population stocks
@@ -138,45 +138,40 @@ following formulas assume a single lifetable pattern.
 The basic transformation to thanatological age proceeds by defining a
 deaths density function, similar the lifetable $d(a)$, but over two
 dimensions: chronological age attained, $a$, and remaining years of life, $y$.
-This function we denote $d(y|a)$ --- The density distribution of thanatological
-age conditional on chronological age. We use the same function name $d()$,
-because it is essentially the same notion as the familiar $d(a)$, but rescaled as a
-function of chronological age. For ages higher than 0, simply condition
+This function we denote $f(y|a)$ --- The density distribution of thanatological
+age conditional on chronological age. This is essentially the same notion as the
+familiar $d(a)$, but rescaled as a function of chronological age. For ages higher than 0, simply condition
 on survival:\footnote{In the reliability literature, our concept of $d(y|a)$ is denoted by \begin{equation} X - t | X > t
 \end{equation}
 where $X$ is the total lifespan and $t$ is the current chronological age
 attained.}
-
 \begin{equation}
 \label{eq:vaupel1}
-d(y | a) = \mu(a+y)\frac{l(a+y)}{l(a)} \ep
+f(y | a) = \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \ep
 \end{equation}
 
 A convenient discretization of \eqref{eq:vaupel1} is to simply work with the
 $d_a$ column of the lifetable (here with single ages):
-
 \begin{equation}
 \label{eq:dyadiscret}
-d_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{L_a + L_{a+1}} \ec
+f_{y, a} =  \frac{d_{a+y}+d_{a+y+1}}{L_a + L_{a+1}} \ec
 \end{equation}
-
-\noindent where $\omega$ is the highest
-age.\footnote{Equation~\eqref{eq:dyadiscret} ill incur some error depending on
-the method used to derive $L_a$. To remove this error, rescale over the $a$ margin so that each distribution conditioned on $a$
-sums to 1. Working with $l_a$ rather than $L_a$ eliminates error and yields
-similar results, but is not necessarily better.} One produces in this way a
-probability density function over future death times for each chronological age,
-$a$. The $d(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
+where $L_a$ is lifetable exposure.\footnote{Equation~\eqref{eq:dyadiscret}
+will incur some error depending on the method used to derive $L_a$. To remove
+this error, rescale over the $a$ margin so that each distribution conditioned on
+$a$ sums to 1. Working with $\ell_a$ rather than $L_a$ eliminates error and
+yields similar results, but is not necessarily better.} One produces in this way a probability density function over future death times for each chronological age,
+$a$. The $f(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
 remaining life expectancy column of the lifetable, $e(a)$. If $P(a)$ is a
 chronological age-classified population count, we can derive $P(y)$, a
 thanatological age-classified population count using
 
 \begin{align}
 \label{eq:transform}
-P(y) =& \int_0^\infty P(a) d(y | a) \dd a \ep
+P(y) =& \int_0^\infty P(a) f(y | a) \dd a \ep
 \end{align}
 
-Since $1 = \int_0^\infty d(y|a) \dd y$ for each $a$,
+Since $1 = \int_0^\infty f(y|a) \dd y$ for each $a$,
 this density is useful for decomposing data classified by chronological age. For
 example, we can break down a population pyramid into thanatological age classes.
 Figure~\ref{fig:USdecomp} shows this exercise for 2010 US data, assuming the
@@ -230,22 +225,22 @@ since a population's chronological age-structure is mostly the fruit of past
 fertility, but also migration and to a lesser degree attrition. Any count
 classified by chronological age can be reclassified in this way given a
 corresponding lifetable. Exploiting this, we derive thanatological fertility
-rates, $f^\star(y)$, by applying \eqref{eq:transform} to age-classified birth
+rates, $\gamma(y)$, by applying \eqref{eq:transform} to age-classified birth
 counts, $B(a)$, to get $B(y)$ and again to exposure-to-risk, $E(a)$ (here we
 take exposures from all ages), to get $E(y)$ and then dividing
 
 \begin{equation}
-f^\star(y) = \frac{B(y}{E(y)} \ep
+\gamma(y) = \frac{B(y}{E(y)} \ep
 \end{equation}
 
-We are interested to use thanatological fertility rates, $f^\star(y)$ in
+We are interested to use thanatological fertility rates, $\gamma(y)$ in
 models of population renewal,\footnote{This is probably premature, but helps to
 understand the nature and provenance of model components.} rather than to
 explicitly study the nature of these rates. Nonetheless it is best not to throw such rates into a model blindly, so we offer a schematic overview of some of their characteristics.
 Figure~\ref{fig:FySpaghetti} represents the full variety in
 female thanatological period fertility rates that can be found for all years
 of data that overlap in the HFD and HMD.\footnote{There are as of this writing
-1834 population-years of overlap between the HMD and HFD, including a wide
+1933 population-years of overlap between the HMD and HFD, including a wide
 variety of fertility and mortality combinations.} Figure~\ref{fig:FxSpaghetti} gives ASFR for the same
 populations and years as a more familiar reference, but note that both scales
 are different. With no indication of particular populations or time series, one
@@ -258,11 +253,10 @@ spaghetti plot includes both fertility booms and busts, as well as some
 mortality crises (1918, WWII). Some patterns to note, but which we do not
 separate graphically here, are that the left tail (a gauge of how orphan-prone a
 population is) has tended to fall over time. All populations have shown a
-rightward shift in both the mean and modal mother's thanatological age at birth
-(TAB) over time. Several
-populations now show modal TABs of over 60 years. Thanatological total fertility rates (TTFR)
-track standard period total ferti
-lity rates (PTFR) rather closely, but tend to
+rightward shift in both the mean and modal mother's thanatological age at
+childbearing (TAC) over time. Several
+populations now show modal TACs of over 60 years. Thanatological total fertility rates (TTFR)
+track standard period total fertility rates (PTFR) rather closely, but tend to
 be somewhat higher (not shown).
 % both figures created in R/HFDspaghetti.R
 \begin{figure}[h!]
@@ -287,14 +281,15 @@ be somewhat higher (not shown).
 	\\
 	\end{center}
 	\begin{tiny}
-	*AUT, $1951-2010$; BGR, $1947-2009$; BLR, $1964-2009$; CAN, $1921-2007$; 
-	CHE, $1932-2011$; CZE, $1950-2011$; DEUTE, $1956-2010$; DEUTNP, $1990-2010$; 
-	DEUTW, $1956-2010$; ESP, $1922-2006$; EST, $1959-2010$; FIN, $1939-2009$; 
-	FRATNP, $1946-2010$; GBR\_NIR, $1974-2009$; GBR\_NP, $1974-2009$; GBR\_SCO,
-	$1945-2009$; GBRTENW, $1938-2009$; HUN, $1950-2009$; IRL, $1955-2009$; JPN, $1947-2009$; 
-	LTU, $1959-2010$; NLD, $1950-2009$; NOR, $1967-2009$; PRT, $1940-2009$; 
-	RUS, $1959-2010$; SVK, $1950-2009$; SVN, $1983-2009$; SWE, $1891-2010$; 
-	TWN, $1976-2010$; UKR, $1959-2006$; USA, $1933-2010$
+	*AUT, $1951-2010$; BGR, $1947-2009$; BLR, $1964-2012$; CAN, $1921-2009$; 
+	CHE, $1932-2011$; CHL, $1992-2005$; CZE, $1950-2011$; DEUTE, $1956-2011$; 
+	DEUTNP, $1990-2011$; DEUTW, $1956-2011$; ESP, $1922-2012$; EST, $1959-2011$; 
+	FIN, $1939-2009$; FRATNP, $1946-2013$; GBR\_NIR, $1974-2011$; GBR\_NP,
+	$1974-2011$; GBR\_SCO, $1945-2011$; GBRTENW, $1938-2011$; HUN, $1950-2009$;
+	IRL, $1955-2009$; ISL, $1963-2010$; JPN, $1947-2012$; LTU, $1959-2011$; NLD, $1950-2009$; 
+	NOR, $1967-2009$; PRT, $1940-2012$; RUS, $1959-2010$; SVK, $1950-2009$; 
+	SVN, $1983-2009$; SWE, $1891-2011$; TWN, $1976-2010$; UKR, $1959-2009$; 
+	USA, $1933-2010$
 	\end{tiny}
 \end{figure}
 
@@ -315,35 +310,35 @@ of fertility rates shown in Figure~\ref{fig:FySpaghetti}, and we refer to a
 closed, unisex population based on female vital rates. Assuming constant vital rates, the
 births for the present year are given by 
 \begin{align}
-B(t) =& \int _0^\infty P(y,t)f^\star(y) \dd y = \int _0^\infty P(a,t)f(a) \dd a
-\ec \intertext{where $a$ indexes chronological age, $y$ indexes
-thanatological age, $P(a), P(y)$ are population counts, and $f^\star(y), f(a)$ are
-exact specific fertility probabilities (rates), which here are best thought of
+B(t) =& \int _0^\infty P(y,t)\gamma(y) \dd y = \int _0^\infty
+P(a,t)m(a) \dd a \ec \intertext{where $a$ indexes chronological age, $y$ indexes
+thanatological age, $P(a), P(y)$ are population counts, and $\gamma(y), m(a)$ are
+exact specific fertility probabilities (rates), best imagined
 as the fertility rates of females born to females. The thanatological integral can
 be broken down back in terms of chronological age:} =& \int_{y=0}^\infty
-\int_{a=0}^\infty f^\star(y)\frac{P(a,t)d(a+y)}{l(a)} \dd a \dd y \ec
+\int_{a=0}^\infty \gamma(y)\frac{P(a,t)d(a+y)}{\ell(a)} \dd a \dd y \ec
 \intertext{where $d(a)$ is the continuous lifetable death distribution with
-radix of 1, so $d(a)/l(0)$. We can relate the present population to past births
-with $P(a,t) = B(t-a)l(a)$:}
+radix of 1, so $d(a)/\ell(0)$. We can relate the present population to past births
+with $P(a,t) = B(t-a)\ell(a)$:}
 \label{eq:ergostep1}
-=& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) B(t-a)d(a+y)\dd a \dd y \ep 
+=& \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) B(t-a)d(a+y)\dd a \dd y \ep 
 \intertext{Eventually strong ergodicity will assert itself, and $B(t)$ will
 be related to $B(t-a)$ according to a constant factor $e^{ra}$, where $r$ is the familiar
 intrinsic rate of growth:}
 \label{eq:ergostep2}
-=& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) B(t)e^{-ra}d(a+y)\dd a \dd y
+=& \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) B(t)e^{-ra}d(a+y)\dd a \dd y
 \ep
 \intertext{Divide out $B(t)$ to get back a familiar-looking renewal equation:}
 \label{eq:thanoren}
-1 =& \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) d(a+y)e^{-ra}\dd a \dd y
+1 =& \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) d(a+y)e^{-ra}\dd a \dd y
 \ep
 \end{align}
 Now compare this to Lotka's chronological formulation
 \begin{align}
 \label{eq:lotka}
-1 =& \int_{a=0}^\infty f(a)l(a)e^{-ra}\dd a \ec
+1 =& \int_{a=0}^\infty m(a)l(a)e^{-ra}\dd a \ec
 \intertext{which can be expressed as well as}
-  =& \int_{a=0}^\infty \int_{y=0}^\infty f(a)d(a+y)e^{-ra}\dd y \dd a \ec
+  =& \int_{a=0}^\infty \int_{y=0}^\infty m(a)d(a+y)e^{-ra}\dd y \dd a \ec
   \label{eq:lotka2}
 \end{align}
 and note that \eqref{eq:lotka2} and \eqref{eq:thanoren} are really quite
@@ -664,6 +659,46 @@ author to demonstrate this point. See also Appendix~\ref{app:B} for the
 corresponding proof from the continuous model.} The square of the, or the pace
 of convergence to stability (the ratio of the \nth{1} to the \nth{2} eigenvalues).
 \footnote{See \citet[p.86-87]{caswell2001matrix}.}
+
+\section*{Stable age structure}
+
+  
+\begin{figure}[]
+\centering
+\caption{Stable age structures by life expectancy, $e(0)$, and growth rate,
+$r$.*}
+\begin{subfigure}[b]{\textwidth}
+\centering
+\caption{Chronological age structure, $c(a)$.}
+\label{tab:chronostr}
+\begin{tabular}{rccccc}
+$e(0)\rightarrow$ \\
+$\downarrow r $  & 55  & 65 & 75 & 85 & 95 \\
+0.02  &\Py{0.02}{55}  &\Py{0.02}{65} &\Py{0.02}{75}&\Py{0.02}{85}  &\Py{0.02}{95}\\
+0.01  &\Py{0.01}{55}  &\Py{0.01}{65} &\Py{0.01}{75} &\Py{0.01}{85} &\Py{0.01}{95}\\
+0     &\Py{0}{55}     &\Py{0}{65}    &\Py{0}{75}    &\Py{0}{85}    &\Py{0}{95}\\
+-0.01 &\Py{-0.01}{55} &\Py{-0.01}{65}&\Py{-0.01}{75}&\Py{-0.01}{85}&\Py{-0.01}{95}\\
+-0.02 &\Py{-0.02}{55} &\Py{-0.02}{65}&\Py{-0.02}{75}&\Py{-0.02}{85}&\Py{-0.02}{95}
+\end{tabular}
+\end{subfigure}
+\\ \vspace{2em}
+\begin{subfigure}[b]{\textwidth}
+\centering
+\caption{Thanatological age structure, $c^\star(y)$.}
+\label{tab:thanostr}
+\begin{tabular}{rccccc}
+$e(0)\rightarrow$ \\
+$\downarrow r $  & 55  & 65 & 75 & 85 & 95 \\
+0.02  &\Lf{0.02}{55}  &\Lf{0.02}{65} &\Lf{0.02}{75}&\Lf{0.02}{85}  &\Lf{0.02}{95}\\
+0.01  &\Lf{0.01}{55}  &\Lf{0.01}{65} &\Lf{0.01}{75} &\Lf{0.01}{85} &\Lf{0.01}{95}\\
+0     &\Lf{0}{55}     &\Lf{0}{65}    &\Lf{0}{75}    &\Lf{0}{85}    &\Lf{0}{95}\\
+-0.01 &\Lf{-0.01}{55} &\Lf{-0.01}{65}&\Lf{-0.01}{75}&\Lf{-0.01}{85}&\Lf{-0.01}{95}\\
+-0.02 &\Lf{-0.02}{55} &\Lf{-0.02}{65}&\Lf{-0.02}{75}&\Lf{-0.02}{85}&\Lf{-0.02}{95}
+\end{tabular}
+\end{subfigure}
+\vspace{2em}
+*Underlying mortality pattern based on 2010 USA (HMD)
+\end{figure}
 
 \section*{Some preliminary empirical findings}
 The thanatological renewal equation and the discrete projection matrix can be
