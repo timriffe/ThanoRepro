@@ -1,19 +1,24 @@
-# for Tim, this will choke
+
 if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-  # if I'm on the laptop
-  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+	# if I'm on the laptop
+	setwd("/home/tim/git/ThanoRepro/ThanoRepro")
 } else {
-  # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	if (system("hostname",intern=TRUE) == "PC-403478"){
+		# on MPIDR PC
+		setwd("U://git//ThanoRepro//ThanoRepro")
+	} else {
+		# in that case I'm on Berkeley system, and other people in the dept can run this too
+		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	}
 }
+getwd()
 
-
-source("R/Functions.R")
+devtools::load_all(file.path("R","RiffeFunctions"))
 library(data.table)
 # read in data and select females
 Data <- local(get(load("Data/DataAll.Rdata")))
 Data <- Data[Data$Sex == "f", ]
-DT <- as.data.table(Data)
+DT   <- as.data.table(Data)
 
 
 playWithData <- FALSE
@@ -112,6 +117,9 @@ graphics.off()
 # just for a cleaner figure
 Data$Fy[Data$Age > 100] <- NA
 # Fy 
+Data$Fy[Data$Fy==0] <- NA
+Data$Fx[Data$Fx==0] <- NA
+
 png("Figures/FySpaghettiDraft.png")
 #pdf("Figures/FySpaghetti.pdf") # high res vector
 par(xaxs = "i", yaxs = "i", mai=c(.5,.5,.5,.5))

@@ -138,7 +138,7 @@ rLotkaCoale <- cmpfun(function(fa,La,a=.5:110.5, T.guess = 29, maxit = 1e2, tol 
 
 Leslie <- function(fa, Sa, lambda){
   fa <- fa * lambda 
-  cbind(rbind(fa[1:length(pa)], diag(Sa)), 0)
+  cbind(rbind(fa[1:length(Sa)], diag(Sa)), 0)
 }
 
 #' @title ThanoMin residual functin for optimizing thanatological r

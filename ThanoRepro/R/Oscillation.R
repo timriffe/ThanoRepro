@@ -1,11 +1,18 @@
-# for Tim, this will choke
+
 if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-  # if I'm on the laptop
-  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+	# if I'm on the laptop
+	setwd("/home/tim/git/ThanoRepro/ThanoRepro")
 } else {
-  # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	if (system("hostname",intern=TRUE) == "PC-403478"){
+		# on MPIDR PC
+		setwd("U://git//ThanoRepro//ThanoRepro")
+	} else {
+		# in that case I'm on Berkeley system, and other people in the dept can run this too
+		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	}
 }
+getwd()
+# 
 # seems like oscillation comparisons should be done on standard populations.
 
 # could start with Px, get Py, and then derive Cohen's measure, but this adds an initial smoothing
@@ -30,9 +37,9 @@ library(parallel)
 P0mat <- matrix(runif(111*1e3),ncol=1e3)
 
 
-apply(P0mat,2,function(P0, AY){
-       CohenA(P0, AY[["L"]]) / CohenA(P0, AY[["Y"]])
-        }, AY = AllMatrices[[1]])
+#apply(P0mat,2,function(P0, AY){
+#       CohenA(P0, AY[["L"]]) / CohenA(P0, AY[["Y"]])
+#        }, AY = AllMatrices[[1]])
 
 extremeCase1 <- c(1,rep(0,110))
 CohenA(extremeCase1, AllMatrices[[1]][["L"]]) / CohenA(extremeCase1, AllMatrices[[1]][["Y"]])

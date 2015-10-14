@@ -1,13 +1,19 @@
-# for Tim, this will choke
-if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-  # if I'm on the laptop
-  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
-} else {
-  # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
-}
 
-source("R/Functions.R")
+if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
+	# if I'm on the laptop
+	setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+	if (system("hostname",intern=TRUE) == "PC-403478"){
+		# on MPIDR PC
+		setwd("U://git//ThanoRepro//ThanoRepro")
+	} else {
+		# in that case I'm on Berkeley system, and other people in the dept can run this too
+		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	}
+}
+getwd()
+# 
+devtools::load_all(file.path("R","RiffeFunctions"))
 
 # I finally got the discrete (pseudo continuous) equation to match
 # perfectly, so now it seems relevant to try again with the matrix.
@@ -80,8 +86,8 @@ getwd()
 
 #install.packages("expm", repos="http://R-Forge.R-project.org")
 library(expm)
-all(Y%^%100 > 0) # yes, thano is regular
-all(L%^%100 > 0) # Leslie not regular?
+all(Y%^%110 > 0) # yes, thano is regular
+all(L%^%110 > 0) # Leslie not regular?
 
 
 # mixing time
@@ -91,10 +97,10 @@ all(L%^%100 > 0) # Leslie not regular?
 1/log(1/rev(sort(abs(Re(eigen(L)$values))))[2])
 
 # decreasing magnitude (from JHJ 2006 standford workshop notes)
-Ldamping <- Mod(eigen(L)$values[2])/Mod(eigen(L)$values[1])  
-Ydamping <- Mod(eigen(Y)$values[2])/Mod(eigen(Y)$values[1])  
-Yperiod       <- 2*pi/ Arg(eigen(Y)$values[2])
-Lperiod       <- 2*pi/ Arg(eigen(L)$values[2])
+(Ldamping <- Mod(eigen(L)$values[2])/Mod(eigen(L)$values[1])  )
+(Ydamping <- Mod(eigen(Y)$values[2])/Mod(eigen(Y)$values[1])  )
+(Yperiod       <- 2*pi/ Arg(eigen(Y)$values[2]))
+(Lperiod       <- 2*pi/ Arg(eigen(L)$values[2]))
 
 # approx: number of steps over which deviation from equilibrium
 #distribution decreases by factor e
@@ -150,56 +156,58 @@ ca2L <- ca2/sum(ca2)
 #
 #matplot(day %*% diag(ca2),type='l')
 
-# try igraph stuff
+
+###########################################################
+# playing with igraph. Can compare connectivity, etc, automatically
 #install.packages("igraph")
-library(igraph)
-
-YG <- graph.adjacency(t(Y), mode="directed", weighted=TRUE)
-LG <- graph.adjacency(t(L), mode="directed", weighted=TRUE)
-
-is.dag(YG)
-is.dag(LG)
-
-is.connected(YG)
-is.connected(LG)
-
-# is.chordal(YG) # causes crash
-# is.chordal(LG)
-
-#largest.cliques(YG)
-# takes a long time...
-#plot(YG)
-plot(LG)
-average.path.length(YG, directed=TRUE, unconnected=FALSE)
-average.path.length(LG, directed=TRUE, unconnected=FALSE)
-
-betweenness(YG)
-betweenness(LG)
-
-closeness(YG)
-closeness(LG)
-
-#plot(YG)
-get.all.shortest.paths(LG)
-# vertex 
-graph.cohesion(YG)
-graph.cohesion(LG) # ?
-# edge connectivity
-graph.adhesion(YG)
-graph.adhesion(LG)
-
-girth(YG)
-girth(LG)
-
-diameter(YG,directed=TRUE)
-diameter(LG,directed=TRUE)
-
-barplot(eccentricity(YG))
-plot(log(evcent(YG,directed=TRUE)$vector))
-
-
-transitivity(YG)
-transitivity(LG)
-
-#install.packages("rgl")
-#rglplot(YG)
+#library(igraph)
+#
+#YG <- graph.adjacency(t(Y), mode="directed", weighted=TRUE)
+#LG <- graph.adjacency(t(L), mode="directed", weighted=TRUE)
+#
+#is.dag(YG)
+#is.dag(LG)
+#
+#is.connected(YG)
+#is.connected(LG)
+#
+## is.chordal(YG) # causes crash
+## is.chordal(LG)
+#
+##largest.cliques(YG)
+## takes a long time...
+##plot(YG)
+#plot(LG)
+#average.path.length(YG, directed=TRUE, unconnected=FALSE)
+#average.path.length(LG, directed=TRUE, unconnected=FALSE)
+#
+#plot(betweenness(YG))
+#plot(betweenness(LG))
+#
+#plot(closeness(YG))
+#plot(closeness(LG))
+#
+##plot(YG)
+##get.all.shortest.paths(LG)
+## vertex 
+#graph.cohesion(YG)
+#graph.cohesion(LG) # ?
+## edge connectivity
+#graph.adhesion(YG)
+#graph.adhesion(LG)
+#
+#girth(YG)
+#girth(LG)
+#
+#diameter(YG,directed=TRUE)
+#diameter(LG,directed=TRUE)
+#
+#barplot(eccentricity(YG))
+#plot(log(evcent(YG,directed=TRUE)$vector))
+#
+#
+#transitivity(YG)
+#transitivity(LG)
+#
+##install.packages("rgl")
+##rglplot(YG)

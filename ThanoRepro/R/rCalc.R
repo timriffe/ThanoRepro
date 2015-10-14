@@ -1,13 +1,20 @@
 # for Tim, this will choke
 if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-  # if I'm on the laptop
-  setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+	# if I'm on the laptop
+	setwd("/home/tim/git/ThanoRepro/ThanoRepro")
 } else {
-  # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	if (system("hostname",intern=TRUE) == "PC-403478"){
+		# on MPIDR PC
+		setwd("U://git//ThanoRepro//ThanoRepro")
+	} else {
+		# in that case I'm on Berkeley system, and other people in the dept can run this too
+		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	}
 }
+getwd()
+# 
 
-source("R/Functions.R")
+devtools::load_all(file.path("R","RiffeFunctions"))
 #install.packages("data.table")
 library(data.table)
 # read in data and select females
@@ -160,21 +167,21 @@ ncol(rDiff)
 
 
 # ---------------------------------------
-ay      <- 0:110
-dx2      <- c(dx, dx * 0) / sum(dx) # pad out with 0s
-dM     <- matrix(dx2[col(matrix(nrow = 111, ncol = 111)) + ay], 
-        nrow = 111, ncol = 111, dimnames = list(Ex = ay, Age = ay))
-
-Fyx <- Minf0(Mna0(Thano(Dat$Bxf, dx) / Thano(Dat$Exposure, dx)))
-r <- 0
-sum(dM*exp(-r*.5:110.5)*Fyx)
-sum(t(dM)*exp(-r*.5:110.5)*t(Fyx))
-# i.e. if fertility is not collapsed to Fy only, then we get same results from age and thano
-
-sum(dM*exp(-r*.5:110.5)*Fyx)
-sum(t(dM)*exp(-r*.5:110.5)*t(Fyx))
-
-
+#ay      <- 0:110
+#dx2      <- c(dx, dx * 0) / sum(dx) # pad out with 0s
+#dM     <- matrix(dx2[col(matrix(nrow = 111, ncol = 111)) + ay], 
+#        nrow = 111, ncol = 111, dimnames = list(Ex = ay, Age = ay))
+#
+#Fyx <- Minf0(Mna0(Thano(Dat$Bxf, dx) / Thano(Dat$Exposure, dx)))
+#r <- 0
+#sum(dM*exp(-r*.5:110.5)*Fyx)
+#sum(t(dM)*exp(-r*.5:110.5)*t(Fyx))
+## i.e. if fertility is not collapsed to Fy only, then we get same results from age and thano
+#
+#sum(dM*exp(-r*.5:110.5)*Fyx)
+#sum(t(dM)*exp(-r*.5:110.5)*t(Fyx))
+#
+#
 
 
 
