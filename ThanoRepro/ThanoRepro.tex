@@ -23,6 +23,13 @@
 
 \usepackage[top=2in, bottom=1.5in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
+\newcommand\ackn[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
 % matrix numbering
 \usepackage{trivfloat}
 \trivfloat{matrix}
@@ -46,7 +53,12 @@ A unisex model of population renewal for populations structured by
 thanatological age is presented in both continuous and discrete form. Various
 stable and transient properties populations are compared and related when viewed
 by chronological versus thanatological age. Results from the two age perspectives are conformable if the starting
-population is stable, but are otherwise divergent.
+population is stable, but are otherwise divergent.\ackn{Research reported in this manuscript
+was supported by the U.S.
+National Institute On Aging of the National Institutes of Health under award numbers R01-AG011552 and R01-AG040245 and by the Spanish Ministry of Science and Innovation under award
+number ECO2013-48326-C2-1-P. The content is solely the responsibility of the
+author and does not necessarily represent the official views of the funding
+agencies.}
 \end{abstract}
 
 *This is a work in progress. All findings are preliminary at this time, so
