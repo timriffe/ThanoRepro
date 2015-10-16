@@ -66,19 +66,20 @@ please don't cite without permission of the author.
 \vspace{2em}
 
 \onehalfspacing
+\section*{Introduction}
 In this paper, I explore some formal demographic consequences of a particular redefinition of age. Instead of counting age as the time passed since birth, consider age as the amount of time left until death\footnote{This quantity is referred to as \textit{residual} lifetime
 in the reliability literaure, or just time-to-death (TTD) elsewhere.}. The first
-kind of age is called chronological age and the kind of age explored in this paper is
-called thanatological age. Individuals in this case move in the same direction
-along imaginary life lines, but the reference point for age is now at the end of
-the life line instead of at the beginning. For individuals, the timing of events
-in life is identified exactly using either of the two definitions of age, but
-aggregate patterns differ. The models of demography are prefaced by the observation
-that demographic phenomena vary over age and time in empirically regular ways.
-Some such phenomena are best described in the aggregatate as a function
-of time since birth, and others of time until death, while still others can be a function of both to some degree \citep{riffe2015ttd}. This observation ought to motivate the formal demographic base by incorporating this aspect of time in into
-models. 
-
+kind of age is called chronological age, and the second kind of age is called
+thanatological age. Individuals in this case move in the same direction along
+imaginary life lines, but the reference point for thanatological age is at
+the end of the life line instead of at the beginning. For individuals, the timing of events in life is exactly identified using either of the two definitions of age, but
+aggregate patterns differ. Demography is built upon a small set of empirical
+regularities with respect to chronological age patterns. The models and methods
+of demography are in varying degrees prefaced on such regularity. There is evidence that many demographic phenomena are best described in the
+aggregatate as a function of time since birth, and others of time until death,
+while still others can be a function of both to some degree
+\citep{riffe2015ttd}. This observation ought to motivate the formal demographic
+base to incorporate this aspect of time in into models. 
 %Temporal perspectives and rescalings of the lifecourse are abundant in
 % demography already. Such work has enriched the discipline by producing new insights, questions, and conundrums.
 % Fertility and reproduction are plausibly a function of both age perspectives,
@@ -86,9 +87,9 @@ models.
 
 I describe the Lotka-Euler-Leslie renewal model when structured by
 thanatological age. The renewal model relates fertility, mortality, and population structure in a parsimonious form, revealing the long term consequences of a particular set of conditions. All diverse lines
-of contemporary demographic research are relatable to the renewal model.
-Some might say that stable population theory is not relevant to everyday
-demography, since populations are always changing. Even if change precludes the
+of contemporary demographic research are relatable to the renewal model, and by
+extention to stable population theory. Some might say that stable population
+theory is not relevant to everyday demography, since populations are always changing. Even if change precludes the
 notion of stability as a prediction, models of long-run consequnces still give a
 useful measure of the demographic force implied by a given set of rates.
 In this and other ways, stability is never far away. That population projections
@@ -96,7 +97,7 @@ lead into a stable state means that some form of stability is implied by the rou
 Stability or even stationarity are imaginable for the world population of humans
 one day. Models of stationary populations are easily applied by analogy to
 closed or nearly-closed birth cohorts. Finally, stable population theory is
-relavant to other non-human structured populations, such as stars. 
+relavant for modelling some non-human populations. 
 
 %We have stated that many lifecourse transitions covary more with remaining
 %lifetime than with life lived. In an even more general sense, by thinking about
@@ -106,9 +107,9 @@ To present the renewal model based on thanatological age is not necessarily a
 suggestion for a better way to model or project population. Rather, the
 thanatological renewal model represents an alternative and coherent way to
 describe the process of population renewal by relating renewal to a death flow
-rather than to a birth flow. The chronological-age classified renewal model and the thanatological renewal model both approximate the movement of population stocks
-over time, but from opposite vantage points. Specifying a model of
-thanatological renewal expands the toolbox available to approach complex
+rather than to a birth flow. The chronological-age classified renewal model and
+the thanatological renewal model both describe the movement of population stocks
+over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex
 temporal population structure. The next section of this article describes the lifetable method of transforming age-classified
 data into thanatological age classes. I then derive the continuous version of
 the thanatological renewal model, and some other stable properties. This is
@@ -350,7 +351,7 @@ up into pieces of $d(a)$, and imagine a 2D surface of these, where one axis is c
 other axis is thanatological age. For the chronological case \eqref{eq:lotka},
 we multiply chronological age-specific fertility rates, $f(a)$, over the
 chronological age margin, and for the thanatological case we multiply
-$f^\star(y)$ over the thanatological age margin.
+$\gamma(y)$ over the thanatological age margin.
 
 There are gaps in the above line of development, since the jump from
 \eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is unproven,
@@ -382,7 +383,7 @@ will, unless by coincidence, yield divergent stable models. There is a strong
 parallel here with the case of two-sex age-specific fertility rates. As in the
 case of divergence between male and female single-sex models, there will
 virtually always be divergence between single-sex models under chronological
-versus thanatological age, unless the starting population is stable. Even though the modeled population stocks are in a way commensurable, the rates used here, $f(a)$ versus $f^\star(y)$ are calculated on the basis of differently distributed denominators $E(a)$ versus $E(y)$.
+versus thanatological age, unless the starting population is stable. Even though the modeled population stocks are in a way commensurable, the rates used here, $f(a)$ versus $\gamma(y)$ are calculated on the basis of differently distributed denominators $E(a)$ versus $E(y)$.
 
 
 Once one finds $r$ from \eqref{eq:thanoren}, other familiar stable population
@@ -391,8 +392,8 @@ thanatological generation time, $T^\star$:
 \begin{equation}
 \label{eq:Ty}
  T^\star =  \frac{\int _{y=0}^\infty \int _{a=0}^\infty y e^{-ra} d(a+y)
- f^\star(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y)
- f^\star(y) \dd a \dd y} \ep
+ \gamma(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y)
+ \gamma(y) \dd a \dd y} \ep
 \end{equation}
 Literally, this is the mean of the remaining lifespans of new mothers in the
 stable population. The net reproduction rate, $R_0$ is related by, e.g.,
@@ -406,13 +407,13 @@ The birth rate, $b$, is given by
 b =& \frac{1}{\int _{y=0}^\infty \int _{a=0}^\infty e^{-ra} d(a+y) \dd a \dd
 y}\ec
 \intertext{the denominator of which is the inside of
-equation~\eqref{eq:thanoren} less $f^\star(y)$. This simplifies to} =&
+equation~\eqref{eq:thanoren} less $\gamma(y)$. This simplifies to} =&
 \frac{1}{ \int _{a=0}^\infty e^{-ra} l(a) \dd a } \ec
 \intertext{which is exactly the same as that valid for
 chronological age in the Lotka-Euler setup, except that $r$ here comes from the
 thanatological renewal model. If the stable age structure, $c^\star(y)$, is
 known, then we may take the sum of hypothetical births over thanatological age:}
-=& \int _{y=0}^\infty f^\star(y) c^\star(y) \dd y \ep
+=& \int _{y=0}^\infty \gamma(y) c^\star(y) \dd y \ep
 \end{align}
 
 The stable thanatological age structure, $c^\star(y)$, is the proportion of the stable population with remaining years to live $y$
@@ -434,8 +435,7 @@ case that $c^\star(y|r)\approx c(a|-r)$. This could make a useful heuristic,
 and the relationship is asymptotically exact as $r$ approaches zero, but the
 exact relationship is to be found in equation~\eqref{eq:cyfromca}. Further
 stable population quantities may be estimated by similarly translating the various common definitions (e.g.,
-in the glossary of \citet{coale1972growth}) to the present perspective. We will
-focus on the main model rather than on these.
+in the glossary of \citet{coale1972growth}) to the present perspective. I focus on the main model rather than on these.
 
 \section*{The thanatological projection matrix}
 These descriptions can be made more explicit, and in some ways more tractable,
@@ -480,15 +480,15 @@ $\bordermatrix{{e_y } & 0_t & 1_t & 2_t & 3_t & 4_t & 5_t\cr
  that will have very long lives.
  For our $6\times 6$ example, say that fertility is observed in
  thanatological classes 0-4, while the final class has no fertility, where
- $f^\star_y$ indicates the fertility probability for class $y$ in the year $t$
- entering population (in the matrix columns). Each $f^\star_y$ is then
+ $\gamma_y$ indicates the fertility probability for class $y$ in the year $t$
+ entering population (in the matrix columns). Each $\gamma_y$ is then
  distributed out over rows according to $d_a$.
  The fertility entry in row $m$ and column $n$ of $\textbf{Y}$ will therefore be
- $f^\star_n \cdot d_m$. One can assume that those dying over the course of year
+ $\gamma_n \cdot d_m$. One can assume that those dying over the course of year
  $t$ (the first column) are exposed to fertility for half of the year,\footnote{One might be tempted to not allow for fertility at all for females dying in year $t$, but recall that fertility is measured in the moment of
  birth, and not conception.} and so discount the fertility entry
  accordingly.
- Further, infant mortality, $f^\star_y \cdot d_0$, located in the first row, must also be discounted, since part
+ Further, infant mortality, $\gamma_y \cdot d_0$, located in the first row, must also be discounted, since part
  of the mortality will occur in the same year $t$ and the rest in year $t + 1$. 
  The first row of fertility must be further discounted by a factor, $\lambda$,
  in order to account for the fact that infant mortality is higher in the lower Lexis 
@@ -507,13 +507,13 @@ $\textbf{Y}$}
 \label{matrix:Yfert}
 $\bordermatrix{
   {e_y } \vspace{.6em}&                0_t  & 1_t  & 2_t  & 3_t  & 4_t  & 5_t\cr 
-   0_{t+1} \vspace{.6em}& (1-\lambda) \tfrac{f^\star_0d_0}{2} & (1-\lambda) f^\star_1d_0 & (1-\lambda)
-   f^\star_2d_0 & (1-\lambda) f^\star_3d_0 & (1-\lambda) f^\star_4d_0 & 0 \cr 
-   1_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_1}{2} & f^\star_1d_1 & f^\star_2d_1 & f^\star_3d_1 & f^\star_4d_1
-   & 0   \cr 2_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_2}{2} & f^\star_1d_2 & f^\star_2d_2 & f^\star_3d_2 & f^\star_4d_2
-   & 0   \cr 3_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_3}{2} & f^\star_1d_3 & f^\star_2d_3 & f^\star_3d_3 & f^\star_4d_3
-   & 0   \cr 4_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_4}{2} & f^\star_1d_4 & f^\star_2d_4 & f^\star_3d_4 & f^\star_4d_4
-   & 0   \cr 5_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_5}{2} & f^\star_1d_5 & f^\star_2d_5 & f^\star_3d_5 & f^\star_4d_5
+   0_{t+1} \vspace{.6em}& (1-\lambda) \tfrac{\gamma_0d_0}{2} & (1-\lambda) \gamma_1d_0 & (1-\lambda)
+   \gamma_2d_0 & (1-\lambda) \gamma_3d_0 & (1-\lambda) \gamma_4d_0 & 0 \cr 
+   1_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_1}{2} & \gamma_1d_1 & \gamma_2d_1 & \gamma_3d_1 & \gamma_4d_1
+   & 0   \cr 2_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_2}{2} & \gamma_1d_2 & \gamma_2d_2 & \gamma_3d_2 & \gamma_4d_2
+   & 0   \cr 3_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_3}{2} & \gamma_1d_3 & \gamma_2d_3 & \gamma_3d_3 & \gamma_4d_3
+   & 0   \cr 4_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_4}{2} & \gamma_1d_4 & \gamma_2d_4 & \gamma_3d_4 & \gamma_4d_4
+   & 0   \cr 5_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_5}{2} & \gamma_1d_5 & \gamma_2d_5 & \gamma_3d_5 & \gamma_4d_5
    & 0   }$
 \end{matrix}
 \FloatBarrier
@@ -527,13 +527,13 @@ thus the full 6$\times$6 matrix is composed as in Matrix~\ref{matrix:Y}.
 \label{matrix:Y}
 $\textbf{Y} = \bordermatrix{
   {e_y } \vspace{.6em} & 0_t  & 1_t  & 2_t  & 3_t  & 4_t  & 5_t\cr 
-  0_{t+1} \vspace{.6em}&  (1-\lambda) \tfrac{f^\star_0d_0}{2} & (1-\lambda) f^\star_1d_0 + 1 &
-  (1-\lambda) f^\star_2d_0 & (1-\lambda) f^\star_3d_0 & (1-\lambda) f^\star_4d_0 & 0 \cr 
-    1_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_1}{2} & f^\star_1d_1 & f^\star_2d_1 + 1 & f^\star_3d_1 & f^\star_4d_1 & 0 \cr 
-    2_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_2}{2} & f^\star_1d_2 & f^\star_2d_2 & f^\star_3d_2 + 1 & f^\star_4d_2 & 0 \cr 
-   3_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_3}{2} & f^\star_1d_3 & f^\star_2d_3 & f^\star_3d_3 & f^\star_4d_3 + 1 & 0 \cr 
-   4_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_4}{2} & f^\star_1d_4 & f^\star_2d_4 & f^\star_3d_4 & f^\star_4d_4 & 1 \cr 
-   5_{t+1} \vspace{.6em}& \tfrac{f^\star_0d_5}{2} & f^\star_1d_5 & f^\star_2d_5 & f^\star_3d_5 & f^\star_4d_5 & 0 }$
+  0_{t+1} \vspace{.6em}&  (1-\lambda) \tfrac{\gamma_0d_0}{2} & (1-\lambda) \gamma_1d_0 + 1 &
+  (1-\lambda) \gamma_2d_0 & (1-\lambda) \gamma_3d_0 & (1-\lambda) \gamma_4d_0 & 0 \cr 
+    1_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_1}{2} & \gamma_1d_1 & \gamma_2d_1 + 1 & \gamma_3d_1 & \gamma_4d_1 & 0 \cr 
+    2_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_2}{2} & \gamma_1d_2 & \gamma_2d_2 & \gamma_3d_2 + 1 & \gamma_4d_2 & 0 \cr 
+   3_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_3}{2} & \gamma_1d_3 & \gamma_2d_3 & \gamma_3d_3 & \gamma_4d_3 + 1 & 0 \cr 
+   4_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_4}{2} & \gamma_1d_4 & \gamma_2d_4 & \gamma_3d_4 & \gamma_4d_4 & 1 \cr 
+   5_{t+1} \vspace{.6em}& \tfrac{\gamma_0d_5}{2} & \gamma_1d_5 & \gamma_2d_5 & \gamma_3d_5 & \gamma_4d_5 & 0 }$
 \end{matrix}
 
 Figure~\ref{fig:graph} depicts the projection matrix $\textbf{Y}$ in the form of
@@ -543,7 +543,7 @@ Population members are born into any of the thanatological age classes, and then
 clockwise around the graph on the thick blue paths in order until finally being
 absorbed into death (the node labeled ``X'', not included in the projection matrix). The light gray paths represent fertility. Thse originate from any age class that has a fertility rate greater
 than zero, which for this toy matrix are all age classes except the \nth{5}
-(highest). The y$^{th}$ age class is subject to the fertility rate $f^\star
+(highest). The y$^{th}$ age class is subject to the fertility rate $\gamma
 (y)$, and these births distribute out to all other age classes according to the
 lifespan distribution from the lifetable, $d_a$. Hence, the rate intensity of a
 fertility path is determined by the fertility rate of the origin age and
@@ -606,13 +606,13 @@ node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries}]
         edge [bend left] node {} (X);
         
     \path[every node/.style={font=\sffamily\small}]
-    (4) edge [bend right] node {$f^\star (4)d(5)$} (5)
-        edge [bend left] node {$f^\star (4)d(3)$} (3)
-        edge [bend left] node {$f^\star (4)d(2)$} (2)
-        edge [bend left] node {$f^\star (4)d(1)$} (1)
-        edge [bend left] node {$(1-\lambda)f^\star (4)d(0)$} (0)
-        edge [loop above] node {$f^\star (4)d(4)$} (4)
-        edge [bend left] node {$\lambda f^\star (4)d(0)$} (X);
+    (4) edge [bend right] node {$\gamma(4)d(5)$} (5)
+        edge [bend left] node {$\gamma(4)d(3)$} (3)
+        edge [bend left] node {$\gamma(4)d(2)$} (2)
+        edge [bend left] node {$\gamma(4)d(1)$} (1)
+        edge [bend left] node {$(1-\lambda)\gamma (4)d(0)$} (0)
+        edge [loop above] node {$\gamma(4)d(4)$} (4)
+        edge [bend left] node {$\lambda \gamma(4)d(0)$} (X);
     
     \path[every node/.style={font=\sffamily\small}, ultra thick, color=lightgreen ] 
     (5) edge node {} (4)
@@ -737,10 +737,10 @@ thanatological $r$ is the less erratic of the two, and it usually paints a less 
 \end{figure}
 
 The differences described here are not due primarily to rounding errors in the
-data, but rather to the way in which $f^\star(y)$ has been calculated. 
+data, but rather to the way in which $\gamma(y)$ has been calculated. 
 Specifically, in this case we have transformed fertility rates from empirical data with a particular
 chronological age structure. If the chronological age structure is far from its
-stable distribution, then it may be hard to imagine that $f^\star(y)$ will
+stable distribution, then it may be hard to imagine that $\gamma(y)$ will
 remain fixed over time. When holding chronological-age classified fertility rates
 fixed, the assumption is just the opposite.
 
@@ -789,13 +789,13 @@ intrinsic growth rate, $r$, is unique for the case of the thanatological renewal
 essentially the same fashion as those in existence for the Lotka-Euler model,
 \eqref{eq:lotka}. This proof follows that given in
 \citet{pressat1973analyse}. Define a convenience function, $I(r)$, for the
-integrand of \eqref{eq:thanoren} for a given $r$ and fixed $f^\star(y)$ and $d(a)$:
+integrand of \eqref{eq:thanoren} for a given $r$ and fixed $\gamma(y)$ and $d(a)$:
 
 \begin{equation}
-I(r) = \int_{y=0}^\infty \int_{a=0}^\infty f^\star(y) d(a+y)e^{-ra}\dd a \dd y
+I(r) = \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) d(a+y)e^{-ra}\dd a \dd y
 \end{equation}
 Since the death distribution function, $d(a)$, and fertility
-function, $f^\star(y)$, are continuous and non-negative, $\lim_{r \to +\infty} I(r)
+function, $\gamma(y)$, are continuous and non-negative, $\lim_{r \to +\infty} I(r)
 = 0$ and $\lim_{r \to -\infty} I(r)= \infty$. If $r_2 > r_1$, then $I(r_1) >
 I(r_2)$. $I()$ is therefore a continuous and monotonically decreasing function
 of $r$ with boundaries that include the value 1 of \eqref{eq:thanoren}, and
@@ -816,15 +816,15 @@ show that the two integral equations are equal under these conditions. The basic
 relationship is:
 \begin{align}
 \int _{a=0}^\infty l(a)e^{-ra}f(a) \dd a &= \int _{y=0}^\infty \int
-_{a=0}^\infty d(a+y)e^{-ra}f^\star (y) \dd a \dd y
+_{a=0}^\infty d(a+y)e^{-ra}\gamma (y) \dd a \dd y
 \intertext{when}
-f^\star(y) &= \frac{b^\star(y)}{c^\star(y)} \\
+\gamma(y) &= \frac{b^\star(y)}{c^\star(y)} \\
 b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y)\frac{l(a+y)}{l(a)} \dd a \\
 c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y)\frac{l(a+y)}{l(a)} \dd a
 \intertext{Note that:}
 c(a) &= \frac{l(a)e^{-ra}}{\int l(a) e^{-ra} \dd a} \\
 b(a) &= f(a)c(a)
-\end{align}Replacing $f^\star (y)$ with the full expanded
+\end{align}Replacing $\gamma(y)$ with the full expanded
 expression and plugging into the thanatological renewal equation gives:
 \begin{align}
 =& \int _{y=0}^\infty \int
@@ -881,12 +881,12 @@ Equation~\eqref{eq:thanoren}:
   To start, a good-enough guess is to just assume $r=0$:
 \begin{equation}
 \widehat{T^\star} = \frac{\int _{y=0}^\infty \int _{a=0}^\infty y d (a+y)
-f^\star(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty d(a+y) f^\star(y)
+\gamma(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty d(a+y) \gamma(y)
 \dd a \dd y}
 \end{equation}
   \item A first rough guess at the net reproduction rate, $R_0$ is given by
  \begin{equation}
-  R_0 = \int _{y=0}^\infty \int _{a=0}^\infty d(a+y) f^\star(y) \dd a
+  R_0 = \int _{y=0}^\infty \int _{a=0}^\infty d(a+y) \gamma(y) \dd a
 \dd y
 \end{equation}
   \item A first rough estimate of $r$, $r^0$, is given by
