@@ -107,7 +107,7 @@ thanatological renewal model represents an alternative and coherent way to
 describe the process of population renewal by relating renewal to a death flow
 rather than to a birth flow. I have described a limited case of this
 perspective on renewal for the case of stationary populations
-\citep{riffe2015force}, and here aim to provide a broader treatment allowing for
+\citep{riffe2015force}, and here provide a broader treatment allowing for
 growth in the population.
 The chronological-age classified renewal model and the thanatological renewal model both describe the movement of population stocks over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex
 temporal population structure. The next section of this article describes the lifetable method of transforming age-classified
@@ -137,8 +137,8 @@ assumptions of homogenous populations und fixed vital rates.
 %if the chronological and thantological age patterns are independent.
 In this case, each birth cohort undergoes the same
 pattern of attrition. In a period setting, this means that we can distribute the
-remaining lifespans of the population in each age class using the
-age-conditioned lifetable.
+remaining lifespans of the population in each age class using the same
+lifetable.
 %This is the case we explore, and so the following formulas assume a single lifetable pattern.
 
 The basic transformation to thanatological age proceeds by defining a
@@ -166,8 +166,9 @@ yields similar results, but is not necessarily better.} One produces in this way
 $a$. The $f(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
 remaining life expectancy column of the lifetable, $e(a)$. If $P(a)$ is a
 chronological age-classified population count, we can derive $P(y)$, a
-thanatological age-classified population count using\footnote{An identical
-definition is found in \citet{brouard1989mouvements}.}
+thanatological age-classified population count using\footnote{An
+different-looking but identical definition is found in
+\citet{brouard1989mouvements}.}
 
 \begin{align}
 \label{eq:transform}
@@ -176,7 +177,8 @@ P(y) =& \int_0^\infty P(a) f(y | a) \dd a \ep
 
 Since $1 = \int_0^\infty f(y|a) \dd y$ for each $a$,
 this density is useful for decomposing data classified by chronological age. For
-example, we can break down a population pyramid into thanatological age classes.
+example, under these assumptions one can break down a population pyramid into
+thanatological age classes.
 Figure~\ref{fig:USdecomp} shows this exercise for 2010 US data, assuming the
 2010 period mortality schedule remains constant. When looking from the
 chronological age perspective, this decomposition reveals thanatological
