@@ -27,6 +27,22 @@ Data$Fy[is.na(Data$Fy)]     <- 0
 Data$Fyf[is.nan(Data$Fyf)]  <- 0
 DATA                        <- data.table(Data)
 
+#lx1 <- Data$lx[1:111]
+#fx1 <- Data$Fxf[1:111]
+#fy1 <- Data$Fyf[1:111]
+#
+#dx1 <- Data$dx[1:111]
+#lx1 <- rev(cumsum(rev(dx1)))
+#
+#by1 <- fx1 * lx1
+#
+#by1 <- rowSums(Thano(by1, dx1, stagger=FALSE))
+#fy1 <- by1 / lx1
+#fy1[is.nan(fy1)] <- 0
+#
+#sum(lx1*fx1)
+#sum(lx1*fy1)
+
 # head(Data)
 # f(a) is the fertility function, not a density function!
 fa <- with(Data, Fxf[Year == 2000 & Code == "SWE"])
@@ -216,3 +232,38 @@ sum(fa * dxM * growth)
 # bam!
 sum(fa * la2 * growth)
 # this should serve to figure it out on paper
+
+
+################################################3
+# this is a side test.
+# what about homogenous stationary vs homogenous stationary?
+#dx2lx <- function(dx){
+#	rev(cumsum(rev(dx)))
+#}
+#dx1 <- Data$dx[1:111]
+#sum(.5:110.5*dx1)
+#
+#
+#dx2 <- with(Data,dx[Year==2000 & Sex == "f" & Code == "AUT"])
+#
+#p <- .5
+#
+#plot(0:110,dx1,type='l',col="red")
+#lines(0:110,dx2,col="blue")
+#
+#lines(0:110,(dx1 * p +dx2 * (1-p)),col="green")
+#
+#lx1 <- dx2lx(dx1)
+#lx2 <- dx2lx(dx2)
+#
+#plot(0:110, (lx1*p+lx2*(1-p)), type = 'l', col = "green")
+#lines(0:110, lx1, col = "red")
+#lines(0:110, lx2, col = "blue")
+
+
+
+
+
+
+
+

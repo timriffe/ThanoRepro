@@ -77,7 +77,7 @@ aggregate patterns differ. Demography is built upon a small set of empirical
 regularities with respect to chronological age patterns. The models and methods
 of demography are in varying degrees prefaced on such regularity. There is evidence that many demographic phenomena are best described in the
 aggregatate as a function of time since birth, and others of time until death,
-while still others can be a function of both to some degree
+while others can be a function of both to some degree
 \citep{riffe2015ttd}. This observation ought to motivate the formal demographic
 base to incorporate this aspect of time in into models. 
 %Temporal perspectives and rescalings of the lifecourse are abundant in
@@ -86,30 +86,30 @@ base to incorporate this aspect of time in into models.
  % and the question of how to best partition them over time is not investigated here. 
 
 I describe the Lotka-Euler-Leslie renewal model when structured by
-thanatological age. The renewal model relates fertility, mortality, and population structure in a parsimonious form, revealing the long term consequences of a particular set of conditions. All diverse lines
-of contemporary demographic research are relatable to the renewal model, and by
-extention to stable population theory. Some might say that stable population
-theory is not relevant to everyday demography, since populations are always changing. Even if change precludes the
-notion of stability as a prediction, models of long-run consequnces still give a
-useful measure of the demographic force implied by a given set of rates.
-In this and other ways, stability is never far away. That population projections
-lead into a stable state means that some form of stability is implied by the routine practice of demography.
-Stability or even stationarity are imaginable for the world population of humans
-one day. Models of stationary populations are easily applied by analogy to
-closed or nearly-closed birth cohorts. Finally, stable population theory is
-relavant for modelling some non-human populations. 
-
+thanatological age. The renewal model relates
+fertility, mortality, and population structure in a parsimonious form, revealing the long term consequences of a particular set of conditions. All diverse lines of contemporary demographic research are relatable to the renewal model, and by extention to stable population theory.
+%Some might say that stable population
+%theory is not relevant to everyday demography, since populations are always
+% changing. Even if change precludes the notion of stability as a prediction, models of long-run consequnces still give a
+%useful measure of the demographic force implied by a given set of rates.
+%In this and other ways, stability is never far away. That population
+% projections lead into a stable state means that some form of stability is implied by the routine practice of demography.
+%Stability or even stationarity are imaginable for the world population of
+% humans one day. Models of stationary populations are easily applied by analogy to
+%closed or nearly-closed birth cohorts. Finally, stable population theory is
+%relavant for modelling some non-human populations. 
 %We have stated that many lifecourse transitions covary more with remaining
 %lifetime than with life lived. In an even more general sense, by thinking about
 % remaining lifetime as a particular class of time-to-transition, one may generalize the lifetable methods presented here into new area applications, such as education, partnering, the economic lifecycle, or migration.
-
 To present the renewal model based on thanatological age is not necessarily a
 suggestion for a better way to model or project population. Rather, the
 thanatological renewal model represents an alternative and coherent way to
 describe the process of population renewal by relating renewal to a death flow
-rather than to a birth flow. The chronological-age classified renewal model and
-the thanatological renewal model both describe the movement of population stocks
-over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex
+rather than to a birth flow. I have described a limited case of this
+perspective on renewal for the case of stationary populations
+\citep{riffe2015force}, and here aim to provide a broader treatment allowing for
+growth in the population.
+The chronological-age classified renewal model and the thanatological renewal model both describe the movement of population stocks over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex
 temporal population structure. The next section of this article describes the lifetable method of transforming age-classified
 data into thanatological age classes. I then derive the continuous version of
 the thanatological renewal model, and some other stable properties. This is
@@ -117,38 +117,36 @@ followed by the matrix version of the model, which is explained alongside the
 lifecycle graph. 
 
 \section*{A lifetable approximation of thanatological age}
-Direct information on the timing of demographic transitions with respect to
-death is available retrospectively from linked population registers or
-panel surveys with mortality follow-ups.
-Some surveys also ask respondents in various ways about their perceived future lifetime, which may underly those
-demographic transitions governed to some degree by volition. The present inquiry
-draws only from lifetable-projected remaining lifetime, which
-is intended to approximate actual remaining lifetime under the strong
-assumption of homogenous populations. Chronological age-classified counts are
-redistributed over future death times according to a fixed mortality schedule.
-This allows us to make statements about the remaining lifetime distribution
-within a stock of population, under certain assumptions.
-
-A lifetable approach to transforming chronologically classified data into
-thanatologically classified data is valid when the given lifetable accurately
-describes the future mortality of age-classified population. To make
-a projective statement about a current stock of population, one does well to
-factor in future changes in mortality, and to allow the trajectory of changes
-to vary over ages and cohorts. In the case of a stable population model,
-mortality is assumed invariant over time, which means that the same survival
-pattern underlies each birth cohort. This is the case we explore, and so the
-following formulas assume a single lifetable pattern. 
+%Direct information on the timing of demographic transitions with respect to
+%death is available retrospectively from linked population registers or
+%panel surveys with mortality follow-ups.
+%Some surveys also ask respondents in various ways about their perceived future
+% lifetime, which may underly those demographic transitions governed to some degree by volition. 
+In general, to make a lifetable-based projective statement about the remaining
+time distribution of a current stock of population, it is best to to account for population subgroups
+with different mortality and to account for uncertainty about future changes in
+mortality.
+The present inquiry approximates thanatological age using lifetable-projected remaining lifetime,
+which is intended to approximate remaining lifetime under the strong
+assumptions of homogenous populations und fixed vital rates. 
+%Chronological age-classified counts are redistributed over future death times
+% according to a fixed mortality schedule.
+%In general, a lifetable approach to transforming chronologically classified
+%data into thanatologically classified data is sound if the given lifetable
+%accurately describes the future mortality of the age-classified population, and
+%if the chronological and thantological age patterns are independent.
+In this case, each birth cohort undergoes the same
+pattern of attrition. In a period setting, this means that we can distribute the
+remaining lifespans of the population in each age class using the
+age-conditioned lifetable.
+%This is the case we explore, and so the following formulas assume a single lifetable pattern.
 
 The basic transformation to thanatological age proceeds by defining a
-deaths density function, similar the lifetable $d(a)$, but over two
-dimensions: chronological age attained, $a$, and remaining years of life, $y$.
-This function we denote $f(y|a)$ --- The density distribution of thanatological
-age conditional on chronological age. This is essentially the same notion as the
-familiar $d(a)$, but rescaled as a function of chronological age. For ages higher than 0, simply condition
-on survival:\footnote{In the reliability literature, our concept of $d(y|a)$ is denoted by \begin{equation} X - t | X > t
-\end{equation}
-where $X$ is the total lifespan and $t$ is the current chronological age
-attained.}
+conditional deaths density function, $f(y|a)$. For chronological
+age zero, $f(y|0)$ is identical to $d(a)$. For ages higher than 0, simply
+condition on survival:\footnote{In the reliability literature, $f(y|a)$ is
+denoted by $ X - t | X > t $, where $X$ is the total lifespan and $t$ is the
+current chronological age attained.}
 \begin{equation}
 \label{eq:vaupel1}
 f(y | a) = \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \ep
@@ -168,7 +166,8 @@ yields similar results, but is not necessarily better.} One produces in this way
 $a$. The $f(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
 remaining life expectancy column of the lifetable, $e(a)$. If $P(a)$ is a
 chronological age-classified population count, we can derive $P(y)$, a
-thanatological age-classified population count using
+thanatological age-classified population count using\footnote{An identical
+definition is found in \citet{brouard1989mouvements}.}
 
 \begin{align}
 \label{eq:transform}
@@ -213,11 +212,12 @@ US data.
 \citet{brouard1986structure} applied this method to highlight regional
 differences in French age structure, at times combining this projective method
 with historical stocks. \citet{brouard1989mouvements}, and later
-\citet{vaupel2009life}, showed that in stationary populations the chronological
-and thanatological age structures are identical, and this provides a
-limited basis for comparison between the two perspectives. \citet{wachter2014essential} hints at, and
-\citet{vaupel2014stable} elaborates on how to make chronological and
-thanatological age structure commensurate under a constant growth rate, $r$.
+\citet{vaupel2009life}, showed that in stationary populations the
+marginal chronological and thanatological age structures are identical, and this
+provides a limited basis for comparison between the two perspectives. 
+%\citet{wachter2014essential} hints at, and
+%\citet{vaupel2014stable} elaborates on how to make chronological and
+%thanatological age structure commensurate under a constant growth rate, $r$.
 These results will also follow from the following specification of a
 thanatological renewal model.
 
@@ -878,20 +878,23 @@ Equation~\eqref{eq:thanoren}:
 \begin{enumerate}
   \item Derive a first rough estimate of the mean remaining years of life at
   reproduction, $\widehat{T^\star}$, akin to Lotka's mean generation time, $T$.
-  To start, a good-enough guess is to just assume $r=0$:
+  To start, a good-enough guess is to just assume $r=0$:\footnote{Using the
+  Brouard-Carey equality, the denominator could also be: $\int _{y=0}^\infty
+  \ell(y) \gamma(y) \dd y$}
 \begin{equation}
 \widehat{T^\star} = \frac{\int _{y=0}^\infty \int _{a=0}^\infty y d (a+y)
 \gamma(y) \dd a \dd y}{\int _{y=0}^\infty \int _{a=0}^\infty d(a+y) \gamma(y)
 \dd a \dd y}
 \end{equation}
-  \item A first rough guess at the net reproduction rate, $R_0$ is given by
+  \item A first rough guess at the net reproduction rate, $R_0^\star$ is given
+  by
  \begin{equation}
-  R_0 = \int _{y=0}^\infty \int _{a=0}^\infty d(a+y) \gamma(y) \dd a
+  R_0^\star = \int _{y=0}^\infty \int _{a=0}^\infty d(a+y) \gamma(y) \dd a
 \dd y
 \end{equation}
   \item A first rough estimate of $r$, $r^0$, is given by
    \begin{equation}
-   r^0 = \frac{ln(R_0)}{\widehat{T^\star}}
+   r^0 = \frac{ln(R_0^\star)}{\widehat{T^\star}}
    \end{equation}
   \item Plug $r^0$ into Equation~\eqref{eq:thanoren} to calculate a
   residual, $\delta^0$.
