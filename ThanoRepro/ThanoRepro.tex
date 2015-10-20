@@ -221,50 +221,51 @@ provides a limited basis for comparison between the two perspectives.
 These results will also follow from the following specification of a
 thanatological renewal model.
 
-It bears repeating that lifetable-derived thanatological age structure is probabilistic until after death, since it refers to the future according to an assumed mortality pattern.
-As such, Figure~\ref{fig:USrecomp} is projective in nature, a forward-looking
-glance at population attrition given the population stock and lifetable of a
-particular moment, whereas Figure~\ref{fig:USdecomp} is reflective in nature,
-since a population's chronological age-structure is mostly the fruit of past
-fertility, but also migration and to a lesser degree attrition. Any count
+It bears repeating that lifetable-derived thanatological age structure is
+probabilistic until after death, since it refers to the future according to an
+assumed mortality pattern; in this case a period mortality pattern is used.
+As such, Figure~\ref{fig:USrecomp} is \textit{projective} in nature, a
+forward-looking glance at population attrition given the population stock and lifetable of a
+particular moment, whereas Figure~\ref{fig:USdecomp} is \textit{reflective} in
+nature, since a population's chronological age-structure is mostly the fruit of past
+fertility, but also migration, and to a lesser degree attrition. Any count
 classified by chronological age can be reclassified in this way given a
-corresponding lifetable. Exploiting this, we derive thanatological fertility
-rates, $\gamma(y)$, by applying \eqref{eq:transform} to age-classified birth
-counts, $B(a)$, to get $B(y)$ and again to exposure-to-risk, $E(a)$ (here we
-take exposures from all ages), to get $E(y)$ and then dividing
+corresponding lifetable. To derive thanatological fertility
+rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
+chronological age-classified birth counts, $B(a)$, to get $B(y)$ and again to
+exposure-to-risk, $E(a)$, to calcualte $E(y)$ and then divide in the usual way:
 
 \begin{equation}
 \gamma(y) = \frac{B(y}{E(y)} \ep
 \end{equation}
 
-We are interested to use thanatological fertility rates, $\gamma(y)$ in
-models of population renewal,\footnote{This is probably premature, but helps to
-understand the nature and provenance of model components.} rather than to
-explicitly study the nature of these rates. Nonetheless it is best not to throw such rates into a model blindly, so we offer a schematic overview of some of their characteristics.
-Figure~\ref{fig:FySpaghetti} represents the full variety in
-female thanatological period fertility rates that can be found for all years
+Thanatological fertility rates, $\gamma(y)$, are briefly shown because they
+are used in the renewal model here studied. Figure~\ref{fig:FySpaghetti}
+represents the full variety in female thanatological period fertility rates that can be found for all years
 of data that overlap in the HFD and HMD.\footnote{There are as of this writing
 1933 population-years of overlap between the HMD and HFD, including a wide
 variety of fertility and mortality combinations.} Figure~\ref{fig:FxSpaghetti} gives ASFR for the same
 populations and years as a more familiar reference, but note that both scales
-are different. With no indication of particular populations or time series, one
-already concludes that period thanatological fertility rates have a
-characteristic shape and are not random, erratic or informationless: There is a
-pattern to fertility rates by remaining years of life, and it varies over time
-and between populations within some range of normality. Thanatological fertility
-rates have a wider distribution than do chronological rates. Note that this
-spaghetti plot includes both fertility booms and busts, as well as some
-mortality crises (1918, WWII). Some patterns to note, but which we do not
-separate graphically here, are that the left tail (a gauge of how orphan-prone a
-population is) has tended to fall over time. All populations have shown a
-rightward shift in both the mean and modal mother's thanatological age at
-childbearing (TAC) over time. Several
-populations now show modal TACs of over 60 years. Thanatological total fertility rates (TTFR)
-track standard period total fertility rates (PTFR) rather closely, but tend to
-be somewhat higher (not shown).
+are different. The shape of thanatological fertility curves is speculative and
+due to the above-mentioned strong assumptions. Nonetheless it is best not to
+include such rates into a model blindly, so we offer this schematic overview of
+some of their characteristics.
+
+Period thanatological fertility rates estimated in this way have a
+characteristic shape. The distribution is wider than that of chronological
+fertility rates. The range of post-childbearing lifespans stretches from 
+zero, due e.g., to maternal mortality, to at least 100.\footnote{For instance,
+Jeanne Calment lived for another 100 years after giving birth to her daughter}
+This spaghetti plot includes both fertility booms and busts, as well as some
+mortality crises (1918, WWII). Some patterns in the data (not
+shown) include that the left tail (a gauge of how orphan-prone a population is)
+has tended to fall over time. All populations have shown an increase in both the
+mean and mode of thanatological age at childbearing over time. Several
+contemporary populations now show modes of over 60 years. Period thanatological
+total fertility rates track standard period total fertility rates closely, but tend to be somewhat higher (not shown).
 % both figures created in R/HFDspaghetti.R
 \begin{figure}[h!]
-	\caption{Chronological and thantological fertility rates, all 1600
+	\caption{Chronological and thantological fertility rates, all 1933
 	country-year combinations present in both the HFD and HMD.* Note different x
 	and y scales.}
 	\label{fig:Fxcompare}
@@ -298,32 +299,32 @@ be somewhat higher (not shown).
 \end{figure}
 
 In general, thanatological fertility rates will not be useful for purposes of
-projection, unless the demographer believes that their empirical regularity is
-somehow stronger than typical ASFR. This is a question we do not seek to answer
-in the present treatment. There are alternative ways of defining
-thanatological fertility rates, for instance by transforming the birth and
+projection, unless their empirical regularity is
+stronger than typical ASFR. This is a question I do not seek to answer
+in the present treatment, but in any case such rates are not susceptible to
+direct measurement.
+There are alternative ways of defining thanatological fertility rates, for instance by transforming the birth and
 population vector from a stable population. As proven in appendix~\ref{app:B},
 thanatological fertility rates derived from a stable population imply a certain
-symmetry with stable populations from the chronological model. First let us
+symmetry with stable populations from the chronological model. First I
 define the basic model.
 
 \FloatBarrier
 \section*{The thanatological renewal model}
-For the renewal model that follows, we are most interested in using the kind
-of fertility rates shown in Figure~\ref{fig:FySpaghetti}, and we refer to a
-closed, unisex population based on female vital rates. Assuming constant vital rates, the
-births for the present year are given by 
+The renewal model that follows uses thanatological fertility rates, $\gamma(y)$,
+the form of which is suggested in Figure~\ref{fig:FySpaghetti}, and we refer to
+a homogenous, closed, unisex population based on female vital rates. Assuming constant vital rates, the births for the present year are given by 
 \begin{align}
 B(t) =& \int _0^\infty P(y,t)\gamma(y) \dd y = \int _0^\infty
 P(a,t)m(a) \dd a \ec \intertext{where $a$ indexes chronological age, $y$ indexes
 thanatological age, $P(a), P(y)$ are population counts, and $\gamma(y), m(a)$ are
-exact specific fertility probabilities (rates), best imagined
-as the fertility rates of females born to females. The thanatological integral can
-be broken down back in terms of chronological age:} =& \int_{y=0}^\infty
-\int_{a=0}^\infty \gamma(y)\frac{P(a,t)d(a+y)}{\ell(a)} \dd a \dd y \ec
-\intertext{where $d(a)$ is the continuous lifetable death distribution with
-radix of 1, so $d(a)/\ell(0)$. We can relate the present population to past births
-with $P(a,t) = B(t-a)\ell(a)$:}
+exact fertility probabilities (rates), best imagined
+as the fertility rates of females born to females. The thanatological
+(first) integral can be broken down back in terms of chronological age:} =&
+\int_{y=0}^\infty \int_{a=0}^\infty \gamma(y)P(a,t)f(y|a) \dd a \dd y \ec
+\intertext{where $f(y|a)$ is defined per equation~\eqref{eq:vaupel1}, so
+$d(a)/\ell(0)$.
+We can relate the present population to past births with $P(a,t) = B(t-a)\ell(a)$:}
 \label{eq:ergostep1}
 =& \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) B(t-a)d(a+y)\dd a \dd y \ep 
 \intertext{Eventually strong ergodicity will assert itself, and $B(t)$ will
@@ -346,24 +347,18 @@ Now compare this to Lotka's chronological formulation
   \label{eq:lotka2}
 \end{align}
 and note that \eqref{eq:lotka2} and \eqref{eq:thanoren} are really quite
-similar, since $\int _{y=0}^\infty d(a+y)\dd a = l(a)$. For intuition, notice that $l(a)$ is here split
-up into pieces of $d(a)$, and imagine a 2D surface of these, where one axis is chronological age and the
-other axis is thanatological age. For the chronological case \eqref{eq:lotka},
-we multiply chronological age-specific fertility rates, $f(a)$, over the
-chronological age margin, and for the thanatological case we multiply
+similar, since $\int _{y=0}^\infty d(a+y)\dd a = l(a)$. For intuition, notice
+that $l(a)$ is here decomposed into $d(a)$, and imagine a matrix of these,
+where one margin is chronological age and the other margin is thanatological age.
+For the chronological case \eqref{eq:lotka}, we multiply chronological age-specific fertility rates, $f(a)$, over the chronological age margin, and for the thanatological case we multiply
 $\gamma(y)$ over the thanatological age margin.
 
 There are gaps in the above line of development, since the jump from
-\eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is unproven,
-although it is rather intuitive, given the much greater density of connections
-within the model; persons from nearly any thanatologcal age can produce offspring that can have any other thanatological age.\footnote{I say
-\textit{nearly} because the very highest thanatological ages tend to be
-composed of pre-menarchical females, so these can be thought of as structural
-zeros. I am uncertain if it is a record, but it is certainly an extreme case
-useful for illustration: Jeanne Calment, who lived to 122, had a daughter at age
-22, which means she was about thanatological age 100
-(\url{http://en.wikipedia.org/wiki/Jeanne_Calment}). If the lifetable used to
-transform to thanatological closes out at age 110+, as is the case with HMD data, then fertility rates for thantological ages 101-110+ would be structural
+\eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is assumed for
+the moment. The step has some intuition, due to
+the much greater density of connections within the model; persons from nearly any
+thanatologcal age can produce offspring that can have any other
+thanatological age.\footnote{I say \textit{nearly} because the very highest thanatological ages tend to be composed of pre-menarchical females, so these can be thought of as structural
 zeros.} In
 this sense, the smoothing mechanism at play as the population passes through
 time must be much stronger than that for chronological age, at least in most
@@ -702,6 +697,7 @@ $\downarrow r $  & 55  & 65 & 75 & 85 & 95 \\
 \vspace{2em}
 *Underlying mortality pattern based on 2010 USA (HMD)
 \end{figure}
+\FloatBarrier
 
 \section*{Some preliminary empirical findings}
 The thanatological renewal equation and the discrete projection matrix can be
@@ -762,7 +758,7 @@ the chronological smoothing process because each thanatological age class
 thanatological age class in both directions. Again, I think contrived examples
 will be necessary to shed more light on this finding.
 
-\section{Discussion}
+\section*{Discussion}
 The thanatological renewal model is valid, but this perspective may take some
 time to gestate before accepting that it is also a sound description of how
 populations renew. What should one imagine under the model of thanatological
@@ -815,43 +811,43 @@ equal given the same $r$. Since there is a unique real solution, demonstrated in
 show that the two integral equations are equal under these conditions. The basic
 relationship is:
 \begin{align}
-\int _{a=0}^\infty l(a)e^{-ra}f(a) \dd a &= \int _{y=0}^\infty \int
+\int _{a=0}^\infty \ell(a)e^{-ra}f(a) \dd a &= \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra}\gamma (y) \dd a \dd y
 \intertext{when}
 \gamma(y) &= \frac{b^\star(y)}{c^\star(y)} \\
-b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y)\frac{l(a+y)}{l(a)} \dd a \\
-c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y)\frac{l(a+y)}{l(a)} \dd a
+b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \dd a \\
+c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \dd a
 \intertext{Note that:}
-c(a) &= \frac{l(a)e^{-ra}}{\int l(a) e^{-ra} \dd a} \\
+c(a) &= \frac{\ell(a)e^{-ra}}{\int \ell(a) e^{-ra} \dd a} \\
 b(a) &= f(a)c(a)
 \end{align}Replacing $\gamma(y)$ with the full expanded
 expression and plugging into the thanatological renewal equation gives:
 \begin{align}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{\frac{\int_{t=0}^\infty
-f(t)l(t)e^{-rt}\mu(a+y)\frac{l(t+y)}{l(t)} \dd t}{\int l(t) e^{-rt} \dd
-t}}{\frac{\int_{t=0}^\infty l(t)e^{-rt} \mu(t+y)\frac{l(t+y)}{l(t)} \dd t}{\int
-l(t) e^{-rt} \dd t}} \dd a \dd y
+f(t)\ell(t)e^{-rt}\mu(a+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{\int \ell(t) e^{-rt} \dd
+t}}{\frac{\int_{t=0}^\infty \ell(t)e^{-rt} \mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{\int
+\ell(t) e^{-rt} \dd t}} \dd a \dd y
 \intertext{The denominator of $c(a)$ cancels out:}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{
 \int_{t=0}^\infty
-f(t)l(t)e^{-rt}\mu(t+y)\frac{l(t+y)}{l(t)} \dd t}{
-\int_{t=0}^\infty l(t)e^{-rt} \mu(t+y)\frac{l(t+y)}{l(t)} \dd t} \dd a \dd y
+f(t)\ell(t)e^{-rt}\mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{
+\int_{t=0}^\infty \ell(t)e^{-rt} \mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t} \dd a \dd y
 \intertext{Some $l(a)$'s also cancel out:}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{
 \int_{t=0}^\infty
-f(t)e^{-rt}\mu(t+y)l(t+y) \dd t}{
-\int_{t=0}^\infty e^{-rt} \mu(t+y)l(t+y) \dd t} \dd a \dd y
-\intertext{Now $d(a+y) = \mu (a+y)l(a+y)$, so we can cancel the inner integral
+f(t)e^{-rt}\mu(t+y)\ell(t+y) \dd t}{
+\int_{t=0}^\infty e^{-rt} \mu(t+y)\ell(t+y) \dd t} \dd a \dd y
+\intertext{Now $d(a+y) = \mu (a+y)\ell(a+y)$, so we can cancel the inner integral
 with the denominator:}
 =& \int _{y=0}^\infty 
 \int_{a=0}^\infty
-f(a)e^{-ra}\mu(a+y)l(a+y) \dd a \dd y
+f(a)e^{-ra}\mu(a+y)\ell(a+y) \dd a \dd y
 \intertext{Note also that $l(a) = \int _{=a}^\infty d(x) \dd x$ (present
 livings are future deaths), which brings us back to the chronological
-formulation:} =& \int_{a=0}^\infty e^{-ra}l(a)f(a)
+formulation:} =& \int_{a=0}^\infty e^{-ra}\ell(a)f(a)
 \dd a
 \end{align}
 This finding essentially proves that in the stable population there is at least
@@ -914,6 +910,7 @@ absolute residual of Equation~\eqref{eq:thanoren} using a generic
 optimizer. Alternatively, one could use the method of cumulants to estimate $r$,
 but this would entail less precision than the above (unless one goes beyond,
 say, five cumulants), and this has not yet been worked out at this time.
+ 
  
 \end{appendices}
 \nocite{HMD,HFD}
