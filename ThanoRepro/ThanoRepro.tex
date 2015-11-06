@@ -50,8 +50,8 @@ years of life}
 
 \begin{abstract}
 A unisex model of population renewal for populations structured by
-thanatological age is presented in both continuous and discrete form. Various
-stable and transient properties populations are compared and related when viewed
+remaining years of life is presented in both continuous and discrete form.
+Various stable and transient properties populations are compared and related when viewed
 by chronological versus thanatological age. Results from the two age perspectives are conformable if the starting
 population is stable, but are otherwise divergent.\ackn{Research reported in this manuscript
 was supported by the U.S.
@@ -78,10 +78,11 @@ regularities with respect to chronological age patterns. The models and methods
 of demography are in varying degrees prefaced on such regularity. There is evidence that many demographic phenomena are best described in the
 aggregatate as a function of time since birth, and others of time until death,
 while others can be a function of both to some degree
-\citep{riffe2015ttd}. This observation ought to motivate the formal demographic
-base to incorporate this aspect of time in into models. 
+\citep{riffe2015ttd,wolf2015disability}. This observation ought to motivate the
+formal demographic base to incorporate this aspect of time in into models. 
 %Temporal perspectives and rescalings of the lifecourse are abundant in
-% demography already. Such work has enriched the discipline by producing new insights, questions, and conundrums.
+% demography already. Such work has enriched the discipline by producing new
+% insights, questions, and conundrums.
 % Fertility and reproduction are plausibly a function of both age perspectives,
  % and the question of how to best partition them over time is not investigated here. 
 
@@ -110,7 +111,9 @@ perspective on renewal for the case of stationary populations
 \citep{riffe2015force}, and here provide a broader treatment allowing for
 growth in the population.
 The chronological-age classified renewal model and the thanatological renewal model both describe the movement of population stocks over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex
-temporal population structure. The next section of this article describes the lifetable method of transforming age-classified
+temporal population structure. 
+
+The next section of this article describes the lifetable method of transforming age-classified
 data into thanatological age classes. I then derive the continuous version of
 the thanatological renewal model, and some other stable properties. This is
 followed by the matrix version of the model, which is explained alongside the
@@ -135,7 +138,7 @@ assumptions of homogenous populations und fixed vital rates.
 %data into thanatologically classified data is sound if the given lifetable
 %accurately describes the future mortality of the age-classified population, and
 %if the chronological and thantological age patterns are independent.
-In this case, each birth cohort undergoes the same
+Under these assumptions, each birth cohort undergoes the same
 pattern of attrition. In a period setting, this means that we can distribute the
 remaining lifespans of the population in each age class using the same
 lifetable.
@@ -143,8 +146,9 @@ lifetable.
 
 The basic transformation to thanatological age proceeds by defining a
 conditional deaths density function, $f(y|a)$. For chronological
-age zero, $f(y|0)$ is identical to $d(a)$. For ages higher than 0, simply
-condition on survival:\footnote{In the reliability literature, $f(y|a)$ is
+age zero, $f(y|0)$ is identical to $d(a)$, the lifetable deaths distribution
+(based on a unity radix).
+For ages higher than 0, simply condition on survival:\footnote{In the reliability literature, $f(y|a)$ is
 denoted by $ X - t | X > t $, where $X$ is the total lifespan and $t$ is the
 current chronological age attained.}
 \begin{equation}
@@ -185,7 +189,7 @@ heterogeneity, but when viewed from the thanatological perspective
 overall thanatological age profile, the future death flow of the current
 population.
 Figure~\ref{fig:USrecomp} shows this recomposition for the same 2010
-US data.
+US data. The outer profile of Figure~\ref{fig:USrecomp} is $P(y)$, under our assumptions.
 
 % both figures created in R/Pyramids.R
 \begin{figure}[ht!]
@@ -211,27 +215,26 @@ US data.
 
 \citet{brouard1986structure} applied this method to highlight regional
 differences in French age structure, at times combining this projective method
-with historical stocks. \citet{brouard1989mouvements}, and later
-\citet{vaupel2009life}, showed that in stationary populations the
+with historical stocks. \citet{brouard1989mouvements}, and \citet{vaupel2009life}, showed that in stationary populations the
 marginal chronological and thanatological age structures are identical, and this
 provides a limited basis for comparison between the two perspectives. 
 %\citet{wachter2014essential} hints at, and
 %\citet{vaupel2014stable} elaborates on how to make chronological and
 %thanatological age structure commensurate under a constant growth rate, $r$.
-These results will also follow from the following specification of a
+These results also follow from the following specification of a
 thanatological renewal model.
 
-It bears repeating that lifetable-derived thanatological age structure is
+Lifetable-derived thanatological age structure is
 probabilistic until after death, since it refers to the future according to an
 assumed mortality pattern; in this case a period mortality pattern is used.
 As such, Figure~\ref{fig:USrecomp} is \textit{projective} in nature, a
 forward-looking glance at population attrition given the population stock and lifetable of a
 particular moment, whereas Figure~\ref{fig:USdecomp} is \textit{reflective} in
 nature, since a population's chronological age-structure is mostly the fruit of past
-fertility, but also migration, and to a lesser degree attrition. Any count
+fertility, but also to a lesser degree migration and attrition. Any count
 classified by chronological age can be reclassified in this way given a
-corresponding lifetable. To derive thanatological fertility
-rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
+pertinent lifetable. To
+derive thanatological fertility rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
 chronological age-classified birth counts, $B(a)$, to get $B(y)$ and again to
 exposure-to-risk, $E(a)$, to calcualte $E(y)$ and then divide in the usual way:
 
@@ -239,15 +242,15 @@ exposure-to-risk, $E(a)$, to calcualte $E(y)$ and then divide in the usual way:
 \gamma(y) = \frac{B(y}{E(y)} \ep
 \end{equation}
 
-Thanatological fertility rates, $\gamma(y)$, are briefly shown because they
-are used in the renewal model here studied. Figure~\ref{fig:FySpaghetti}
+Figure~\ref{fig:FySpaghetti}
 represents the full variety in female thanatological period fertility rates that can be found for all years
 of data that overlap in the HFD and HMD.\footnote{There are as of this writing
 1933 population-years of overlap between the HMD and HFD, including a wide
-variety of fertility and mortality combinations.} Figure~\ref{fig:FxSpaghetti} gives ASFR for the same
-populations and years as a more familiar reference, but note that both scales
-are different. The shape of thanatological fertility curves is speculative and
-due to the above-mentioned strong assumptions. Nonetheless it is best not to
+variety of fertility and mortality combinations.} I show $\gamma(y)$ calculated in this way because
+it enters into the renewal model here studied. Figure~\ref{fig:FxSpaghetti}
+gives ASFR for the same populations and years as a more familiar reference, but
+note that both the x and y axes are different. The shape of thanatological
+fertility curves is speculative and due to the above-mentioned strong assumptions. Nonetheless it is best not to
 include such rates into a model blindly, so we offer this schematic overview of
 some of their characteristics.
 
@@ -255,14 +258,14 @@ Period thanatological fertility rates estimated in this way have a
 characteristic shape. The distribution is wider than that of chronological
 fertility rates. The range of post-childbearing lifespans stretches from 
 zero, due e.g., to maternal mortality, to at least 100.\footnote{For instance,
-Jeanne Calment lived for another 100 years after giving birth to her daughter}
+Jeanne Calment lived for another 100 years after giving birth to her daughter.}
 This spaghetti plot includes both fertility booms and busts, as well as some
 mortality crises (1918, WWII). Some patterns in the data (not
-shown) include that the left tail (a gauge of how orphan-prone a population is)
-has tended to fall over time. All populations have shown an increase in both the
+highlighted in the figure) include that the left tail (a gauge of how
+orphan-prone a population is) has tended to fall over time. All populations have shown an increase in both the
 mean and mode of thanatological age at childbearing over time. Several
-contemporary populations now show modes of over 60 years. Period thanatological
-total fertility rates track standard period total fertility rates closely, but tend to be somewhat higher (not shown).
+contemporary populations now show modes of over 60 years. Period thanatological total
+fertility rates track standard period total fertility rates closely, but tend to be somewhat higher (not shown).
 % both figures created in R/HFDspaghetti.R
 \begin{figure}[h!]
 	\caption{Chronological and thantological fertility rates, all 1933
@@ -338,7 +341,7 @@ intrinsic rate of growth:}
 1 =& \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) d(a+y)e^{-ra}\dd a \dd y
 \ep
 \end{align}
-Now compare this to Lotka's chronological formulation
+Now compare this to Lotka's chronological formulation:
 \begin{align}
 \label{eq:lotka}
 1 =& \int_{a=0}^\infty m(a)l(a)e^{-ra}\dd a \ec
@@ -348,22 +351,24 @@ Now compare this to Lotka's chronological formulation
 \end{align}
 and note that \eqref{eq:lotka2} and \eqref{eq:thanoren} are really quite
 similar, since $\int _{y=0}^\infty d(a+y)\dd a = l(a)$. For intuition, notice
-that $l(a)$ is here decomposed into $d(a)$, and imagine a matrix of these,
-where one margin is chronological age and the other margin is thanatological age.
-For the chronological case \eqref{eq:lotka}, we multiply chronological age-specific fertility rates, $f(a)$, over the chronological age margin, and for the thanatological case we multiply
-$\gamma(y)$ over the thanatological age margin.
+that $l(a)$ is here decomposed into $d(a)$. Imagine a matrix of this
+decomposition, where one margin is chronological age and the other margin is
+thanatological age.
+For the chronological case \eqref{eq:lotka}, we multiply chronological
+age-specific fertility rates, $m(a)$, over the chronological age margin, and for the thanatological case we multiply $\gamma(y)$ over the thanatological age margin.
 
 There are gaps in the above line of development, since the jump from
 \eqref{eq:ergostep1} to \eqref{eq:ergostep2} (strong ergodicity) is assumed for
-the moment. The step has some intuition, due to
+the moment.\footnote{The step to exponential stability is proven
+for the discrete version of the model.} The step has some intuition, due to
 the much greater density of connections within the model; persons from nearly any
 thanatologcal age can produce offspring that can have any other
 thanatological age.\footnote{I say \textit{nearly} because the very highest thanatological ages tend to be composed of pre-menarchical females, so these can be thought of as structural
 zeros.} In
 this sense, the smoothing mechanism at play as the population passes through
 time must be much stronger than that for chronological age, at least in most
-cases.  The mechanisms at play unfold in the same way as those so intuitively
-described by \citet{arthur1982ergodic}, and said proof may apply here without
+cases. The mechanisms at play unfold in the same way
+as those so intuitively described by \citet{arthur1982ergodic}, and said proof may apply here without
 further modification. Later in this paper I note how strong ergodicity is
 guaranteed given the properties of the thanatolgical projection matrix. A proof
 of the uniqueness of the solution to \eqref{eq:thanoren} is given in
@@ -391,10 +396,11 @@ thanatological generation time, $T^\star$:
  \gamma(y) \dd a \dd y} \ep
 \end{equation}
 Literally, this is the mean of the remaining lifespans of new mothers in the
-stable population. The net reproduction rate, $R_0$ is related by, e.g.,
+stable population. The thanatological net reproduction rate, $R_0^\star$ is
+related by, e.g.,
 \begin{equation}
 \label{eq:R0fromTy}
-R_0 = e^{r T^\star}
+R_0^\star = e^{r T^\star}
 \end{equation}
 The birth rate, $b$, is given by
 \begin{align}
@@ -416,7 +422,7 @@ The stable thanatological age structure, $c^\star(y)$, is the proportion of the 
 \label{eq:cy}
 c^\star(y) =& b \int _{a=0}^\infty e^{-ra} d(a+y) \dd a \ec
 \intertext{or, given the stable chronological age structure, $c(a)$, and a
-lifetable,} =& \int _{a=0}^\infty c(a)d(y|a) \dd a \label{eq:cyfromca}\\ \notag
+lifetable,} =& \int _{a=0}^\infty c(a)f(y|a) \dd a \label{eq:cyfromca}\\ \notag
 \\
            =& \frac{\int _{a=0}^\infty d(a+y)e^{-ra}\dd a}{\int
            _{a=0}^\infty l(a)e^{-ra}\dd a}  \ep
@@ -437,9 +443,10 @@ These descriptions can be made more explicit, and in some ways more tractable,
 by hashing out the projection matrix that corresponds to the thanatological renewal model. As with the
 chronological age-structured Leslie matrix, the thanatological projection
 matrix, $\textbf{Y}$, is square and of dimension $y \times y$, where $y$ is the number
-of thanatological age classifications on which the population is structured. 
+of equal-interval thanatological age classes into which the population is
+structured.
 The matrix contains elements for survival and elements for fertility. Unlike
-Leslie matrices, $\textbf{Y}$ is not sparse, but is instead populated primarily
+Leslie matrices, $\textbf{Y}$ is not sparse, but is populated primarily
 with positive entries greater than zero. In the
 following, I illustrate using a 6$\times$6 matrix. 
 
@@ -470,26 +477,29 @@ $\bordermatrix{{e_y } & 0_t & 1_t & 2_t & 3_t & 4_t & 5_t\cr
  fertility and the lifetable $d_a$ distribution, where $a$ indexes
  chronological age and is equated to $y$ remaining years of life for members
  just born. It is simpler to imagine $d_a$ in this case as indexing the
- future lifespan distribution of newborns. Fertility in a thanatologically
- structured human population occurs in all but the very highest remaining years classes, which can be thought of as structural zeros for simplicity, as they only contain pre-menarchical females
- that will have very long lives.
+ future lifespan distribution of newborns \citep{riffe2015force}. Fertility in a
+ thanatologically structured human population occurs in all but the very highest
+ thanatological age classes, which can be thought of as structural zeros for
+ simplicity, as they only contain pre-menarchical females that will have very long lives.
+ 
  For our $6\times 6$ example, say that fertility is observed in
  thanatological classes 0-4, while the final class has no fertility, where
  $\gamma_y$ indicates the fertility probability for class $y$ in the year $t$
  entering population (in the matrix columns). Each $\gamma_y$ is then
- distributed out over rows according to $d_a$.
+ distributed over rows according to $d_a$.
  The fertility entry in row $m$ and column $n$ of $\textbf{Y}$ will therefore be
  $\gamma_n \cdot d_m$. One can assume that those dying over the course of year
  $t$ (the first column) are exposed to fertility for half of the year,\footnote{One might be tempted to not allow for fertility at all for females dying in year $t$, but recall that fertility is measured in the moment of
  birth, and not conception.} and so discount the fertility entry
  accordingly.
+ 
  Further, infant mortality, $\gamma_y \cdot d_0$, located in the first row, must also be discounted, since part
  of the mortality will occur in the same year $t$ and the rest in year $t + 1$. 
  The first row of fertility must be further discounted by a factor, $\lambda$,
  in order to account for the fact that infant mortality is higher in the lower Lexis 
  triangle than in the upper. Of those infants who die in the first year of life,
- a proportion equal to $\lambda$ do not make it to December \nth{31} of the calendar year in which
- they were born.\footnote{$\lambda$ can be derived directly from death counts
+ a proportion equal to $\lambda$ do not survive to December \nth{31} of the
+ calendar year in which they were born.\footnote{$\lambda$ can be derived directly from death counts
  data classified by Lexis triangles. If the demographer
  does not have information to derive $\lambda$ directly, ad hoc or semidirect
  methods may be used to assign a reasonable proportion, such as 0.9 for
@@ -536,15 +546,17 @@ a lifecycle graph.  In this graph, each thanatological age is a node, and death
 is the absorbing state, denoted with an ``X''.
 Population members are born into any of the thanatological age classes, and then follow
 clockwise around the graph on the thick blue paths in order until finally being
-absorbed into death (the node labeled ``X'', not included in the projection matrix). The light gray paths represent fertility. Thse originate from any age class that has a fertility rate greater
-than zero, which for this toy matrix are all age classes except the \nth{5}
+absorbed into death (the node labeled ``X'', not included in the projection
+matrix). The light gray paths represent fertility. These originate from any age class that has a fertility rate greater than zero, which for this toy matrix are all age classes except the \nth{5}
 (highest). The y$^{th}$ age class is subject to the fertility rate $\gamma
 (y)$, and these births distribute out to all other age classes according to the
 lifespan distribution from the lifetable, $d_a$. Hence, the rate intensity of a
 fertility path is determined by the fertility rate of the origin age and
 probability of having a lifespan equal to the order of the destination node.  A fraction of
-the fertility destined for infant mortality equal to $\lambda$ leads straight to the absorbing state of death. Fertility paths from the \nth{4} thanatological age class have been highlighted. These correspond to the fifth column of the example matrix $\textbf{Y}$, plus an additional path
-direct to death for the fraction of infant mortality prior to December \nth{31}
+the fertility destined for infant mortality equal to $\lambda$ leads straight to the absorbing state of death. 
+Fertility paths from the \nth{4} thanatological age
+class are highlighted.
+These correspond to the fifth column of the example matrix $\textbf{Y}$, plus an additional path direct to death for the fraction of infant mortality prior to December \nth{31}
 in year $t$. Paths that loop back into the same age class simply indicate those
 offspring that are destined to die in the same year as their mother. It is
 perhaps clearer to see from the density of this graph and by recalling that
@@ -654,12 +666,17 @@ matrix.\footnote{Some care needs to be taken in order to demonstrate this
 point, since common approximations and adjustments used in matrix
 construction can throw things off. \texttt{R} code is available from the
 author to demonstrate this point. See also Appendix~\ref{app:B} for the
-corresponding proof from the continuous model.} The square of the, or the pace
-of convergence to stability (the ratio of the \nth{1} to the \nth{2} eigenvalues).
-\footnote{See \citet[p.86-87]{caswell2001matrix}.}
+corresponding proof from the continuous model.} The square of the ratio of
+the \nth{1} to the \nth{2} eigenvalues is the damping ratio, an indicator of the
+\textit{springiness} of the stable population structure, $c^\star(y)$, if perturbed from the
+state of stability.\footnote{See \citet[p.86-87]{caswell2001matrix}.} A higher
+damping ratio means that the population structure oscillates back to its stable
+state faster, i.e., that oscillations decrease in size more rapidly.
+Thanatological damping ratios are usually higher than chronological damping
+ratios in the data used elsewhere in this paper.
 
 \section*{Stable age structure}
-
+stable age structure is 
   
 \begin{figure}[]
 \centering
@@ -699,64 +716,66 @@ $\downarrow r $  & 55  & 65 & 75 & 85 & 95 \\
 \end{figure}
 \FloatBarrier
 
-\section*{Some preliminary empirical findings}
-The thanatological renewal equation and the discrete projection matrix can be
-put to work with data. In this case a few options are available for determining
-what kind of thanatological fertility rates to use. The two obvious choices are
-to derive rates from the stable population implied by the chronological renewal
-model, or to derive rates such as those from Figure~\ref{fig:FySpaghetti},
-based on a particular stock of population. 
+%\section*{Some preliminary empirical findings}
+%The thanatological renewal equation and the discrete projection matrix can be
+%put to work with data. In this case a few options are available for determining
+%what kind of thanatological fertility rates to use. The two obvious choices are
+%to derive rates from the stable population implied by the chronological renewal
+%model, or to derive rates such as those from Figure~\ref{fig:FySpaghetti},
+%based on a particular stock of population. 
 
-Of the 1834 population-years of data on hand, we optimize $r$ from both
-\eqref{eq:thanoren} and \eqref{eq:lotka}. In this sample, both versions of $r$
-are only plausibly equal in a single instance. Usually thanatological $r$ is
-greater than Lotka's $r$ (1373 cases). When Lotka's $r$ is positive (693 cases), thanatological $r$ is greater just over of 50\% of the time (356), but when Lotka's $r$ is negative,
-thanatological $r$ is the greater of the two around 90\% of the time (1017
-cases). These two approximations of $r$ are of opposite sign 138 times. We
-provide a comparison of the $r$ distributions in Figure~\ref{fig:rDist}. Mean
-locations for each distribution are indicated with vertical dashed lines; thano.
--0.0010; chrono. -0.0027. The distribution of thanatological $r$ is more compact
-than for chronological $r$, with the ratio of variances (thano./chrono.) of
-about 0.75. The two theoretical values of $r$ covary strongly, but
-thanatological $r$ is the less erratic of the two, and it usually paints a less dire picture when both are negative.
+%Of the 1834 population-years of data on hand, we optimize $r$ from both
+%\eqref{eq:thanoren} and \eqref{eq:lotka}. In this sample, both versions of $r$
+%are only plausibly equal in a single instance. Usually thanatological $r$ is
+%greater than Lotka's $r$ (1373 cases). When Lotka's $r$ is positive (693
+% cases), thanatological $r$ is greater just over of 50\% of the time (356), but when Lotka's $r$ is negative, thanatological $r$ is the greater of the two around 90\% of the time (1017
+%cases). These two approximations of $r$ are of opposite sign 138 times. We
+%provide a comparison of the $r$ distributions in Figure~\ref{fig:rDist}. Mean
+%locations for each distribution are indicated with vertical dashed lines;
+% thano.
+%-0.0010; chrono. -0.0027. The distribution of thanatological $r$ is more
+% compact than for chronological $r$, with the ratio of variances (thano./chrono.) of
+%about 0.75. The two theoretical values of $r$ covary strongly, but
+%thanatological $r$ is the less erratic of the two, and it usually paints a less
+% dire picture when both are negative.
 
-\begin{figure}[h!]
-	\caption{Distribution of $r$, chronological (Lotka) and thanatological*.}
-	\begin{center}
-		\label{fig:rDist}
-		\includegraphics[scale=.7]{Figures/rDist.pdf}
-	\end{center}
-	\begin{tiny}
-     * Data from HMD and HFD. Countries and years listed in
-     Figure~\ref{fig:Fxcompare}.
-	\end{tiny}
-\end{figure}
+%\begin{figure}[h!]
+%	\caption{Distribution of $r$, chronological (Lotka) and thanatological*.}
+%	\begin{center}
+%		\label{fig:rDist}
+%		\includegraphics[scale=.7]{Figures/rDist.pdf}
+%	\end{center}
+%	\begin{tiny}
+ %    * Data from HMD and HFD. Countries and years listed in
+  %   Figure~\ref{fig:Fxcompare}.
+	%\end{tiny}
+%\end{figure}
 
-The differences described here are not due primarily to rounding errors in the
-data, but rather to the way in which $\gamma(y)$ has been calculated. 
-Specifically, in this case we have transformed fertility rates from empirical data with a particular
-chronological age structure. If the chronological age structure is far from its
-stable distribution, then it may be hard to imagine that $\gamma(y)$ will
-remain fixed over time. When holding chronological-age classified fertility rates
-fixed, the assumption is just the opposite.
+%The differences described here are not due primarily to rounding errors in the
+%data, but rather to the way in which $\gamma(y)$ has been calculated. 
+%Specifically, in this case we have transformed fertility rates from empirical
+% data with a particular chronological age structure. If the chronological age structure is far from its
+%stable distribution, then it may be hard to imagine that $\gamma(y)$ will
+%remain fixed over time. When holding chronological-age classified fertility
+% rates fixed, the assumption is just the opposite.
 
-From the projection matrix, the ratio of the largest to the second largest
-eigenvalue, the damping ratio, is an indicator of the \textit{springiness} of
-the stable population structure, $c^\star(y)$ or $c(a)$, if perturbed from the
-state of stability.
-A higher damping ratio means that the population structure oscillates back to
-its stable state faster, i.e., that oscillations decrease in size more rapidly. The thanatological damping ratio was
-greater than the Leslie damping ratio for all 1834 population-years included in
-our empirical analysis. Leslie damping ratios ranged from 1.01258 to 1.0518,
-while thanatological damping ratios ranged from 1.0455 to 1.0868. Again, this
-was for the raw data, and I am not sure whether this consistent finding is a
-natural property of the model or an artifact of the unstable starting state of
-the data used to derive thanatological fertility rates. Intuitively, the
-thanatological smoothing process should be an order of magnitude stronger than
-the chronological smoothing process because each thanatological age class
-(node) -- except for the oldest-old -- is connected directly to each other
-thanatological age class in both directions. Again, I think contrived examples
-will be necessary to shed more light on this finding.
+%From the projection matrix, the ratio of the largest to the second largest
+%eigenvalue, the damping ratio, is an indicator of the \textit{springiness} of
+%the stable population structure, $c^\star(y)$ or $c(a)$, if perturbed from the
+%state of stability.
+%A higher damping ratio means that the population structure oscillates back to
+%its stable state faster, i.e., that oscillations decrease in size more rapidly.
+% The thanatological damping ratio was greater than the Leslie damping ratio for all 1834 population-years included in
+%our empirical analysis. Leslie damping ratios ranged from 1.01258 to 1.0518,
+%while thanatological damping ratios ranged from 1.0455 to 1.0868. Again, this
+%was for the raw data, and I am not sure whether this consistent finding is a
+%natural property of the model or an artifact of the unstable starting state of
+%the data used to derive thanatological fertility rates. Intuitively, the
+%thanatological smoothing process should be an order of magnitude stronger than
+%the chronological smoothing process because each thanatological age class
+%(node) -- except for the oldest-old -- is connected directly to each other
+%thanatological age class in both directions. Again, I think contrived examples
+%will be necessary to shed more light on this finding.
 
 \section*{Discussion}
 The thanatological renewal model is valid, but this perspective may take some
