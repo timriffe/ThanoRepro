@@ -49,11 +49,10 @@ years of life}
 \maketitle
 
 \begin{abstract}
-A unisex model of population renewal for populations structured by
-remaining years of life is presented in both continuous and discrete form.
-Various stable and transient properties populations are compared and related when viewed
-by chronological versus thanatological age. Results from the two age perspectives are conformable if the starting
-population is stable, but are otherwise divergent.\ackn{Research reported in this manuscript
+I present a unisex model of population renewal for populations structured by
+remaining years of life in both continuous and discrete form.
+Various stable properties of this model are compared and related when viewed
+by chronological versus thanatological age.\ackn{Research reported in this manuscript
 was supported by the U.S.
 National Institute On Aging of the National Institutes of Health under award numbers R01-AG011552 and R01-AG040245 and by the Spanish Ministry of Science and Innovation under award
 number ECO2013-48326-C2-1-P. The content is solely the responsibility of the
@@ -61,9 +60,7 @@ author and does not necessarily represent the official views of the funding
 agencies.}
 \end{abstract}
 
-*This is a work in progress. All findings are preliminary at this time, so
-please don't cite without permission of the author.
-\vspace{2em}
+
 
 \onehalfspacing
 \section*{Introduction}
@@ -78,8 +75,8 @@ regularities with respect to chronological age patterns. The models and methods
 of demography are in varying degrees prefaced on such regularity. There is evidence that many demographic phenomena are best described in the
 aggregatate as a function of time since birth, and others of time until death,
 while others can be a function of both to some degree
-\citep{riffe2015ttd,wolf2015disability}. This observation ought to motivate the
-formal demographic base to incorporate this aspect of time in into models. 
+\citep{riffe2015ttd,wolf2015disability}. This observation motivates
+incorporating this aspect of time into formal demographic methods and models.
 %Temporal perspectives and rescalings of the lifecourse are abundant in
 % demography already. Such work has enriched the discipline by producing new
 % insights, questions, and conundrums.
@@ -676,12 +673,43 @@ Thanatological damping ratios are usually higher than chronological damping
 ratios in the data used elsewhere in this paper.
 
 \section*{Stable age structure}
-stable age structure is 
+The thanatological stable age structure, as given in equation~\eqref{eq:cy},
+displays some regular patterns worthy of mention. In Figuree~\ref{fig:str} the
+same underlying mortality pattern, based on US males and females from 2010 (HMD) is rescaled to different mortality levels and growth
+rates. Figure~\ref{tab:chronostr} shows stable age structures by chronological
+age, while Figure~\ref{tab:thanostr} shows stable age structure of the same
+population by thanatological age. Rows indicate growth rates, descending from
+positive to negative, while columns indicate the both-sex mean life expectancy,
+$e(0)$, to which 2010 US mortality is scaled. The rows and columns of
+Figures~\ref{tab:chronostr} and \ref{tab:thanostr} are organized in identical
+fashion, each element referring to the same intrinsic growth rate and average
+$e(0)$.
+
+The Brouard-Carey equality is visible by noting that the middle rows from the
+chronological and thanatological matrices are identical. In comparing any other
+rows, however, it is as if the thanatological matrix were flipped: a growingy is population in the chronological perspective looks like a shrinking
+population in the thanatological perspective, and vice versa. While the bottom row of
+Figure~\ref{tab:chronostr} looks like the top row of Figure~\ref{tab:thanostr},
+the profiles ar enot rigorously identical, and the symmetry is only noteworthy
+as rule of thumb. In thinking of the birth flow and the death flow, the
+approximate reflection of age structure over the $r$-axis does make sense: in a
+shrinking population new birth cohorts are smaller than old birth cohorts, which
+means that relatively fewer people are born, and relatively more are in older
+ages, closer to dying. In this case, the base of the chronological pyramid is
+relatively thin, while the base of the thanatological leaf is relatively thick.
+The same holds in reverse for growing populations. 
+
+While this heuristic applies to stable populations, but it does not necessarily
+hold for real observed populations under changing mortality. Further, the observation is only
+valid for the period perspective in stability. In the cohort perspective, i.e.,
+within closed birth cohorts, the analogy to stationary populations is spot on--- That is, within birth cohorts
+the Brouard-Carey equality is exactly true when applied to the lifespan
+distribution.
   
 \begin{figure}[]
 \centering
 \caption{Stable age structures by life expectancy, $e(0)$, and growth rate,
-$r$.*}
+$r$.*} \label{fig:str}
 \begin{subfigure}[b]{\textwidth}
 \centering
 \caption{Chronological age structure, $c(a)$.}
@@ -793,6 +821,18 @@ cohort, and these move one step down the pyramid each year without any decrement
 the locations of increment and decrement, and the direction of movement (when
 so visualized) are all switched. The chronological and thanatological renewal
 models are almost perfectly opposite descriptions of the same process. 
+
+This symmetry is visible in comparing the
+chronological and thanatological renewal equations~\eqref{eq:lotka2}
+and \eqref{eq:thanoren}, and it is also seen in the approximate symmetry between
+chronological and thanatological age structure profiles under intrinsic growth
+rates of equal magnitude but opposite sign. The thanatological projection matrix may be thought of as a
+sort of dual to the Leslie matrix--- a twin construct. The thanatological perspective on renewal I present is
+essentially a hitherto undescribed property of the Lotka-Leslie renewal model. Possible applications of
+this perspective on renewal are mentioned in \citet{riffe2015force}, the only
+difference in the present inquiry is that we now account for constant growth rates in the
+population. The primary contribution of this inquiry is to broaden our
+understanding of the renewal process.
 
 \vspace{2em}
 
