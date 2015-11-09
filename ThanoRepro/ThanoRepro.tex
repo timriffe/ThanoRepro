@@ -43,49 +43,60 @@
 %-------------------------------------------------------
 \begin{document}
 
-\title{Renewal and stability in populations structured by remaining
-years of life}
+\title{Renewal and stability in populations structured by remaining years of
+life}
 \author{Tim Riffe \\ Max Planck Institute for Demographic Research}
 \maketitle
 
 \begin{abstract}
-I present a unisex model of population renewal for populations structured by
-remaining years of life in both continuous and discrete form.
-Various stable properties of this model are compared and related when viewed
-by chronological versus thanatological age.\ackn{Research reported in this manuscript
-was supported by the U.S.
-National Institute On Aging of the National Institutes of Health under award numbers R01-AG011552 and R01-AG040245 and by the Spanish Ministry of Science and Innovation under award
-number ECO2013-48326-C2-1-P. The content is solely the responsibility of the
+Models of age structured population renewal are the core of formal demography.
+I derive a specification of the classic renewal equation that is structured by
+thanatological age rather than by chronological age. I give both continuous
+and discrete variants of the derived model, and relate these to the well-known
+age structured model. In stability, the two kinds of age
+structure are commensurable, and imply identical intrinsic growth rates.
+I demonstrate approximate symmetry between chronological and
+thanatological age structure in stability when subject to
+intrinsic growth rates equal magnitude and opposite sign. This paper offers a
+new perspective on the Lotka-Leslie renewal process.\ackn{Research reported in
+this manuscript was supported by the U.S.
+National Institute On Aging of the National Institutes of Health under award numbers R01-AG011552 and R01-AG040245. The content is solely the responsibility of the
 author and does not necessarily represent the official views of the funding
 agencies.}
 \end{abstract}
 
 
-
 \onehalfspacing
 \section*{Introduction}
-In this paper, I explore some formal demographic consequences of a particular redefinition of age. Instead of counting age as the time passed since birth, consider age as the amount of time left until death\footnote{This quantity is referred to as \textit{residual} lifetime
-in the reliability literaure, or just time-to-death (TTD) elsewhere.}. The first
-kind of age is called chronological age, and the second kind of age is called
-thanatological age. Individuals in this case move in the same direction along
-imaginary life lines, but the reference point for thanatological age is at
-the end of the life line instead of at the beginning. For individuals, the timing of events in life is exactly identified using either of the two definitions of age, but
-aggregate patterns differ. Demography is built upon a small set of empirical
+
+Demography is built upon a small set of empirical
 regularities with respect to chronological age patterns. The models and methods
 of demography are in varying degrees prefaced on such regularity. There is evidence that many demographic phenomena are best described in the
 aggregatate as a function of time since birth, and others of time until death,
 while others can be a function of both to some degree
 \citep{riffe2015ttd,wolf2015disability}. This observation motivates
-incorporating this aspect of time into formal demographic methods and models.
+incorporating this aspect time-to-death into formal demographic methods and
+models.
+
+In this paper, I explore some formal demographic consequences of a particular redefinition of age. Instead of counting age as the time passed since birth, consider age as the amount of time left until death. The first
+kind of age is called chronological age, and the second kind of age is called
+thanatological age.\footnote{This quantity is referred to as \textit{residual} lifetime
+in the reliability literaure, or just time-to-death (TTD) elsewhere.} Individuals in this case move in the same direction along
+imaginary life lines, but the reference point for thanatological age is at
+the end of the life line instead of at the beginning. For individuals, the timing of events in life is exactly identified using either of the two definitions of age, but
+aggregate patterns differ. 
 %Temporal perspectives and rescalings of the lifecourse are abundant in
 % demography already. Such work has enriched the discipline by producing new
 % insights, questions, and conundrums.
 % Fertility and reproduction are plausibly a function of both age perspectives,
  % and the question of how to best partition them over time is not investigated here. 
 
-I describe the Lotka-Euler-Leslie renewal model when structured by
-thanatological age. The renewal model relates
-fertility, mortality, and population structure in a parsimonious form, revealing the long term consequences of a particular set of conditions. All diverse lines of contemporary demographic research are relatable to the renewal model, and by extention to stable population theory.
+The renewal model relates
+fertility, mortality, and population structure in a parsimonious form, revealing
+the long term consequences of a particular set of conditions. All diverse lines
+of contemporary demographic research are relatable to the renewal model, and by
+extention to stable population theory. The purpose of this paper is to describe
+the Lotka-Leslie renewal model when structured by thanatological age.
 %Some might say that stable population
 %theory is not relevant to everyday demography, since populations are always
 % changing. Even if change precludes the notion of stability as a prediction, models of long-run consequnces still give a
@@ -107,21 +118,44 @@ rather than to a birth flow. I have described a limited case of this
 perspective on renewal for the case of stationary populations
 \citep{riffe2015force}, and here provide a broader treatment allowing for
 growth in the population.
-The chronological-age classified renewal model and the thanatological renewal model both describe the movement of population stocks over time, but from opposite vantage points. Specifying a model of thanatological renewal expands the toolbox available to approach complex
-temporal population structure. 
+The chronological-age classified renewal model and the thanatological renewal
+model both describe the movement of population stocks over time, but from opposite vantage points. %Specifying a model of thanatological renewal expands the toolbox available to approach complex temporal population structure. 
 
 The next section of this article describes the lifetable method of transforming age-classified
 data into thanatological age classes. I then derive the continuous version of
 the thanatological renewal model, and some other stable properties. This is
 followed by the matrix version of the model, which is explained alongside the
-lifecycle graph. 
+lifecycle graph. Finally, I explore patterns in stable age structure compared
+between the two models. I conclude that thanatological renewal offers
+a new perspective on the familiar Lotka-Leslie model.
 
-\section*{A lifetable approximation of thanatological age}
+\section*{Requisites of a thanatological renewal model}
+The Lotka-Leslie renewal model \citep{leslie1945use,sharpe1911problem} is
+situated in a unisex homogenous population framework. The model expressed in continous mathematics contains a
+component for survival, $\ell(a)$, a scaling factor for growth, $e^{-ra}$, and a
+component for fertility, $m(a)$:
+
+\begin{equation}
+\label{eq:lotka}
+1 = \int_{a=0}^\infty l(a)e^{-ra}m(a)\dd a \ep
+\end{equation}
+
+Each of these elements is structured by
+chronological age, $a$. The model can be approximated by observed data because
+chronological age is typically known. The survival function, $\ell(a)$, derives
+from a lifetable, usually based on age-specific event-exposure mortality rates,
+which requires knowing the age of decedentsand an estimate of the population
+exposed to risk in the same age classes. Female fertility rates, $m(a)$, are
+classified by age-of-mother
+
+
+\subsection*{A lifetable approximation of thanatological age}
 %Direct information on the timing of demographic transitions with respect to
 %death is available retrospectively from linked population registers or
 %panel surveys with mortality follow-ups.
 %Some surveys also ask respondents in various ways about their perceived future
 % lifetime, which may underly those demographic transitions governed to some degree by volition. 
+
 In general, to make a lifetable-based projective statement about the remaining
 time distribution of a current stock of population, it is best to to account for population subgroups
 with different mortality and to account for uncertainty about future changes in
@@ -167,7 +201,7 @@ yields similar results, but is not necessarily better.} One produces in this way
 $a$. The $f(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
 remaining life expectancy column of the lifetable, $e(a)$. If $P(a)$ is a
 chronological age-classified population count, we can derive $P(y)$, a
-thanatological age-classified population count using\footnote{An
+thanatological age-classified population count using\footnote{A
 different-looking but identical definition is found in
 \citet{brouard1989mouvements}.}
 
@@ -228,7 +262,10 @@ As such, Figure~\ref{fig:USrecomp} is \textit{projective} in nature, a
 forward-looking glance at population attrition given the population stock and lifetable of a
 particular moment, whereas Figure~\ref{fig:USdecomp} is \textit{reflective} in
 nature, since a population's chronological age-structure is mostly the fruit of past
-fertility, but also to a lesser degree migration and attrition. Any count
+fertility, but also to a lesser degree migration and attrition.
+
+\subsection{Thanatological fertility rates.}
+Any count
 classified by chronological age can be reclassified in this way given a
 pertinent lifetable. To
 derive thanatological fertility rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
@@ -338,14 +375,12 @@ intrinsic rate of growth:}
 1 =& \int_{y=0}^\infty \int_{a=0}^\infty \gamma(y) d(a+y)e^{-ra}\dd a \dd y
 \ep
 \end{align}
-Now compare this to Lotka's chronological formulation:
-\begin{align}
-\label{eq:lotka}
-1 =& \int_{a=0}^\infty m(a)l(a)e^{-ra}\dd a \ec
-\intertext{which can be expressed as well as}
-  =& \int_{a=0}^\infty \int_{y=0}^\infty m(a)d(a+y)e^{-ra}\dd y \dd a \ec
+Now compare this to Lotka's chronological formulation in
+Equation~\eqref{eq:lotka},which can be expressed as well as:
+\begin{equation}
+ 1 = \int_{a=0}^\infty \int_{y=0}^\infty m(a)d(a+y)e^{-ra}\dd y \dd a \ec
   \label{eq:lotka2}
-\end{align}
+\end{equation}
 and note that \eqref{eq:lotka2} and \eqref{eq:thanoren} are really quite
 similar, since $\int _{y=0}^\infty d(a+y)\dd a = l(a)$. For intuition, notice
 that $l(a)$ is here decomposed into $d(a)$. Imagine a matrix of this
@@ -811,7 +846,7 @@ time to gestate before accepting that it is also a sound description of how
 populations renew. What should one imagine under the model of thanatological
 population renewal? A useful mnemonic bases itself on Figures~\ref{fig:USdecomp}
 and \ref{fig:USrecomp}. In the chronological age-structured model, new
-generations appear at the bottom of the pyramid, and move up one rung per year.
+generations appear at the bottom of the pyramid, and move up one class per year.
 All age-classes are subject to attrition, which is spread out over ages and not
 readily visible in the pyramid. In the thanatological \textit{leaf}, each birth cohort increments to the population over the whole range of thanatological age
 according to $d(a)$, as seen in \eqref{eq:thanoren}, becoming the
@@ -878,35 +913,35 @@ b^\star (y) &= \int_{a=0}^\infty b(a) \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \dd a \\
 c^\star (y) &= \int_{a=0}^\infty c(a) \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \dd a
 \intertext{Note that:}
 c(a) &= \frac{\ell(a)e^{-ra}}{\int \ell(a) e^{-ra} \dd a} \\
-b(a) &= f(a)c(a)
+b(a) &= m(a)c(a)
 \end{align}Replacing $\gamma(y)$ with the full expanded
 expression and plugging into the thanatological renewal equation gives:
 \begin{align}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{\frac{\int_{t=0}^\infty
-f(t)\ell(t)e^{-rt}\mu(a+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{\int \ell(t) e^{-rt} \dd
+m(t)\ell(t)e^{-rt}\mu(a+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{\int \ell(t) e^{-rt} \dd
 t}}{\frac{\int_{t=0}^\infty \ell(t)e^{-rt} \mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{\int
 \ell(t) e^{-rt} \dd t}} \dd a \dd y
 \intertext{The denominator of $c(a)$ cancels out:}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{
 \int_{t=0}^\infty
-f(t)\ell(t)e^{-rt}\mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{
+m(t)\ell(t)e^{-rt}\mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t}{
 \int_{t=0}^\infty \ell(t)e^{-rt} \mu(t+y)\frac{\ell(t+y)}{\ell(t)} \dd t} \dd a \dd y
-\intertext{Some $l(a)$'s also cancel out:}
+\intertext{Some $\ell(a)$'s also cancel out:}
 =& \int _{y=0}^\infty \int
 _{a=0}^\infty d(a+y)e^{-ra} \frac{
 \int_{t=0}^\infty
-f(t)e^{-rt}\mu(t+y)\ell(t+y) \dd t}{
+m(t)e^{-rt}\mu(t+y)\ell(t+y) \dd t}{
 \int_{t=0}^\infty e^{-rt} \mu(t+y)\ell(t+y) \dd t} \dd a \dd y
 \intertext{Now $d(a+y) = \mu (a+y)\ell(a+y)$, so we can cancel the inner integral
 with the denominator:}
 =& \int _{y=0}^\infty 
 \int_{a=0}^\infty
-f(a)e^{-ra}\mu(a+y)\ell(a+y) \dd a \dd y
+m(a)e^{-ra}\mu(a+y)\ell(a+y) \dd a \dd y
 \intertext{Note also that $l(a) = \int _{=a}^\infty d(x) \dd x$ (present
 livings are future deaths), which brings us back to the chronological
-formulation:} =& \int_{a=0}^\infty e^{-ra}\ell(a)f(a)
+formulation:} =& \int_{a=0}^\infty e^{-ra}\ell(a)m(a)
 \dd a
 \end{align}
 This finding essentially proves that in the stable population there is at least
