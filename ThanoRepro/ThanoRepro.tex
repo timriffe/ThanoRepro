@@ -121,6 +121,26 @@ growth in the population.
 The chronological-age classified renewal model and the thanatological renewal
 model both describe the movement of population stocks over time, but from opposite vantage points. %Specifying a model of thanatological renewal expands the toolbox available to approach complex temporal population structure. 
 
+I couch the present inquiry in terms of aggregate renewal of human populations,
+but the renewal model is more generally a description of the birth-death
+process \citep{cox1962,feller1941integral}. As such, the thanatological
+renewal model may be applicable in myriad other areas, such as queueing,
+infectious disease processes, or aspects of renewable aggregates in general.
+Given the breadth of birth-death models and the speculative applicability of the thanatological renewal model, I am
+content for the present inquiry to establish the validity of the model. Perhaps
+there exists a birth-death process for which modelling as a death-birth process
+makes the most sense. In order to establish the \textit{soundness} of this model as a description of the human renewal process
+would require considerable empirical groundwork--- It would imply demonstrating
+that the thanatological age pattern of fertility is empirically regular, and
+that the time-to-death structure of the population is empirically regular.
+Such an endeavor would be misplaced, as the objective of this inquiry is not to
+improve the practice of empirical demography. Instead the objective is to deepen
+our understanding of the Lotka-Leslie renewal model. The chronological and
+thanatological renewal models imply one another in the state of stability. We
+therefore present this model as a property implied by the Lotka-Leslie renewal
+model, as two sides of the same coin. The result is however more general than
+that of literal birth and death in human populations.
+
 The next section of this article describes the lifetable method of transforming age-classified
 data into thanatological age classes. I then derive the continuous version of
 the thanatological renewal model, and some other stable properties. This is
@@ -144,10 +164,25 @@ Each of these elements is structured by
 chronological age, $a$. The model can be approximated by observed data because
 chronological age is typically known. The survival function, $\ell(a)$, derives
 from a lifetable, usually based on age-specific event-exposure mortality rates,
-which requires knowing the age of decedentsand an estimate of the population
-exposed to risk in the same age classes. Female fertility rates, $m(a)$, are
-classified by age-of-mother
+which require counts of decedents and an estimate of the
+population exposed to risk in the same chronological age classes.
+Chronological age in the growth factor, $e^{-ra}$ pertains to the passage of
+time more than it does to chronological age (these are synchronous for birth
+cohorts). The product of this growth factor and $\ell(a)$ gives a
+function proportional to the stable age structure, $c(a)$, and it is often
+easier to imagine these two elements together as one for this reason. Female
+fertility rates, $m(a)$, are based on birth counts classified by age-of-mother, and the same variety of exposure to risk. For the two essential rate componenents underlying the renewal equation~\eqref{eq:lotka}, classification by chronological age is essentially given--- it is deterministic in the sense that time passed since birth is typically known by individuals. The kinds of errors in such classification are mostly due to innumeracy, rounding, exaggeration, and
+similar kinds of biases, but even in such cases, chronological age is
+fundamentally knowable.
 
+Thanatological age is different in this respect because we do not know when we
+will die--- it is only knowable retrospectively or probabilistically. Under a set of simple assumptions, the same lifetable used to
+estimate $\ell(a)$ can be used to
+partition and recombine counts observed by chronological age into estimates
+classified by thanatological age. Our objective is then to estimate an age
+structure component, similar to $\ell(a)e^{-ra}$, and a fertility component
+simialr to $m(a)$, but each for the thanatological case. Taken together, these
+componenents will yield a thanatological renewal model.
 
 \subsection*{A lifetable approximation of thanatological age}
 %Direct information on the timing of demographic transitions with respect to
@@ -184,8 +219,9 @@ denoted by $ X - t | X > t $, where $X$ is the total lifespan and $t$ is the
 current chronological age attained.}
 \begin{equation}
 \label{eq:vaupel1}
-f(y | a) = \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \ep
+f(y | a) = \mu(a+y)\frac{\ell(a+y)}{\ell(a)} \ec
 \end{equation}
+where $\mu(a)$ is the force of mortality.
 
 A convenient discretization of \eqref{eq:vaupel1} is to simply work with the
 $d_a$ column of the lifetable (here with single ages):
@@ -199,7 +235,9 @@ this error, rescale over the $a$ margin so that each distribution conditioned on
 $a$ sums to 1. Working with $\ell_a$ rather than $L_a$ eliminates error and
 yields similar results, but is not necessarily better.} One produces in this way a probability density function over future death times for each chronological age,
 $a$. The $f(y|a)$- weighted average of $y$ for a given $a$ returns the familiar
-remaining life expectancy column of the lifetable, $e(a)$. If $P(a)$ is a
+remaining life expectancy column of the lifetable, $e(a)$. Since $1 = \int_0^\infty f(y|a) \dd y$ for each $a$,
+this density is useful for decomposing data classified by chronological age,
+such as the population pyramid, into thanatological age classes. If $P(a)$ is a
 chronological age-classified population count, we can derive $P(y)$, a
 thanatological age-classified population count using\footnote{A
 different-looking but identical definition is found in
@@ -210,9 +248,6 @@ different-looking but identical definition is found in
 P(y) =& \int_0^\infty P(a) f(y | a) \dd a \ep
 \end{align}
 
-Since $1 = \int_0^\infty f(y|a) \dd y$ for each $a$,
-this density is useful for decomposing data classified by chronological age,
-such as the population pyramid, into thanatological age classes.
 Figure~\ref{fig:USdecomp} shows this exercise for 2010 US data \citep{HMD},
 assuming the 2010 period mortality schedule remains constant. When looking from the chronological age perspective, this decomposition reveals thanatological
 heterogeneity, but when viewed from the thanatological perspective
@@ -252,25 +287,27 @@ provides a limited basis for comparison between the two perspectives.
 %\citet{wachter2014essential} hints at, and
 %\citet{vaupel2014stable} elaborates on how to make chronological and
 %thanatological age structure commensurate under a constant growth rate, $r$.
-These results also follow from the following specification of a
-thanatological renewal model.
+%These results also follow from the following specification of a
+%thanatological renewal model.
 
 Lifetable-derived thanatological age structure is
-probabilistic until after death, since it refers to the future according to an
-assumed mortality pattern; in this case a period mortality pattern is used.
+probabilistic until after death in several senses. In this case, note that
+counts from a given age class are distributed over a range of higher ages
+according to a given mortality rate schedule; in this
+case a period mortality pattern is used.
 As such, Figure~\ref{fig:USrecomp} is \textit{projective} in nature, a
 forward-looking glance at population attrition given the population stock and lifetable of a
 particular moment, whereas Figure~\ref{fig:USdecomp} is \textit{reflective} in
-nature, since a population's chronological age-structure is mostly the fruit of past
-fertility, but also to a lesser degree migration and attrition.
+nature, since a population's chronological age-structure is the fruit of past
+demographic forces.
 
 \subsection{Thanatological fertility rates.}
 Any count
-classified by chronological age can be reclassified in this way given a
-pertinent lifetable. To
+classified by chronological age can be reclassified as in
+equation~\eqref{eq:transform} given a pertinent lifetable. To
 derive thanatological fertility rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
 chronological age-classified birth counts, $B(a)$, to get $B(y)$ and again to
-exposure-to-risk, $E(a)$, to calcualte $E(y)$ and then divide in the usual way:
+exposure-to-risk, $E(a)$, to get $E(y)$ and then divide in the usual way:
 
 \begin{equation}
 \gamma(y) = \frac{B(y}{E(y)} \ep
@@ -343,8 +380,7 @@ direct measurement.
 There are alternative ways of defining thanatological fertility rates, for instance by transforming the birth and
 population vector from a stable population. As proven in appendix~\ref{app:B},
 thanatological fertility rates derived from a stable population imply a certain
-symmetry with stable populations from the chronological model. First I
-define the basic model.
+symmetry with stable populations from the chronological model. 
 
 \FloatBarrier
 \section*{The thanatological renewal model}
@@ -841,12 +877,19 @@ $\downarrow r $  & 55  & 65 & 75 & 85 & 95 \\
 %will be necessary to shed more light on this finding.
 
 \section*{Discussion}
-The thanatological renewal model is valid, but this perspective may take some
-time to gestate before accepting that it is also a sound description of how
-populations renew. What should one imagine under the model of thanatological
-population renewal? A useful mnemonic bases itself on Figures~\ref{fig:USdecomp}
-and \ref{fig:USrecomp}. In the chronological age-structured model, new
-generations appear at the bottom of the pyramid, and move up one class per year.
+The thanatological renewal model is valid, but I do not expect the reader to
+accept that it is also a sound description of the fundamental forces of
+population renewal. Specifically, I expect that the fertility rates are best
+described in the margin by chronological age and not by thanatological age. The
+main contribution of this inquiry is to demonstrate a transformation of the
+Lotka-Leslie renewal model, and to highlight a parallel aspect of renewal that
+occurs irrespective of its empirical regularity. That is, it is the case
+that in the moment of birth, both progenitor and baby have a certain number of
+remaining years of life, and that the range of potential values for both is
+great. The thanatological renewal
+model therefore is an abstraction of a real process, and not merely an adornment of the chronological renewal model.
+
+What should one imagine under the model of thanatological population renewal? A useful mnemonic bases itself on Figures~\ref{fig:USdecomp} and \ref{fig:USrecomp}. In the chronological age-structured model, new generations appear at the bottom of the pyramid, and move up one class per year.
 All age-classes are subject to attrition, which is spread out over ages and not
 readily visible in the pyramid. In the thanatological \textit{leaf}, each birth cohort increments to the population over the whole range of thanatological age
 according to $d(a)$, as seen in \eqref{eq:thanoren}, becoming the
@@ -854,7 +897,7 @@ shaded layers seen in Figure~\ref{fig:USrecomp}. Each horizontal step is a death
 cohort, and these move one step down the pyramid each year without any decrement
 (indeed incrementing due to births) until reaching the very bottom. In short,
 the locations of increment and decrement, and the direction of movement (when
-so visualized) are all switched. The chronological and thanatological renewal
+so visualized) are all swapped. The chronological and thanatological renewal
 models are almost perfectly opposite descriptions of the same process. 
 
 This symmetry is visible in comparing the
@@ -862,12 +905,12 @@ chronological and thanatological renewal equations~\eqref{eq:lotka2}
 and \eqref{eq:thanoren}, and it is also seen in the approximate symmetry between
 chronological and thanatological age structure profiles under intrinsic growth
 rates of equal magnitude but opposite sign. The thanatological projection matrix may be thought of as a
-sort of dual to the Leslie matrix--- a twin construct. The thanatological perspective on renewal I present is
-essentially a hitherto undescribed property of the Lotka-Leslie renewal model. Possible applications of
+sort of dual to the Leslie matrix--- a twin construct. The thanatological perspective on renewal I present is a hitherto undescribed property of the Lotka-Leslie renewal model. Possible applications of
 this perspective on renewal are mentioned in \citet{riffe2015force}, the only
 difference in the present inquiry is that we now account for constant growth rates in the
-population. The primary contribution of this inquiry is to broaden our
-understanding of the renewal process.
+population. The present treatment is broader, and potentially applicable to a
+wider range of birth-death processes. In the first place, we offer a deeper understanding
+of the Lotka-Leslie renewal models.
 
 \vspace{2em}
 
@@ -944,7 +987,7 @@ livings are future deaths), which brings us back to the chronological
 formulation:} =& \int_{a=0}^\infty e^{-ra}\ell(a)m(a)
 \dd a
 \end{align}
-This finding essentially proves that in the stable population there is at least
+This proof establishes that in the stable population there is at least
 one thanatological fertility rate schedule that will satisfy the constraints of
 the lifespan distribution and $r$. However, it is not necessary to derive the
 thanatological fertility distribution in the way prescribed here, and indeed an
@@ -1003,7 +1046,7 @@ The above procedure is more computationally efficient than minimizing the
 absolute residual of Equation~\eqref{eq:thanoren} using a generic
 optimizer. Alternatively, one could use the method of cumulants to estimate $r$,
 but this would entail less precision than the above (unless one goes beyond,
-say, five cumulants), and this has not yet been worked out at this time.
+say, five cumulants), and this is not explored.
  
  
 \end{appendices}
