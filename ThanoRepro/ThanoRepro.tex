@@ -1,5 +1,5 @@
 
-\documentclass{article}
+\documentclass[12pt,oneside,a4paper,leqno]{article}
 \usepackage{appendix}
 \usepackage{amsmath}
 \usepackage{caption}
@@ -8,9 +8,7 @@
 \usepackage{subcaption}
 %\usepackage{pgf}
 \usepackage{tikz}
-%\usetikzlibrary{arrows}
-%\usepackage[active,tightpage]{preview}
-%\PreviewEnvironment{tikzpicture}
+
 %\setlength\PreviewBorder{5pt}
 \usepackage{natbib}
 \bibpunct{(}{)}{,}{a}{}{;} 
@@ -23,6 +21,8 @@
 
 \usepackage[top=2in, bottom=1.5in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
+\doublespacing
+
 \newcommand\ackn[1]{%
   \begingroup
   \renewcommand\thefootnote{}\footnote{#1}%
@@ -45,31 +45,48 @@
 
 \title{Renewal and stability in populations structured by remaining years of
 life}
-\author{Tim Riffe \\ Max Planck Institute for Demographic Research}
+\author{(author redacted)}
 \maketitle
 
-\begin{abstract}
-Models of age structured population renewal are the core of formal demography.
+
+%\ackn{Research
+%reported in this manuscript was supported by the U.S.
+%National Institute On Aging of the National Institutes of Health under award
+% numbers R01-AG011552 and R01-AG040245. The content is solely the responsibility of the author and does not necessarily represent the official views of the funding
+%agency.}
+
+
+\section*{Structured abstract}
+
+\subsection*{Background}
+The Lotka-Leslie renewal model is the core of formal demography. This model is
+structured by chronological age, and it does not account for thanatological age.
+
+\subsection*{Objective}
 I derive a specification of the classic renewal equation that is structured by
 thanatological age rather than by chronological age. I give both continuous
-and discrete variants of the derived model, and relate these to the well-known
-age structured model. In stability, the two kinds of age
-structure are commensurable, and imply identical intrinsic growth rates.
+and discrete variants of the derived model, and relate these to the Lotka-Leslie
+renewal model.
+
+\subsection*{Results}
+In stability, the thanatological and chronological renewal models are
+commensurable, implying identical intrinsic growth rates.
 I demonstrate approximate symmetry between chronological and
 thanatological age structure in stability when subject to
-intrinsic growth rates equal magnitude and opposite sign. This paper offers a
-new perspective on the Lotka-Leslie renewal process.\ackn{Research reported in
-this manuscript was supported by the U.S.
-National Institute On Aging of the National Institutes of Health under award numbers R01-AG011552 and R01-AG040245. The content is solely the responsibility of the
-author and does not necessarily represent the official views of the funding
-agencies.}
-\end{abstract}
+intrinsic growth rates equal magnitude and opposite sign.
 
+\subsection*{Conclusions}
+Birth-death renewal processes can be expressed as death-birth processes, and
+vice versa.
 
-\onehalfspacing
+\subsection*{Contribution}
+The thanatological renewal model offers a new perspective on population renewal,
+and it is valid more generally as an aspect of birth-death processes.
+\vspace{2cm}
+
 \section*{Introduction}
 
-Demography is built upon a small set of empirical
+Contemporary demography is built upon a small set of empirical
 regularities with respect to chronological age patterns. The models and methods
 of demography are in varying degrees prefaced on such regularity. There is evidence that many demographic phenomena are best described in the
 aggregatate as a function of time since birth, and others of time until death,
