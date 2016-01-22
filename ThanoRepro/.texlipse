@@ -1,5 +1,5 @@
 #TeXlipse project settings
-#Tue Nov 10 14:24:55 CET 2015
+#Fri Jan 22 09:50:53 CET 2016
 markTmpDer=true
 builderNum=2
 outputDir=
@@ -7,8 +7,8 @@ makeIndSty=
 bibrefDir=
 outputFormat=pdf
 tempDir=tmp
-mainTexFile=ThanoReproMPIDR.tex
-outputFile=ThanoReproMPIDR.pdf
+mainTexFile=ThanoRepro.tex
+outputFile=ThanoRepro.pdf
 langSpell=en
 markDer=true
 srcDir=
