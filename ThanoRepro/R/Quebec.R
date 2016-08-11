@@ -2,12 +2,14 @@
 # Author: tim
 ###############################################################################
 library(foreign)
-
+library(lubridate)
 Hm <- 
 		read.spss("/home/tim/Data/Quebec/FrenchCanadian.individuals.2012-01-27/RPQA.MarcKlemp.individus.2012-01-27.sav")
-
 Hm <- as.data.frame(Hm)
-str(Hm)
+range(Hm$dateNaissAnnee, na.rm=TRUE)
+
+
+
 Hm$BD   						<- as.Date(with(Hm, paste(dateNaissAnnee, 
 													dateNaissMois, 
 													dateNaissJour, 
@@ -18,9 +20,9 @@ DD 								<- with(Hm, paste(	dateDecesAnnee,
 													sep = "-"))
 DD[is.na(Hm$dateDecesAnnee)] 	<- NA
 Hm$DD 							<- as.Date(DD)
-library(lubridate)
+
 Hm$L <- decimal_date(Hm$DD) - decimal_date(Hm$BD)
-head(Hm)
+hist(Hm$L[Hm$L > 1])
 
 # OK we have idPere and idMere for parent linkage.
 # let's find everyone whose mother is linked.
