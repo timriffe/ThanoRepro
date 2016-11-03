@@ -4,12 +4,18 @@
 library(foreign)
 library(lubridate)
 setwd("/home/tim/Data/Quebec/")
+
+# this is the MPIDR version from 2012, currently checking to see if it has been updated.
 path      <- "FrenchCanadian.individuals.2012-01-27/RPQA.MarcKlemp.individus.2012-01-27.sav"
 # TR: line to read file
 Q         <- read.spss(path)
 # TR: line to read file on MG's system
 # Hm <-   read.spss("U:/quebec/Quebec/Quebec/FrenchCanadian.individuals.2012-01-27/RPQA.MarcKlemp.individus.2012-01-27.sav")
 Q         <- as.data.frame(Q)
+
+# ---------------------------------------#
+# begin data prep                        #
+# ---------------------------------------#
 
 # compose Birthday
 Q$BD   	  <- as.Date(with(Q, paste(dateNaissAnnee, 
@@ -74,16 +80,16 @@ Ch$MDD    <- DD[as.character(Ch$idMere)]
 # mothers age and time-to-death when id is born:
 Ch$MT <- decimal_date(Ch$MDD) - decimal_date(Ch$BD) # time to death
 Ch$MA <- decimal_date(Ch$BD) - decimal_date(Ch$MBD) # chronological age
-range(Ch$MT)
-# how many negative mothers' remaining lives are there?
-sum(Ch$MT < 0)
-mean(Ch$MT < 0)
-sum(Ch$MT < -1)
-# this appears to be an issue of date precision and not outright error.
-# it looks like some mothers died in pregnancy, and somehow births
-# end up getting coded earlier than maternal deaths. Check that Ch$L is
-# 0ish for these cases:
-Ch$L[Ch$MT < 0] # indeed, mostly stillbirths. 
+#range(Ch$MT)
+## how many negative mothers' remaining lives are there?
+#sum(Ch$MT < 0)
+#mean(Ch$MT < 0)
+#sum(Ch$MT < -1)
+## this appears to be an issue of date precision and not outright error.
+## it looks like some mothers died in pregnancy, and somehow births
+## end up getting coded earlier than maternal deaths. Check that Ch$L is
+## 0ish for these cases:
+#Ch$L[Ch$MT < 0] # indeed, mostly stillbirths. 
 # This won't change things
 # either way, but it seems better to not throw these cases out,
 # and instead assume, Ch$MT == 0 in these cases.
@@ -93,8 +99,15 @@ Ch$MT[Ch$MT < 0] <- 0
 # a similar degree, but this appears to be trivial for such aggregate estimates.
 
 #hist(Ch$MT -Ch$MA) # very cool: most have more years left than lived :-)
-startyear <- 1700
 
+# ---------------------------------------#
+# end data prep                          #
+# ---------------------------------------#
+
+
+# ---------------------------------------#
+# a couple functions to calc rates       #
+# ---------------------------------------#
 replaceNANaN0 <- function(x){
 	x[is.na(x) | is.nan(x)] <- 0
 	x
@@ -111,12 +124,15 @@ get.birth.rates    <- function(
 	endyear             <- startyear + N
 	cohi                <- M$dateNaissAnnee >= startyear & M$dateNaissAnnee <= endyear
 	cohort              <- M[cohi, ]
+	
+	# radix is number born
+	l0                  <- nrow(cohort)
 	# calculate Lx  (denominator)
-	Lx                  <- rep(0, omega + 1)
+	denom               <- rep(0, omega + 1)
 	for (i in 1:(omega + 1))  {
 		ind             <- ceiling(cohort$L) == i         
 		dec             <- sum(1 - (i - cohort$L[ind]))
-		Lx[i]           <- sum(cohort$L >= i) + dec
+		denom[i]        <- sum(cohort$L >= i) + dec
 	} 
 	
 	# optionally, just select female births:
@@ -135,30 +151,40 @@ get.birth.rates    <- function(
 	BA                  <- colSums(numerator)
 	BT                  <- rowSums(numerator)
 	
-	out                 <- data.frame(age = 0:omega, 
-			                          Lx = Lx, 
+	out                 <- data.frame(Cohort = startyear,
+			                          Age = 0:omega, 
+			                          Exposure = denom, 
 									  BA = NA, 
 									  BT = NA, 
 									  ASFR = 0, 
-									  TSFR = 0)
+									  TSFR = 0,
+									  Lx = denom / l0)
 	# assign birth counts to right ages
-	out$BT              <- BT[as.character(out$age)]
-	out$BA              <- BA[as.character(out$age)]
+	out$BT              <- BT[as.character(out$Age)]
+	out$BA              <- BA[as.character(out$Age)]
 	out$BT              <- replaceNANaN0(out$BT)
 	out$BA              <- replaceNANaN0(out$BA)
 	
 	# get rates
-	out$ASFR            <- out$BA / out$Lx
-	out$TSFR            <- out$BT / out$Lx
+	out$ASFR            <- out$BA / out$Exposure
+	out$TSFR            <- out$BT / out$Exposure
 	out$ASFR            <- replaceNANaN0(out$ASFR)
 	out$TSFR            <- replaceNANaN0(out$TSFR)
 	
 	return(out) 
 }
 
+# ---------------------------------------#
+# end function defs                      #
+# ---------------------------------------#
+
+# ---------------------------------------#
+# begin calc fertility rates             #
+# ---------------------------------------#
+
 
 #set lower bounds for cohorts
-coh <- seq(from = 1630, to = 1740, by = 5)  
+coh <- seq(from = 1665, to = 1740, by = 5)  
 
 #like usual... basic represents the first examined cohort
 #basic2 is getting added over and over again to create the final data.frame which is still called "basic"
@@ -175,6 +201,45 @@ Rates <- do.call(rbind,
 				},Ch = Ch , M = M))
 
 
+save(Rates,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates.Rdata")
+
+
+
+#head(Rates)
+#library(reshape2)
+#matplot(0:110,acast(Rates,Age~Cohort,value.var="ASFR"),type='l',lty=1,col="#00000050")
+#matplot(0:110,acast(Rates,Age~Cohort,value.var="TSFR"),type='l',lty=1,col="#00000050")
+#matplot(0:110,acast(Rates,Age~Cohort,value.var="Lx"),type='l',lty=1,col="#00000050")
+#
+## suspect immigration survival bias.
+## would need to filter out immigrants.
+## check how many.
+#LX <- acast(Rates,Age~Cohort,value.var="Lx")
+#plot(colSums(LX))
+#
+## but it could also be entirely due to fertility,
+## higher fert means more infant deaths which means
+## lower e0, by a lot. Test e10.
+#plot(rowSums(t(LX[11:111, ]) / LX[11,]))
+## appears stationary after 8th cohort
+#coh[8]
+# should probably pick things up in 1665 then...
+
+# ---------------------------------------#
+# end calc fertility rates               #
+# ---------------------------------------#
+
+#-----------------------------------------
+# the rest of this is chunks from earlier versions
+# and attempts at doing what the above code does
+# files names may have changed, etc. There are 
+# also some diagnostics that led to choosing the 
+# bounds for which cohorts to include here and not.
+# from here until the bottom of the script is
+# no-man's land, enter at your own peril
+#-----------------------------------------
+
+
 # TR: make this more efficient
 #for (i in 1:length(lower)) {
 #	basic2 <-get.birth.rates(number.children, Q.with.L, lower[i], upper[i])
@@ -182,7 +247,7 @@ Rates <- do.call(rbind,
 #}
 
 
-save(basic, file = "U:/quebuec2/quebuec_rates.Rdata")
+#save(basic, file = "U:/quebuec2/quebuec_rates.Rdata")
 # test<-basic[basic$Cohort=="1755-1759",]
 # sum(test$TSFR)
 # plot (test$ASFR)
