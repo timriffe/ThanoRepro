@@ -21,96 +21,6 @@ Data <- Data[Data$Sex == "f", ]
 DT   <- as.data.table(Data)
 
 
-playWithData <- FALSE
-if(playWithData){
-
-# wow, the max age-specific rate is .29! WTF?
-#max(Data$Fx)
-#Data$Fx[Data$Fx==0] <- NA
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(Data$Age, Data$Fx, col = "#00000010")
-
-
-# ----------------------------------------------
-
-Data$Fx[Data$Fx == 0] <- NA
-Data$Fy[Data$Fy == 0] <- NA
-
-par(mfrow=c(1,2))
-# -----------------------------------------------------
-# all data
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(Data$Age, Data$Fy, col = "#00000005")
-
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(Data$Age, Data$Fx, col = "#FF000005")
-
-# -----------------------------------------------------
-# pre war
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(with(Data, Age[Year > 1920 & Year < 1939]), with(Data, Fx[Year > 1920 & Year < 1939]), col = "#00000050")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(with(Data, Age[Year > 1920 & Year < 1939]), with(Data, Fy[Year > 1920 & Year < 1939]), col = "#00000050")
-
-# -----------------------------------------------------
-# post war to 1970
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(with(Data, Age[Year > 1945 & Year < 1970]), with(Data, Fx[Year > 1945 & Year < 1970]), col = "#00000010")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(with(Data, Age[Year > 1945 & Year < 1970]), with(Data, Fy[Year > 1945 & Year < 1970]), col = "#00000010")
-
-# -----------------------------------------------------
-# after 1970
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(with(Data, Age[Year >= 1970]), with(Data, Fx[Year >= 1970]), col = "#00000008")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(with(Data, Age[Year >= 1970]), with(Data, Fy[Year >= 1970]), col = "#00000008")
-
-
-# -----------------------------------------------------
-# after 1990
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(with(Data, Age[Year >= 1990]), with(Data, Fx[Year >= 1990]), col = "#00000008")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(with(Data, Age[Year >= 1990]), with(Data, Fy[Year >= 1990]), col = "#00000008")
-
-# -----------------------------------------------------
-# after 2000
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(with(Data, Age[Year >= 2000]), with(Data, Fx[Year >= 2000]), col = "#00000008")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(with(Data, Age[Year >= 2000]), with(Data, Fy[Year >= 2000]), col = "#00000008")
-
-
-# 
-
-st <- function(x){
-    x/sum(x,na.rm=TRUE)
-}
-
-#update.packages()
-DT[, FxSt := st(Fx), by = list(Code, Year)]
-DT[, FySt := st(Fy), by = list(Code, Year)]
-Data <- as.data.frame(DT)
-
-par(mfrow=c(2,2))
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
-lines(Data$Age, Data$Fy, col = "#00000005")
-
-plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
-lines(Data$Age, Data$Fx, col = "#00000005")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.11))
-lines(Data$Age, Data$FySt, col = "#00000005")
-
-plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.11))
-lines(Data$Age, Data$FxSt, col = "#00000005")
-}
 
 graphics.off()
 
@@ -135,6 +45,9 @@ text(mean(c(0,95)),-.01,"Thanatological age (years left)",xpd=TRUE)
 #text(c(25,25,80,80),c(.03,.12,.03,.12),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
 dev.off()
 
+head(Rates)
+
+
 # just for a cleaner figure
 Data$Fx[Data$Fx==0] <- NA
 # Fx 
@@ -153,7 +66,18 @@ text(mean(c(12,55)),-.02,"Chronological age (years lived)",xpd=TRUE)
 #text(c(25,25,45,45),c(.03,.25,.03,.25),"DRAFT",cex=4,srt=45,col="#BBBBBB95",xpd=TRUE)
 dev.off()
 
+# -----------------------------#
+# for caption                  #
+# -----------------------------#
 length(unique(paste(Data$Code,Data$Year)))
+
+ranges <- tapply(Data$Year, Data$Code, function(yrs){
+			paste0("$",paste(min(yrs),max(yrs),sep = "-"),"$")
+		})
+paste(paste(names(ranges),ranges, sep = ", "), collapse = "; ")
+length(ranges)
+
+# -------------------------------
 #
 ## Fyst
 #par(xaxs = "i", yaxs = "i", mai=c(1,1,1,1))
@@ -186,9 +110,97 @@ length(unique(paste(Data$Code,Data$Year)))
 #matplot(t(ModalRLB)-t(MRLB), type= 'l', col = gray(.4), lty = 1)
 #
 #
-## for caption
-ranges <- tapply(Data$Year, Data$Code, function(yrs){
-            paste0("$",paste(min(yrs),max(yrs),sep = "-"),"$")
-        })
-paste(paste(names(ranges),ranges, sep = ", "), collapse = "; ")
-length(ranges)
+
+
+
+
+playWithData <- FALSE
+if(playWithData){
+	
+# wow, the max age-specific rate is .29! WTF?
+#max(Data$Fx)
+#Data$Fx[Data$Fx==0] <- NA
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(Data$Age, Data$Fx, col = "#00000010")
+	
+	
+# ----------------------------------------------
+	
+	Data$Fx[Data$Fx == 0] <- NA
+	Data$Fy[Data$Fy == 0] <- NA
+	
+	par(mfrow=c(1,2))
+# -----------------------------------------------------
+# all data
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(Data$Age, Data$Fy, col = "#00000005")
+	
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(Data$Age, Data$Fx, col = "#FF000005")
+	
+# -----------------------------------------------------
+# pre war
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(with(Data, Age[Year > 1920 & Year < 1939]), with(Data, Fx[Year > 1920 & Year < 1939]), col = "#00000050")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(with(Data, Age[Year > 1920 & Year < 1939]), with(Data, Fy[Year > 1920 & Year < 1939]), col = "#00000050")
+	
+# -----------------------------------------------------
+# post war to 1970
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(with(Data, Age[Year > 1945 & Year < 1970]), with(Data, Fx[Year > 1945 & Year < 1970]), col = "#00000010")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(with(Data, Age[Year > 1945 & Year < 1970]), with(Data, Fy[Year > 1945 & Year < 1970]), col = "#00000010")
+	
+# -----------------------------------------------------
+# after 1970
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(with(Data, Age[Year >= 1970]), with(Data, Fx[Year >= 1970]), col = "#00000008")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(with(Data, Age[Year >= 1970]), with(Data, Fy[Year >= 1970]), col = "#00000008")
+	
+	
+# -----------------------------------------------------
+# after 1990
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(with(Data, Age[Year >= 1990]), with(Data, Fx[Year >= 1990]), col = "#00000008")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(with(Data, Age[Year >= 1990]), with(Data, Fy[Year >= 1990]), col = "#00000008")
+	
+# -----------------------------------------------------
+# after 2000
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(with(Data, Age[Year >= 2000]), with(Data, Fx[Year >= 2000]), col = "#00000008")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(with(Data, Age[Year >= 2000]), with(Data, Fy[Year >= 2000]), col = "#00000008")
+	
+	
+# 
+	
+	st <- function(x){
+		x/sum(x,na.rm=TRUE)
+	}
+	
+#update.packages()
+	DT[, FxSt := st(Fx), by = list(Code, Year)]
+	DT[, FySt := st(Fy), by = list(Code, Year)]
+	Data <- as.data.frame(DT)
+	
+	par(mfrow=c(2,2))
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.15))
+	lines(Data$Age, Data$Fy, col = "#00000005")
+	
+	plot(NULL, type="n",xlim = c(12,55),ylim=c(0,.3))
+	lines(Data$Age, Data$Fx, col = "#00000005")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.11))
+	lines(Data$Age, Data$FySt, col = "#00000005")
+	
+	plot(NULL, type="n",xlim = c(0,95),ylim=c(0,.11))
+	lines(Data$Age, Data$FxSt, col = "#00000005")
+}

@@ -113,26 +113,42 @@ replaceNANaN0 <- function(x){
 	x
 }
 
+simple.smooth <- function(ASFR, age){
+	TFR     <- sum(ASFR)
+	ASFRhat <- predict(loess(ASFR~age,span=.25),newdata=data.frame(age=age))
+	# don't allow negatives
+	ASFRhat[ASFRhat < 0] <- 0
+	# rescale to force sum
+	ASFRhat * (TFR / sum(ASFRhat))
+}
+
 get.birth.rates    <- function(
 		Ch,          # data.frame of potential children
 		M,           # data.frame of potential mothers
 		startyear,   # lower bound of cohort
-		N = 5,       # cohort width (5 default)
+		cohN = 5,    # cohort width (5 default)
+		ageN = 1,    # age interval (1 default)
 		omega = 110, # maximum age to fill out to, default 110
 		sex = NULL) { # optional, sex of birth.
 	# choose the cohort of your choice
-	endyear             <- startyear + N
+	endyear             <- startyear + cohN
 	cohi                <- M$dateNaissAnnee >= startyear & M$dateNaissAnnee <= endyear
 	cohort              <- M[cohi, ]
 	
 	# radix is number born
 	l0                  <- nrow(cohort)
+	
+	# calc age:
+	age <- seq(0, omega, by = ageN)
+	
 	# calculate Lx  (denominator)
-	denom               <- rep(0, omega + 1)
-	for (i in 1:(omega + 1))  {
-		ind             <- ceiling(cohort$L) == i         
-		dec             <- sum(1 - (i - cohort$L[ind]))
-		denom[i]        <- sum(cohort$L >= i) + dec
+	denom               <- rep(0, length(age))
+	for (i in 1:length(age))  {
+		# ceiling() will work for single, but need fancy otherwise
+		ind             <- (cohort$L - (cohort$L %% ageN) + ageN) == age[i]
+		# one more step with %% to get right age group.
+		dec             <- sum(ageN - (age[i] - cohort$L[ind]))
+		denom[i]        <- sum(cohort$L >= age[i]) + dec
 	} 
 	
 	# optionally, just select female births:
@@ -152,7 +168,7 @@ get.birth.rates    <- function(
 	BT                  <- rowSums(numerator)
 	
 	out                 <- data.frame(Cohort = startyear,
-			                          Age = 0:omega, 
+			                          Age = age, 
 			                          Exposure = denom, 
 									  BA = NA, 
 									  BT = NA, 
@@ -171,6 +187,10 @@ get.birth.rates    <- function(
 	out$ASFR            <- replaceNANaN0(out$ASFR)
 	out$TSFR            <- replaceNANaN0(out$TSFR)
 	
+	# do some simple smoothing
+	out$ASFRs           <- simple.smooth(out$ASFR,age)
+	out$TSFRs           <- simple.smooth(out$TSFR,age)
+	
 	return(out) 
 }
 
@@ -184,26 +204,136 @@ get.birth.rates    <- function(
 
 
 #set lower bounds for cohorts
-coh <- seq(from = 1665, to = 1740, by = 5)  
+coh5 <- seq(from = 1665, to = 1740, by = 5)  
 
 #like usual... basic represents the first examined cohort
 #basic2 is getting added over and over again to create the final data.frame which is still called "basic"
 #basic <- get.birth.rates(Ch=Ch,M=M, 1660, 5,110,"f")
 
-Rates <- do.call(rbind,
-		lapply(coh, function(cohi, Ch, M){
+Rates1x5 <- do.call(rbind,
+		lapply(coh5, function(cohi, Ch, M){
 					get.birth.rates(Ch = Ch,
 							M = M, 
 							startyear = cohi, 
-							N = 5,
+							cohN = 5,
+							ageN = 1,
 							omega = 110,
 							sex = "f")
 				},Ch = Ch , M = M))
 
 
-save(Rates,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates.Rdata")
+save(Rates1x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x5.Rdata")
+
+Rates2x5 <- do.call(rbind,
+		lapply(coh5, function(cohi, Ch, M){
+					get.birth.rates(Ch = Ch,
+							M = M, 
+							startyear = cohi, 
+							cohN = 5,
+							ageN = 2,
+							omega = 110,
+							sex = "f")
+				},Ch = Ch , M = M))
 
 
+save(Rates2x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x5.Rdata")
+
+Rates3x5 <- do.call(rbind,
+		lapply(coh5, function(cohi, Ch, M){
+					get.birth.rates(Ch = Ch,
+							M = M, 
+							startyear = cohi, 
+							cohN = 5,
+							ageN = 3,
+							omega = 110,
+							sex = "f")
+				},Ch = Ch , M = M))
+
+
+save(Rates3x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates3x5.Rdata")
+
+Rates5x5 <- do.call(rbind,
+		lapply(coh5, function(cohi, Ch, M){
+					get.birth.rates(Ch = Ch,
+							M = M, 
+							startyear = cohi, 
+							cohN = 5,
+							ageN = 5,
+							omega = 110,
+							sex = "f")
+				},Ch = Ch , M = M))
+
+
+save(Rates5x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates5x5.Rdata")
+coh10 <- seq(from = 1660, to = 1740, by = 10) 
+Rates1x10 <- do.call(rbind,
+		lapply(coh, function(cohi, Ch, M){
+					get.birth.rates(Ch = Ch,
+							M = M, 
+							startyear = cohi, 
+							cohN = 10,
+							omega = 110,
+							sex = "f")
+				},Ch = Ch , M = M))
+
+
+save(Rates1x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x10.Rdata")
+Rates2x10 <- do.call(rbind,
+		lapply(coh, function(cohi, Ch, M){
+					get.birth.rates(Ch = Ch,
+							M = M, 
+							startyear = cohi, 
+							cohN = 10,
+							ageN = 2,
+							omega = 110,
+							sex = "f")
+				},Ch = Ch , M = M))
+
+
+save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.Rdata")
+# ----------------------------------------------#
+# experiment smoothing                          #
+# ----------------------------------------------#
+
+#TSFR <- acast(Rates2x5, Age~Cohort, value.var = "TSFR")
+#matplot(as.integer(rownames(TSFR)),TSFR[,-c(1,2)],lty=1,type='l')
+#TSFR <- acast(Rates2x10, Age~Cohort, value.var = "TSFR")
+#matplot(as.integer(rownames(TSFR)),TSFR[,-c(1,2)],lty=1,type='l')
+#
+#TSFR <- acast(Rates1x5, Age~Cohort, value.var = "TSFR")
+#TSFRs <- TSFR*0
+#for (i in 1:ncol(TSFR)){
+#	TSFRs[,i] <- simple.smooth(TSFR[,i],age)
+#    plot(age, TSFR[,i],main=colnames(TSFR)[i], xlab = "T", ylab = "TSFR")
+#    lines(age, TSFRs[,i])
+#    locator(1)
+#}
+
+#simple.smooth <- function(ASFR, age){
+#	TFR     <- sum(ASFR)
+#	ASFRhat <- smooth.spline(ASFR~age)$y
+#	# don't allow negatives
+#	ASFRhat[ASFRhat < 0] <- 0
+#	# rescale to force sum
+#	ASFRhat * (TFR / sum(ASFRhat))
+#}
+
+
+
+image(as.integer(colnames(TSFR)),age,t(TSFR),asp=1)
+dev.new()
+image(as.integer(colnames(TSFRs)),age,t(TSFRs),asp=1)
+
+matplot(age, TSFR, type='l', col = "#00000040", lty =1)
+matplot(age, TSFRs, type='l', col = "#0000FFAA", lty =1,add=TRUE)
+
+
+
+#
+#for (i in 1:ncol(BT)){
+##	TSFR2[1:91,i] <- Mort1Dsmooth(x = ages[1:91],
+##			y = BT[1:91,i], offset = EX[1:91,i], w = W[1:91, i])
+#}
 
 #head(Rates)
 #library(reshape2)
