@@ -12,7 +12,7 @@ Q         <- read.spss(path)
 # TR: line to read file on MG's system
 # Hm <-   read.spss("U:/quebec/Quebec/Quebec/FrenchCanadian.individuals.2012-01-27/RPQA.MarcKlemp.individus.2012-01-27.sav")
 Q         <- as.data.frame(Q)
-
+head(Q)
 # ---------------------------------------#
 # begin data prep                        #
 # ---------------------------------------#
@@ -294,6 +294,35 @@ save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.
 # ----------------------------------------------#
 # experiment smoothing                          #
 # ----------------------------------------------#
+#library(reshape2)
+#library(RColorBrewer)
+#Rates <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x5.Rdata")))
+#head(Rates)
+#
+#ASFR <- acast(Rates, Age~Cohort, value.var = "ASFR")
+#TSFR <- acast(Rates, Age~Cohort, value.var = "TSFR")
+#
+#cols <- colorRampPalette(brewer.pal(9,"Blues"),space="Lab")(ncol(TSFR))
+#png("/home/tim/git/ThanoRepro/ThanoRepro/QASFR.png",width=800,height=400)
+#par(mfrow=c(1,2))
+#matplot(0:90,ASFR[1:91, ], type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
+#		xlab = "years left", ylab = "fertility rate", main = "ASFR")
+#matplot(0:90,TSFR[1:91, ], type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
+#		xlab = "years left", ylab = "fertility rate", main = "TSFR")
+#dev.off()
+#
+#LX <- acast(Rates, Age~Cohort, value.var = "Lx")
+#
+#png("/home/tim/git/ThanoRepro/ThanoRepro/Lx.png")
+#matplot(0:90,LX[1:91, ], type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
+#		xlab = "years left", ylab = "survivors", main = "Survivorships", ylim=c(0,1))
+#dev.off()
+#
+#LX[16:91, ] %*% diag(1/LX[16,])
+#png("/home/tim/git/ThanoRepro/ThanoRepro/Lx.png")
+#matplot(15:90,LX[16:91, ] %*% diag(1/LX[16,]), type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
+#		xlab = "years left", ylab = "survivors", main = "Survivorships", ylim=c(0,1))
+#dev.off()
 
 #TSFR <- acast(Rates2x5, Age~Cohort, value.var = "TSFR")
 #matplot(as.integer(rownames(TSFR)),TSFR[,-c(1,2)],lty=1,type='l')
