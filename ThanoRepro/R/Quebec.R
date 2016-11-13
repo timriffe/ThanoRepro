@@ -12,7 +12,7 @@ Q         <- read.spss(path)
 # TR: line to read file on MG's system
 # Hm <-   read.spss("U:/quebec/Quebec/Quebec/FrenchCanadian.individuals.2012-01-27/RPQA.MarcKlemp.individus.2012-01-27.sav")
 Q         <- as.data.frame(Q)
-head(Q)
+
 # ---------------------------------------#
 # begin data prep                        #
 # ---------------------------------------#
@@ -114,10 +114,19 @@ replaceNANaN0 <- function(x){
 }
 
 simple.smooth <- function(ASFR, age){
-	TFR     <- sum(ASFR)
-	ASFRhat <- predict(loess(ASFR~age,span=.25),newdata=data.frame(age=age))
+	TFR                  <- sum(ASFR)
+	
+	# detect if this is chronological or not:
+	mult                 <- rep(1,length(ASFR))
+	if (sum(ASFR[1:10]) == 0){
+		mult[1:10]       <- 0
+	}
+		
+	ASFRhat              <- predict(loess(ASFR ~ age, span = .25),
+			                        newdata = data.frame(age = age))
 	# don't allow negatives
 	ASFRhat[ASFRhat < 0] <- 0
+	ASFRhat              <- ASFRhat * mult
 	# rescale to force sum
 	ASFRhat * (TFR / sum(ASFRhat))
 }
@@ -299,7 +308,7 @@ save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.
 #Rates <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x5.Rdata")))
 #head(Rates)
 #
-#ASFR <- acast(Rates, Age~Cohort, value.var = "ASFR")
+#ASFR <- acast(Rates, Age~Cohort, value.var = "ASFRs")
 #TSFR <- acast(Rates, Age~Cohort, value.var = "TSFR")
 #
 #cols <- colorRampPalette(brewer.pal(9,"Blues"),space="Lab")(ncol(TSFR))
@@ -349,13 +358,13 @@ save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.
 
 
 
-image(as.integer(colnames(TSFR)),age,t(TSFR),asp=1)
-dev.new()
-image(as.integer(colnames(TSFRs)),age,t(TSFRs),asp=1)
-
-matplot(age, TSFR, type='l', col = "#00000040", lty =1)
-matplot(age, TSFRs, type='l', col = "#0000FFAA", lty =1,add=TRUE)
-
+#image(as.integer(colnames(TSFR)),age,t(TSFR),asp=1)
+#dev.new()
+#image(as.integer(colnames(TSFRs)),age,t(TSFRs),asp=1)
+#
+#matplot(age, TSFR, type='l', col = "#00000040", lty =1)
+#matplot(age, TSFRs, type='l', col = "#0000FFAA", lty =1,add=TRUE)
+#
 
 
 #
