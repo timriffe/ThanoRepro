@@ -168,14 +168,16 @@ a new perspective on the familiar Lotka-Leslie model.
 
 \section*{Requisites of a years-left renewal model}
 The Lotka-Leslie renewal model \citep{sharpe1911problem, leslie1945use} is
-situated in a closed, unisex, homogenous population framework. With
-parameters equated, the continuous form of the model contains a component for
-survival, $\ell(a)$, a scaling factor for growth, $e^{-ra}$, and a component for fertility, $m(a)$:
+situated in a closed, unisex, homogenous population framework. The continuous form of the model contains a component for
+survival, $\ell(a)$, a scaling factor for growth, $e^{-ra}$, and a component for
+female fertility, $m(a)$:
 
-\begin{equation}
+\begin{align}
 \label{eq:lotka}
-1 = \int_{a=0}^\infty l(a)e^{-ra}m(a)\dd a \ep
-\end{equation}
+B(t) &= \int_{0}^\infty B(t)\ell(a)e^{-ra}m(a)\dd a \ec \\
+\intertext{or when parameters are equated}
+1 &= \int_{0}^\infty \ell(a)e^{-ra}m(a)\dd a \ep
+\end{align}
 
 Each of these elements is structured by
 age, $a$. %The model can be approximated by observed data because
@@ -189,10 +191,11 @@ cohorts). The product of this growth factor and $\ell(a)$ gives a
 function proportional to the stable age structure, $c(a)$, and it is often
 intuitive to imagine these two elements together as one for this reason. Female
 fertility rates, $m(a)$, are based on daughters born to mothers in this limited
-single-sex model. The functions $m(a)$ and $\ell(a)$
-together intuitively make for net female fertility, and their age-wise product
-is sometimes written as $\phi(a)$. This model lends itself to commonly collected data because age
-is typically known, and can be asked.
+single-sex model.  The age-wise product of $m(a)$ and $\ell(a)$
+can be interpreted as net female fertility, and this
+is sometimes written as $\phi(a)$. As with most demographic models and
+measures, this abstraction of renewal lends itself to
+commonly collected data because age is typically known.
 % For the two essential rate componenents underlying the renewal
  % equation~\eqref{eq:lotka}, classification by chronological age is essentially given--- it is deterministic in the sense that time passed since birth is typically known by individuals. The kinds of errors in such classification are mostly due to innumeracy, rounding, exaggeration, and similar kinds of biases, but even in such cases, chronological age is fundamentally knowable.
 
