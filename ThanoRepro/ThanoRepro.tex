@@ -178,8 +178,8 @@ survival, $\ell(a)$, a scaling factor for growth, $e^{-ra}$, and a component for
 \end{equation}
 
 Each of these elements is structured by
-age, $a$. The model can be approximated by observed data because
-age is typically known. % The survival function, $\ell(a)$, derives
+age, $a$. %The model can be approximated by observed data because
+%age is typically known. % The survival function, $\ell(a)$, derives
 %from a lifetable, usually based on age-specific event-exposure mortality rates,
 %which require counts of decedents and an estimate of the
 %population exposed to risk in the same chronological age classes.
@@ -259,9 +259,9 @@ where $\mu(a)$ is the force of mortality.
 The $f(y|a)$- weighted average of $y$ for a given $a$ returns the remaining life
 expectancy column of the lifetable, $e(a)$. $f(y|a)$ is also useful for
 decomposing age-classified data, such as the
-population pyramid, into remaining years classes. If $P(a)$ is an
-age-classified population count, we can derive the years left version $P(y)$,
-using\footnote{An identical definition is found in
+population pyramid, into years-left classes. If $P(a)$ is an
+age-classified population count, under fixed mortality we can infer the
+years-left structure, $P(y)$, using\footnote{An identical definition is found in
 \citet{brouard1989mouvements} and illustrated in \citet{brouard1986structure}.}
 
 \begin{align}
@@ -269,140 +269,143 @@ using\footnote{An identical definition is found in
 P(y) =& \int_0^\infty P(a) f(y | a) \dd a \ep
 \end{align}
 
-Figure~\ref{fig:pop} shows this exercise for 2010 US data \citep{HMD},
-assuming homogeneity and that the 2010 period mortality schedule is held fixed.
-When looking from the age perspective (Figure~\ref{fig:USdecomp}), this
-decomposition reveals projected years left heterogeneity within a stock of known age, but when viewed from the
-years left perspective (Figure~\ref{fig:USrecomp}) it reveals age heterogeneity
-and the projected overall years left profile--- the future death flow of the
-current population, $P(y)$ under our assumptions.
+%Figure~\ref{fig:pop} shows this exercise for 2010 US data \citep{HMD},
+%assuming homogeneity and that the 2010 period mortality schedule is held fixed.
+%When looking from the age perspective (Figure~\ref{fig:USdecomp}), this
+%decomposition reveals projected years left heterogeneity within a stock of known age, but when viewed from the
+%years left perspective (Figure~\ref{fig:USrecomp}) it reveals age heterogeneity
+%and the projected overall years left profile--- the future death flow of the
+%current population, $P(y)$ under our assumptions.
 
 % both figures created in R/Pyramids.R
-\begin{figure}[ht!]
-	\caption{2010 US population structure}
-	\label{fig:pop}
-	\begin{center}
-	\begin{subfigure}{.45\textwidth}
-		\caption{Age structure (years lived) decomposed by years left.}
-		\label{fig:USdecomp}
-		\includegraphics[scale=.6]{Figures/US2010Age.pdf}
-	\end{subfigure}
-	~
-	\begin{subfigure}{.45\textwidth}
-		\caption{Years left structure decomposed by years lived.}
-		\label{fig:USrecomp}
-		\includegraphics[scale=.6]{Figures/US2010Thano.pdf}
-	\end{subfigure}
-	\\
-	\small{*Population and mortality data from the HMD.}
-	\end{center}
-\end{figure}
+%\begin{figure}[ht!]
+%	\caption{2010 US population structure}
+%	\label{fig:pop}
+%	\begin{center}
+%	\begin{subfigure}{.45\textwidth}
+%		\caption{Age structure (years lived) decomposed by years left.}
+%		\label{fig:USdecomp}
+%		\includegraphics[scale=.6]{Figures/US2010Age.pdf}
+%	\end{subfigure}
+%	~
+%	\begin{subfigure}{.45\textwidth}
+%		\caption{Years left structure decomposed by years lived.}
+%		\label{fig:USrecomp}
+%		\includegraphics[scale=.6]{Figures/US2010Thano.pdf}
+%	\end{subfigure}
+%	\\
+%	\small{*Population and mortality data from the HMD.}
+%	\end{center}
+%\end{figure}
 
 \citet{brouard1986structure} applied this method to highlight regional
 differences in French age structure, at times combining this projective method
 with historical stocks. \citet{brouard1989mouvements}, and \citet{vaupel2009life}, showed that in stationary populations the
-marginal chronological and thanatological age structures are identical, and this
-provides a limited basis for comparison between the two perspectives. 
+marginal years-lived and years-left distributions are identical,
+and this provides a limited basis for comparison between the two perspectives. 
 %\citet{wachter2014essential} hints at, and
 %\citet{vaupel2014stable} elaborates on how to make chronological and
 %thanatological age structure commensurate under a constant growth rate, $r$.
 %These results also follow from the following specification of a
 %thanatological renewal model.
 
-Lifetable-derived thanatological age structure is
+Lifetable-derived years-left structure is
 probabilistic until after death in several senses. In this case, note that
 counts from a given age class are distributed over a range of higher ages
 according to a given mortality rate schedule; in this
 case a period mortality pattern is used.
-As such, Figure~\ref{fig:USrecomp} is \textit{projective} in nature, a
+Redistribution as in \eqref{eq:transform} is \textit{projective}, a
 forward-looking glance at population attrition given the population stock and lifetable of a
-particular moment, whereas Figure~\ref{fig:USdecomp} is \textit{reflective} in
-nature, since a population's chronological age-structure is the fruit of past
-demographic forces.
+particular moment, whereas the classic pyramid is \textit{reflective}, since a
+population's age-structure owes to past demographic forces.
 
-\subsection{Thanatological fertility rates.}
-Any count
-classified by chronological age can be reclassified as in
-equation~\eqref{eq:transform} given a pertinent lifetable. To
-derive thanatological fertility rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
-chronological age-classified birth counts, $B(a)$, to get $B(y)$ and again to
-exposure-to-risk, $E(a)$, to get $E(y)$ and then divide in the usual way:
+Other age-structured quantities can be reclassified under the same assumptions.
+If birth counts and population exposures are reclassified as in
+\eqref{eq:transform}, their ratio yields like-classified fertility rates,
+$\gamma{y}$.
 
-\begin{equation}
-\gamma(y) = \frac{B(y}{E(y)} \ep
-\end{equation}
+%\subsection{Years-left fertility rates.}
+%Any age-classified can be reclassified as in
+%equation~\eqref{eq:transform} given a pertinent lifetable. To
+%derive thanatological fertility rates under these assumptions, $\gamma(y)$, apply \eqref{eq:transform} to
+%chronological age-classified birth counts, $B(a)$, to get $B(y)$ and again to
+%exposure-to-risk, $E(a)$, to get $E(y)$ and then divide in the usual way:
+%
+%\begin{equation}
+%\gamma(y) = \frac{B(y}{E(y)} \ep
+%\end{equation}
+%
+%Figure~\ref{fig:FySpaghetti}
+%represents the full variety in female thanatological period fertility rates that can be found for all years
+%of data that overlap in the HFD and HMD.\footnote{There are as of this writing
+%1933 population-years of overlap between the HMD and HFD, including a wide
+%variety of fertility and mortality combinations.} I show $\gamma(y)$ calculated in this way because
+%it enters into the renewal model here studied. Figure~\ref{fig:FxSpaghetti}
+%gives ASFR for the same populations and years as a more familiar reference, but
+%note that both the x and y axes are different. The shape of thanatological
+%fertility curves is speculative and due to the above-mentioned strong assumptions. Nonetheless it is best not to
+%include such rates into a model blindly, so we offer this schematic overview of
+%%some of their characteristics.
 
-Figure~\ref{fig:FySpaghetti}
-represents the full variety in female thanatological period fertility rates that can be found for all years
-of data that overlap in the HFD and HMD.\footnote{There are as of this writing
-1933 population-years of overlap between the HMD and HFD, including a wide
-variety of fertility and mortality combinations.} I show $\gamma(y)$ calculated in this way because
-it enters into the renewal model here studied. Figure~\ref{fig:FxSpaghetti}
-gives ASFR for the same populations and years as a more familiar reference, but
-note that both the x and y axes are different. The shape of thanatological
-fertility curves is speculative and due to the above-mentioned strong assumptions. Nonetheless it is best not to
-include such rates into a model blindly, so we offer this schematic overview of
-some of their characteristics.
-
-Period thanatological fertility rates estimated in this way have a
-characteristic shape. The distribution is wider than that of chronological
-fertility rates. The range of post-childbearing lifespans stretches from 
-zero, due e.g., to maternal mortality, to at least 100.\footnote{For instance,
-Jeanne Calment lived for another 100 years after giving birth to her daughter.}
-This spaghetti plot includes both fertility booms and busts, as well as some
-mortality crises (1918, WWII). Some patterns in the data (not
-highlighted in the figure) include that the left tail (a gauge of how
-orphan-prone a population is) has tended to fall over time. All populations have shown an increase in both the
-mean and mode of thanatological age at childbearing over time. Several
-contemporary populations now show modes of over 60 years. Period thanatological total
-fertility rates track standard period total fertility rates closely, but tend to be somewhat higher (not shown).
-% both figures created in R/HFDspaghetti.R
-\begin{figure}[h!]
-	\caption{Chronological and thantological fertility rates, all 1933
-	country-year combinations present in both the HFD and HMD.* Note different x
-	and y scales.}
-	\label{fig:Fxcompare}
-	\begin{center}
-	\makebox[\textwidth]{
-	\begin{subfigure}{.45\textwidth}
-		\caption{Chronological period fertility rates.}
-		\label{fig:FxSpaghetti}
-		\includegraphics[scale=.45]{Figures/FxSpaghettiDraft.png}
-	\end{subfigure}
-	~
-	\begin{subfigure}{.45\textwidth}
-		\caption{Thanatological period fertility rates.}
-		\label{fig:FySpaghetti}
-		\includegraphics[scale=.45]{Figures/FySpaghettiDraft.png}
-	\end{subfigure}
-	}
-	\\
-	\end{center}
-	\begin{tiny}
-	*AUT, $1951-2010$; BGR, $1947-2009$; BLR, $1964-2012$; CAN, $1921-2009$; 
-	CHE, $1932-2011$; CHL, $1992-2005$; CZE, $1950-2011$; DEUTE, $1956-2011$; 
-	DEUTNP, $1990-2011$; DEUTW, $1956-2011$; ESP, $1922-2012$; EST, $1959-2011$; 
-	FIN, $1939-2009$; FRATNP, $1946-2013$; GBR\_NIR, $1974-2011$; GBR\_NP,
-	$1974-2011$; GBR\_SCO, $1945-2011$; GBRTENW, $1938-2011$; HUN, $1950-2009$;
-	IRL, $1955-2009$; ISL, $1963-2010$; JPN, $1947-2012$; LTU, $1959-2011$; NLD, $1950-2009$; 
-	NOR, $1967-2009$; PRT, $1940-2012$; RUS, $1959-2010$; SVK, $1950-2009$; 
-	SVN, $1983-2009$; SWE, $1891-2011$; TWN, $1976-2010$; UKR, $1959-2009$; 
-	USA, $1933-2010$
-	\end{tiny}
-\end{figure}
-
-In general, thanatological fertility rates will not be useful for purposes of
-projection, unless their empirical regularity is
-stronger than typical ASFR. This is a question I do not seek to answer
-in the present treatment, but in any case such rates are not susceptible to
-direct measurement.
-There are alternative ways of defining thanatological fertility rates, for instance by transforming the birth and
-population vector from a stable population. As proven in appendix~\ref{app:B},
-thanatological fertility rates derived from a stable population imply a certain
-symmetry with stable populations from the chronological model. 
-
+%Period thanatological fertility rates estimated in this way have a
+%characteristic shape. The distribution is wider than that of chronological
+%fertility rates. The range of post-childbearing lifespans stretches from 
+%zero, due e.g., to maternal mortality, to at least 100.\footnote{For instance,
+%Jeanne Calment lived for another 100 years after giving birth to her daughter.}
+%This spaghetti plot includes both fertility booms and busts, as well as some
+%mortality crises (1918, WWII). Some patterns in the data (not
+%highlighted in the figure) include that the left tail (a gauge of how
+%orphan-prone a population is) has tended to fall over time. All populations have shown an increase in both the
+%mean and mode of thanatological age at childbearing over time. Several
+%contemporary populations now show modes of over 60 years. Period thanatological total
+%fertility rates track standard period total fertility rates closely, but tend to be somewhat higher (not shown).
+%% both figures created in R/HFDspaghetti.R
+%\begin{figure}[h!]
+%	\caption{Chronological and thantological fertility rates, all 1933
+%	country-year combinations present in both the HFD and HMD.* Note different x
+%	and y scales.}
+%	\label{fig:Fxcompare}
+%	\begin{center}
+%	\makebox[\textwidth]{
+%	\begin{subfigure}{.45\textwidth}
+%		\caption{Chronological period fertility rates.}
+%		\label{fig:FxSpaghetti}
+%		\includegraphics[scale=.45]{Figures/FxSpaghettiDraft.png}
+%	\end{subfigure}
+%	~
+%	\begin{subfigure}{.45\textwidth}
+%		\caption{Thanatological period fertility rates.}
+%		\label{fig:FySpaghetti}
+%		\includegraphics[scale=.45]{Figures/FySpaghettiDraft.png}
+%	\end{subfigure}
+%	}
+%	\\
+%	\end{center}
+%	\begin{tiny}
+%	*AUT, $1951-2010$; BGR, $1947-2009$; BLR, $1964-2012$; CAN, $1921-2009$; 
+%	CHE, $1932-2011$; CHL, $1992-2005$; CZE, $1950-2011$; DEUTE, $1956-2011$; 
+%	DEUTNP, $1990-2011$; DEUTW, $1956-2011$; ESP, $1922-2012$; EST, $1959-2011$; 
+%	FIN, $1939-2009$; FRATNP, $1946-2013$; GBR\_NIR, $1974-2011$; GBR\_NP,
+%	$1974-2011$; GBR\_SCO, $1945-2011$; GBRTENW, $1938-2011$; HUN, $1950-2009$;
+%	IRL, $1955-2009$; ISL, $1963-2010$; JPN, $1947-2012$; LTU, $1959-2011$; NLD, $1950-2009$; 
+%	NOR, $1967-2009$; PRT, $1940-2012$; RUS, $1959-2010$; SVK, $1950-2009$; 
+%	SVN, $1983-2009$; SWE, $1891-2011$; TWN, $1976-2010$; UKR, $1959-2009$; 
+%	USA, $1933-2010$
+%	\end{tiny}
+%\end{figure}
+%
+%In general, thanatological fertility rates will not be useful for purposes of
+%projection, unless their empirical regularity is
+%stronger than typical ASFR. This is a question I do not seek to answer
+%in the present treatment, but in any case such rates are not susceptible to
+%direct measurement.
+%There are alternative ways of defining thanatological fertility rates, for instance by transforming the birth and
+%population vector from a stable population. As proven in appendix~\ref{app:B},
+%thanatological fertility rates derived from a stable population imply a certain
+%symmetry with stable populations from the chronological model. 
+%
 \FloatBarrier
-\section*{The thanatological renewal model}
+\section*{The years-left renewal model}
 The renewal model that follows uses thanatological fertility rates, $\gamma(y)$,
 the form of which is suggested in Figure~\ref{fig:FySpaghetti}, and we refer to
 a homogenous, closed, unisex population based on female vital rates. Assuming constant vital rates, the births for the present year are given by 
