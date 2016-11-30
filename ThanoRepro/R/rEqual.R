@@ -122,7 +122,7 @@ rThanoCoale(.fy2,da2,.a=a2)
 # easier to prove on paper if we know this is true...
 
 # one thing to verify:
-#f^\star(y) is the c(a)d(y|a)-weighted average of f(a)...
+#gamma(y) is the c(a)d(y|a)-weighted average of f(a)...
 
 sum(.fy2)
 sum(fa)
@@ -199,7 +199,7 @@ sum(
                 colSums(dxM * growth / sum(dxM * growth))
 )
 
-# f^\star(y)
+# gamma(y)
 colSums(fa * dxM * growth / sum(dxM * growth)) / 
         colSums(dxM * growth / sum(dxM * growth))
 
