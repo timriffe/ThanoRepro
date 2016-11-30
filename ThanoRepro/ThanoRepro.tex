@@ -21,7 +21,7 @@
 \defcitealias{HMD}{HMD}
 \usepackage[top=2in, bottom=1.5in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
-\doublespacing
+%\doublespacing
 
 \newcommand\ackn[1]{%
   \begingroup
@@ -199,12 +199,18 @@ commonly collected population and vital data because age is typically known.
 % For the two essential rate componenents underlying the renewal
  % equation~\eqref{eq:lotka}, classification by chronological age is essentially given--- it is deterministic in the sense that time passed since birth is typically known by individuals. The kinds of errors in such classification are mostly due to innumeracy, rounding, exaggeration, and similar kinds of biases, but even in such cases, chronological age is fundamentally knowable.
 
-Remaining lifetime is different in this respect because we do not know when we
-will die--- it is only knowable retrospectively or probabilistically. Under a set of simple assumptions, the same lifetable used to
-estimate $\ell(a)$ can be used to
-partition and recombine counts observed by age into estimates
-classified by years of life left. Our objective is then to estimate a population
-structure component, similar to $\ell(a)e^{-ra}$, and a fertility component
+Fertility rates by remaining lifetime is different in this respect because death
+dates can not be registered on birth certificates in the way that
+maternal age or birth year can; Death timing is only knowable retrospectively or probabilistically. Since
+it is difficult to imagine what a fertility schedule might look like when
+classified by remaining years of life, I give two examples, first of empirically
+tabulated years-left female fertiltiy rates, and second rates derived
+probabilistically using a lifetable. Empirical years-left fertility rates refer
+to the
+
+
+ Under
+a set of simple assumptions, the same lifetable used to estimate $\ell(a)$ can be used to partition and recombine counts observed by age into estimates classified by years of life left. Our objective is then to estimate a population structure component, similar to $\ell(a)e^{-ra}$, and a fertility component
 similar to $m(a)$, but each for the years left case. Taken together, these
 componenents yield the years left renewal model.
 
