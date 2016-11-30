@@ -54,8 +54,9 @@ Q         <- Q[!is.na(Q$BD),]
 # Q into two, M, for mothers, and Ch, for children.
 M         <- Ch      <- Q
 
-# filter potential mothers down to females with non-NA L:
-M         <- M[!is.na(M$L) & M$sexe == "f", ]
+# filter potential mothers down to females with non-NA L and non-immigrants,
+# for the sake of an ubiased denominator (child mort erased otherwise).
+M         <- M[!is.na(M$L) & M$sexe == "f" & M$immigrant == 0, ]
 
 # children need to be filtered down to only those
 # whose mother is still in M:
@@ -151,13 +152,17 @@ get.birth.rates    <- function(
 	age <- seq(0, omega, by = ageN)
 	
 	# calculate Lx  (denominator)
-	denom               <- rep(0, length(age))
+	Exposure               <- rep(0, length(age))
+	# also get lx-proportionate
+	ExpTrunc               <- rep(0, length(age))
 	for (i in 1:length(age))  {
 		# ceiling() will work for single, but need fancy otherwise
-		ind             <- (cohort$L - (cohort$L %% ageN) + ageN) == age[i]
+		ind                <- (cohort$L - (cohort$L %% ageN) + ageN) == age[i]
 		# one more step with %% to get right age group.
-		dec             <- sum(ageN - (age[i] - cohort$L[ind]))
-		denom[i]        <- sum(cohort$L >= age[i]) + dec
+		dec                <- sum(ageN - (age[i] - cohort$L[ind]))
+		ExpTrunc[i]        <- sum(cohort$L >= age[i])
+		Exposure[i]        <- ExpTrunc[i] + dec
+		
 	} 
 	
 	# optionally, just select female births:
@@ -178,12 +183,13 @@ get.birth.rates    <- function(
 	
 	out                 <- data.frame(Cohort = startyear,
 			                          Age = age, 
-			                          Exposure = denom, 
+			                          Exposure = Exposure, 
 									  BA = NA, 
 									  BT = NA, 
 									  ASFR = 0, 
 									  TSFR = 0,
-									  Lx = denom / l0)
+									  Lx = Exposure / l0,
+									  lx = ExpTrunc / l0)
 	# assign birth counts to right ages
 	out$BT              <- BT[as.character(out$Age)]
 	out$BA              <- BA[as.character(out$Age)]
@@ -276,7 +282,7 @@ Rates5x5 <- do.call(rbind,
 save(Rates5x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates5x5.Rdata")
 coh10 <- seq(from = 1660, to = 1740, by = 10) 
 Rates1x10 <- do.call(rbind,
-		lapply(coh, function(cohi, Ch, M){
+		lapply(coh10, function(cohi, Ch, M){
 					get.birth.rates(Ch = Ch,
 							M = M, 
 							startyear = cohi, 
@@ -288,7 +294,7 @@ Rates1x10 <- do.call(rbind,
 
 save(Rates1x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x10.Rdata")
 Rates2x10 <- do.call(rbind,
-		lapply(coh, function(cohi, Ch, M){
+		lapply(coh10, function(cohi, Ch, M){
 					get.birth.rates(Ch = Ch,
 							M = M, 
 							startyear = cohi, 
@@ -308,8 +314,9 @@ save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.
 #Rates <- local(get(load("/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x5.Rdata")))
 #head(Rates)
 #
-#ASFR <- acast(Rates, Age~Cohort, value.var = "ASFRs")
-#TSFR <- acast(Rates, Age~Cohort, value.var = "TSFR")
+#ASFR  <- acast(Rates, Age~Cohort, value.var = "ASFRs")
+#TSFRs <- acast(Rates, Age~Cohort, value.var = "TSFRs")
+#TSFR  <- acast(Rates, Age~Cohort, value.var = "TSFR")
 #
 #cols <- colorRampPalette(brewer.pal(9,"Blues"),space="Lab")(ncol(TSFR))
 #png("/home/tim/git/ThanoRepro/ThanoRepro/QASFR.png",width=800,height=400)
@@ -320,13 +327,31 @@ save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.
 #		xlab = "years left", ylab = "fertility rate", main = "TSFR")
 #dev.off()
 #
+#par(mfrow=c(1,2))
+#matplot(0:90,TSFR[1:91, ], type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
+#		xlab = "years left", ylab = "fertility rate", main = "ASFR")
+#matplot(0:90,TSFRs[1:91, ], type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
+#		xlab = "years left", ylab = "fertility rate", main = "TSFR")
+#plot(colSums(TSFRs))
+#plot(colSums(ASFR))
+#plot(colSums(TSFRs) / colSums(ASFR))
+#head(Rates)
+#
+#Lx   <- Rates$Lx[Rates$Cohort==1700]
+#Ex   <- Rates$Exposure[Rates$Cohort==1700]
+#asfr <-  Rates$ASFR[Rates$Cohort==1700]
+#tsfr <-  Rates$TSFR[Rates$Cohort==1700]
+#
+#sum(asfr*Ex)
+#sum(tsfr*Ex)
+#
 #LX <- acast(Rates, Age~Cohort, value.var = "Lx")
 #
 #png("/home/tim/git/ThanoRepro/ThanoRepro/Lx.png")
 #matplot(0:90,LX[1:91, ], type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
 #		xlab = "years left", ylab = "survivors", main = "Survivorships", ylim=c(0,1))
 #dev.off()
-#
+
 #LX[16:91, ] %*% diag(1/LX[16,])
 #png("/home/tim/git/ThanoRepro/ThanoRepro/Lx.png")
 #matplot(15:90,LX[16:91, ] %*% diag(1/LX[16,]), type = 'l', lty = 1, col = cols, lwd = seq(3,1,length=16),
