@@ -37,7 +37,7 @@ getca <- function(La,r,a=.5:110.5){
 #' 
 #' @importFrom compiler cmpfun
 
-rThanoCoale <- cmpfun(function(fy, da, .a = .5:110.5, maxit = 1e2, tol = 1e-15){  
+rThanoCoale <- cmpfun(function(fy, da, a = .5:110.5, maxit = 1e2, tol = 1e-15){  
     
     # Based on Coale (1957), modified.
     N    <- length(fy)
@@ -48,13 +48,13 @@ rThanoCoale <- cmpfun(function(fy, da, .a = .5:110.5, maxit = 1e2, tol = 1e-15){
       dxi <- dxi[2:length(dxi) ]
     }     
     R0      <- sum(dxM * fy)
-    T.guess <- sum(.a * dxM * fy) / R0 # assuming r = 0
+    T.guess <- sum(a * dxM * fy) / R0 # assuming r = 0
     r.i     <- log(R0) / T.guess
     # be careful to discount Fy by SRB appropriately for males / females
     # prior to specification
     for (i in 1:maxit){ # 15 is more than enough!
       #cat(r2,i,"\n")
-      deltai <- 1 - sum(colSums(dxM * exp(-r.i * .a)) * fy)
+      deltai <- 1 - sum(colSums(dxM * exp(-r.i * a)) * fy)
       # the mean generation time self-corrects 
       # according to the error produced by the Lotka equation
       r.i <- r.i - (deltai / (T.guess - (deltai / r.i))) 
@@ -93,7 +93,6 @@ Rmomentn <- cmpfun(function(fa,La,a,n=0){
 #' @param fa ASFR, all ages, including zeros.
 #' @param La lifetable exposure (or survival, if you're lazy).
 #' @param a age (midpoints, usually).
-#' @param T.guess a guess at mean generation length. default 29.
 #' @param maxit maximum number of iterations to converge, default 100.
 #' @param tol convergence tolerance, default 1e-15.
 #' 
@@ -104,10 +103,11 @@ Rmomentn <- cmpfun(function(fa,La,a,n=0){
 #' @export
 #' 
 #' @importFrom compiler cmpfun
-rLotkaCoale <- cmpfun(function(fa,La,a=.5:110.5, T.guess = 29, maxit = 1e2, tol = 1e-15){
+rLotkaCoale <- cmpfun(function(fa,La,a=.5:110.5, maxit = 1e2, tol = 1e-15){
     # from Coale, Ansley J. (1957) A New Method for Calculating Lotka's r- the Intrinsic Rate of Growth in a Stable Population.
     # Population Studies, Vol. 11 no. 1, pp 92-94
     R0 <- Rmomentn(fa,La,a,0)
+	T.guess <- sum(fa * La * a) / R0
     # first assuming a mean generation time of 29
     ri <- log(R0)/T.guess 
     for (i in 1:maxit){ # 10 is more than enough!
