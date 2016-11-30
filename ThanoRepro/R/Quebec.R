@@ -239,73 +239,78 @@ Rates1x5 <- do.call(rbind,
 
 save(Rates1x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x5.Rdata")
 
-Rates2x5 <- do.call(rbind,
-		lapply(coh5, function(cohi, Ch, M){
-					get.birth.rates(Ch = Ch,
-							M = M, 
-							startyear = cohi, 
-							cohN = 5,
-							ageN = 2,
-							omega = 110,
-							sex = "f")
-				},Ch = Ch , M = M))
+# ---------------------------------------#
+head(Rates1x5)
 
 
-save(Rates2x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x5.Rdata")
-
-Rates3x5 <- do.call(rbind,
-		lapply(coh5, function(cohi, Ch, M){
-					get.birth.rates(Ch = Ch,
-							M = M, 
-							startyear = cohi, 
-							cohN = 5,
-							ageN = 3,
-							omega = 110,
-							sex = "f")
-				},Ch = Ch , M = M))
-
-
-save(Rates3x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates3x5.Rdata")
-
-Rates5x5 <- do.call(rbind,
-		lapply(coh5, function(cohi, Ch, M){
-					get.birth.rates(Ch = Ch,
-							M = M, 
-							startyear = cohi, 
-							cohN = 5,
-							ageN = 5,
-							omega = 110,
-							sex = "f")
-				},Ch = Ch , M = M))
-
-
-save(Rates5x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates5x5.Rdata")
-coh10 <- seq(from = 1660, to = 1740, by = 10) 
-Rates1x10 <- do.call(rbind,
-		lapply(coh10, function(cohi, Ch, M){
-					get.birth.rates(Ch = Ch,
-							M = M, 
-							startyear = cohi, 
-							cohN = 10,
-							omega = 110,
-							sex = "f")
-				},Ch = Ch , M = M))
-
-
-save(Rates1x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x10.Rdata")
-Rates2x10 <- do.call(rbind,
-		lapply(coh10, function(cohi, Ch, M){
-					get.birth.rates(Ch = Ch,
-							M = M, 
-							startyear = cohi, 
-							cohN = 10,
-							ageN = 2,
-							omega = 110,
-							sex = "f")
-				},Ch = Ch , M = M))
-
-
-save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.Rdata")
+#
+#Rates2x5 <- do.call(rbind,
+#		lapply(coh5, function(cohi, Ch, M){
+#					get.birth.rates(Ch = Ch,
+#							M = M, 
+#							startyear = cohi, 
+#							cohN = 5,
+#							ageN = 2,
+#							omega = 110,
+#							sex = "f")
+#				},Ch = Ch , M = M))
+#
+#
+#save(Rates2x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x5.Rdata")
+#
+#Rates3x5 <- do.call(rbind,
+#		lapply(coh5, function(cohi, Ch, M){
+#					get.birth.rates(Ch = Ch,
+#							M = M, 
+#							startyear = cohi, 
+#							cohN = 5,
+#							ageN = 3,
+#							omega = 110,
+#							sex = "f")
+#				},Ch = Ch , M = M))
+#
+#
+#save(Rates3x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates3x5.Rdata")
+#
+#Rates5x5 <- do.call(rbind,
+#		lapply(coh5, function(cohi, Ch, M){
+#					get.birth.rates(Ch = Ch,
+#							M = M, 
+#							startyear = cohi, 
+#							cohN = 5,
+#							ageN = 5,
+#							omega = 110,
+#							sex = "f")
+#				},Ch = Ch , M = M))
+#
+#
+#save(Rates5x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates5x5.Rdata")
+#coh10 <- seq(from = 1660, to = 1740, by = 10) 
+#Rates1x10 <- do.call(rbind,
+#		lapply(coh10, function(cohi, Ch, M){
+#					get.birth.rates(Ch = Ch,
+#							M = M, 
+#							startyear = cohi, 
+#							cohN = 10,
+#							omega = 110,
+#							sex = "f")
+#				},Ch = Ch , M = M))
+#
+#
+#save(Rates1x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x10.Rdata")
+#Rates2x10 <- do.call(rbind,
+#		lapply(coh10, function(cohi, Ch, M){
+#					get.birth.rates(Ch = Ch,
+#							M = M, 
+#							startyear = cohi, 
+#							cohN = 10,
+#							ageN = 2,
+#							omega = 110,
+#							sex = "f")
+#				},Ch = Ch , M = M))
+#
+#
+#save(Rates2x10,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates2x10.Rdata")
 # ----------------------------------------------#
 # experiment smoothing                          #
 # ----------------------------------------------#
