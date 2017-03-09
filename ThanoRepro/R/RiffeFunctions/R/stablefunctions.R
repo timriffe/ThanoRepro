@@ -103,7 +103,7 @@ Rmomentn <- cmpfun(function(fa,La,a,n=0){
 #' @export
 #' 
 #' @importFrom compiler cmpfun
-rLotkaCoale <- cmpfun(function(fa,La,a=.5:110.5, maxit = 1e2, tol = 1e-15){
+rLotkaCoale <- cmpfun(function(fa,La,a=1:length(fa)-.5, maxit = 1e2, tol = 1e-15){
     # from Coale, Ansley J. (1957) A New Method for Calculating Lotka's r- the Intrinsic Rate of Growth in a Stable Population.
     # Population Studies, Vol. 11 no. 1, pp 92-94
     R0 <- Rmomentn(fa,La,a,0)

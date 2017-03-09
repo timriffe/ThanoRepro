@@ -242,7 +242,98 @@ save(Rates1x5,file = "/home/tim/git/ThanoRepro/ThanoRepro/Data/QuebecRates1x5.Rd
 # ---------------------------------------#
 head(Rates1x5)
 
+if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
+	# if I'm on the laptop
+	setwd("/home/tim/git/ThanoRepro/ThanoRepro")
+} else {
+	if (system("hostname",intern=TRUE) == "PC-403478"){
+		# on MPIDR PC
+		setwd("U://git//ThanoRepro//ThanoRepro")
+	} else {
+		# in that case I'm on Berkeley system, and other people in the dept can run this too
+		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/ThanoRepro/ThanoRepro"))
+	}
+}
+getwd()
+# 
 
+devtools::load_all(file.path("R","RiffeFunctions"))
+head(Rates1x5)
+# lifetable exposure, not same as lx, but approximately. radix =1 
+La   <- with(Rates1x5, Lx[Cohort == 1700])
+la   <- with(Rates1x5, lx[Cohort == 1700])
+asfr <- with(Rates1x5, ASFR[Cohort == 1700])
+tsfr <- with(Rates1x5, TSFR[Cohort == 1700])
+
+lx2dx <- function(lx){
+	c(-diff(lx),lx[length(lx)])
+}
+da   <- lx2dx(la)
+a <- 0:110
+# going straight to the wrong, but commensurable form:
+(rL  <- rLotkaCoale(asfr,la,a=a))
+(rT  <- rThanoCoale(tsfr,da,a=a))
+
+ca     <- getca(la,rL,a)
+ba     <- asfr*ca 
+
+# 6) and convert these to thanatological equivalents *without*
+# staggering the d(a) vector.
+cy    <- rowSums(Thano(ca,da,stagger=FALSE))
+by    <- rowSums(Thano(ba,da,stagger=FALSE))
+# these is the 'clean' stable thanatological fertility schedule
+gy    <- Mna0(by / cy)
+
+# curious to see
+#plot(a,gy, ylim=c(0,max(tsfr)))
+#lines(a,tsfr)
+
+# exact.
+(rT2  <- rThanoCoale(gy,da,a=a))
+rL
+
+# what about the other direction?
+cay <- Thano(ca,da,stagger=FALSE)
+all(colSums(cay) == ca)
+all(rowSums(cay) == cy)
+# and again flipped?
+cya <- Thano(cy,da*exp(-a*rL),stagger=FALSE)
+tol <- 1e-10
+all(abs(colSums(cya) - cy) < tol)
+all(abs(rowSums(cya) - ca) < tol)
+
+# -----------------------------------
+# repeat, but reusing names.
+
+# don't have a function already to get cy... need to do it by hand.
+lay    <- Thano(la,da,stagger=FALSE)
+Sat_ay <- lay %*% diag(exp(-a * rL))
+Sat_ay <- Sat_ay / sum(Sat_ay)
+
+all(abs(colSums(Sat_ay) - ca) < tol)
+all(abs(rowSums(Sat_ay) - cy) < tol)
+
+# OK, so this appears to work. Let's do the full reverso then.
+
+
+cya   <- Thano(la, da * exp(-a * rT), stagger = FALSE)
+cy    <- rowSums(Sat_ay)
+
+by    <- tsfr * cy
+cya   <- Thano(cy, da * exp(-a * rT), stagger = FALSE)
+bya   <- Thano(by, da * exp(-a * rT), stagger = FALSE)
+ca2   <- rowSums(cya)
+ba2   <- rowSums(bya)
+asfr2 <- ba2 / ca2
+plot(ca2)
+# doesn't work so well in reverse..
+plot(asfr)
+lines(asfr2)
+sum(asfr2, na.rm = TRUE)
+sum(tsfr, na.rm = TRUE)
+# OK, no we got the trick, so we can do the same rT ==>> rL trick in reverse
+
+#
 #
 #Rates2x5 <- do.call(rbind,
 #		lapply(coh5, function(cohi, Ch, M){

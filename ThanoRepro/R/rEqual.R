@@ -99,7 +99,7 @@ da2 <- -diff(c(la2,0)) # extra step to force perfect consistency
 # 3) do away with mid-interval age. Use integer.
 a2      <- 0:110
 # 4) now recalculate the resulting r
-(rL2    <- rLotkaCoale(fa,la2,x=a2))
+(rL2    <- rLotkaCoale(fa,la2,a=a2))
 rL # compare, close but not same.
 
 # 5) recalc stable age and births using these 'clean' inputs
